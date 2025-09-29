@@ -1,8 +1,8 @@
-# [<img src="web/public/favicon.png" height="40" style="margin:0 5px" alt="TwoDo Logo"/>](https://github.com/yourusername/two-do) TWODO
+# [<img src="./app_logo.png.png" height="40" style="margin:0 5px" alt="TwoDo Logo"/>](https://github.com/danielgithiomi/two-do) TWODO
 
 <a id="readme-top"></a>
 
-> Developed by <a href="https://github.com/yourusername">Daniel Githiomi</a>
+> Developed by <a href="https://github.com/danielgithiomi">Daniel Githiomi</a>
 
 ## 📋 <a name="table">Table of Contents</a>
 
@@ -33,14 +33,14 @@ The project focuses on building a modern, cross-platform experience while mainta
 
 ## 👀 PREVIEW
 
-Below is a glimpse of the application. Screenshots or GIFs can be added to show the interface.
+Below is a glimpse of the application. Screenshots have been added for each platform to give a preview.
 
-![Web Preview](web/public/screenshot.png)
-![Mobile Preview](mobile/assets/screenshot.png)
+<!-- ![Web Preview](web/public/screenshot.png)
+![Mobile Preview](mobile/assets/screenshot.png) -->
 
 ---
 
-## ⚙️ TECH-STACK
+## 🛠 TECH-STACK
 
 Technologies used to develop this project:
 
@@ -102,6 +102,8 @@ cd apps/backend
 ```bash
 cd ../web
 npm install
+# or
+yarn install
 ```
 
 #### Mobile
@@ -109,6 +111,8 @@ npm install
 ```bash
 cd ../mobile
 npm install
+# or
+yarn install
 ```
 
 ### 3️⃣ Environment variables
@@ -153,11 +157,11 @@ npx expo start
 - Web: http://localhost:3000
 - Mobile: http://localhost:19006
 
-## MAINTAINERS
+## ⚙️ MAINTAINERS
 
 - [Daniel Githiomi (Dhosio)](https://github.com/githiomi)
 
-## CONTACT
+## 📱 CONTACT
 
 Contact me through any of the following channels:
 
@@ -166,10 +170,10 @@ Contact me through any of the following channels:
 - LinkedIn: [danielgithiomi](https://linkedin.com/in/daniel-githiomi/)
 - Email: [gmail](danielgithiomi@gmail.com)
 
-## LICENSES
+## 🪪 LICENSES
 
 Click the following to access my license page: [License](https://githiomi.github.io/Privacy-Policy/)
 
 > Copyright (c) {2025} DhosioLux.
 
-> <p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right"><a href="#readme-top">⬆️</a></p>
