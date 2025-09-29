@@ -1,19 +1,19 @@
-# [<img src="./app_logo.png.png" height="40" style="margin:0 5px" alt="TwoDo Logo"/>](https://github.com/danielgithiomi/two-do) TWODO
-
 <a id="readme-top"></a>
+
+# [<img src="./app_logo.png" height="40" style="margin:0 5px" alt="TwoDo Logo"/>](https://github.com/danielgithiomi/two-do) TWODO
 
 > Developed by <a href="https://github.com/danielgithiomi">Daniel Githiomi</a>
 
 ## 📋 <a name="table">Table of Contents</a>
 
-1. 🤖 [Description](#description)
-2. 👀 [Preview](#preview)
-3. ⚙️ [Tech Stack](#-tech-stack)
+1. 🤖 [Description](#-description)
+2. 👀 [Preview](#-preview)
+3. 🛠 [Tech Stack](#-tech-stack)
 4. 🔋 [Application Features](#-application-features)
 5. 🤸 [Quick Start](#-quick-start)
-6. 🕸️ [Maintainers](#maintainers)
-7. 🔗 [Contacts](#contact)
-8. 🚀 [Licenses](#licenses)
+6. ⚙️ [Maintainers](#-maintainers)
+7. 📱 [Contacts](#-contact)
+8. 🪪 [Licenses](#-licenses)
 
 ---
 
@@ -82,7 +82,7 @@ Follow these steps to set up the project locally:
 ### 1️⃣ Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/two-do.git
+git clone https://github.com/danielgithiomi/two-do.git
 cd two-do
 ```
 
@@ -157,9 +157,13 @@ npx expo start
 - Web: http://localhost:3000
 - Mobile: http://localhost:19006
 
+---
+
 ## ⚙️ MAINTAINERS
 
 - [Daniel Githiomi (Dhosio)](https://github.com/githiomi)
+
+---
 
 ## 📱 CONTACT
 
@@ -170,10 +174,12 @@ Contact me through any of the following channels:
 - LinkedIn: [danielgithiomi](https://linkedin.com/in/daniel-githiomi/)
 - Email: [gmail](danielgithiomi@gmail.com)
 
+---
+
 ## 🪪 LICENSES
 
 Click the following to access my license page: [License](https://githiomi.github.io/Privacy-Policy/)
 
 > Copyright (c) {2025} DhosioLux.
 
-<p align="right"><a href="#readme-top">⬆️</a></p>
+<p align="right"><a style="text-decoration: none;" href="#readme-top">⬆️</a></p>
