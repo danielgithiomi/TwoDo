@@ -1,6 +1,6 @@
 <a id="readme-top"></a>
 
-# [<img src="./app_logo.png" height="40" style="margin:0 5px" alt="TwoDo Logo"/>](https://github.com/danielgithiomi/two-do) TWODO
+# [<img src="./alt_logo.png" height="40" style="margin:0 5px" alt="TwoDo Logo"/>](https://github.com/danielgithiomi/two-do) TWODO
 
 > Developed by <a href="https://github.com/danielgithiomi">Daniel Githiomi</a>
 
@@ -35,8 +35,8 @@ The project focuses on building a modern, cross-platform experience while mainta
 
 Below is a glimpse of the application. Screenshots have been added for each platform to give a preview.
 
-<!-- ![Web Preview](web/public/screenshot.png)
-![Mobile Preview](mobile/assets/screenshot.png) -->
+![Alt Logo](./alt_logo.png)
+![App Logo](./app_logo.png)
 
 ---
 
