@@ -11,7 +11,7 @@
 3. 🛠 [Tech Stack](#-tech-stack)
 4. 🔋 [Application Features](#-application-features)
 5. 🤸 [Quick Start](#-quick-start)
-6. ⚙️ [Maintainers](#-maintainers)
+6. ⚙️ [Maintainers](#️-maintainers)
 7. 📱 [Contacts](#-contact)
 8. 🪪 [Licenses](#-licenses)
 
