@@ -1,0 +1,22 @@
+{
+  "name": "twodo",
+  "version": "1.0.0",
+  "description": "TwoDo is a personal bucket-list application designed for couples and friends to create, share, and track activities.",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test:all"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danielgithiomi/TwoDo.git"
+  },
+  "author": "danielgithiomi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danielgithiomi/TwoDo/issues"
+  },
+  "homepage": "https://github.com/danielgithiomi/TwoDo#readme",
+  "devDependencies": {
+    "husky": "^9.1.7"
+  }
+}
