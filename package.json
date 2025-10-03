@@ -4,7 +4,8 @@
   "description": "TwoDo is a personal bucket-list application designed for couples and friends to create, share, and track activities.",
   "main": "index.js",
   "scripts": {
-    "test": "npm run test:all"
+    "test": "npm run test:all",
+    "prepare": "husky"
   },
   "repository": {
     "type": "git",

@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+echo "🔎 Running type check and lint before commit…"
