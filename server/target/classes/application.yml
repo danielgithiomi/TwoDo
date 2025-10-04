@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: TwoDo
+    version: 1.0.0
+
+server:
+  port: 8081
