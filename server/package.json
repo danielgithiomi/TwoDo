@@ -1,0 +1,10 @@
+{
+  "name": "server",
+  "private": true,
+  "scripts": {
+    "dev": "./mvnw spring-boot:run",
+    "build": "./mvnw clean package",
+    "clean": "./mvnw clean",
+    "test": "./mvnw test"
+  }
+}
