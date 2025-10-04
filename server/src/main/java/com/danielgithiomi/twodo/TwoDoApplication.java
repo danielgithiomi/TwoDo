@@ -1,13 +1,16 @@
 package com.danielgithiomi.twodo;
 
+import com.danielgithiomi.twodo.data.records.ApplicationProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 @SpringBootApplication
+@EnableConfigurationProperties({ApplicationProperties.class})
 public class TwoDoApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(TwoDoApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(TwoDoApplication.class, args);
+    }
 
 }

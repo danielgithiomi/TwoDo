@@ -1,17 +1,36 @@
 #!/usr/bin/env sh
 
+. "$(dirname -- "$0")/husky.sh"
+
+# ---------------------------------------------
+# Husky commit-msg hook
+# Enforces commit messages to match the structure:
+# <Type> (<Section>) '<Ticket-ID>': <Summary>
+# Where Type: Ref | Feat | Fix | Config
+# Section: any word describing the area
+# Ticket-ID: derived from branch name like TD-001
+# Summary: short description
+# ---------------------------------------------
+
 commit_msg_file=$1
 commit_msg=$(cat "$commit_msg_file")
 
-# Regex pattern:
-# - Start with Feat, Fix, Ref, or Config
-# - Space and section in parentheses e.g. (Root-Project)
-# - Space and ticket id in quotes e.g. 'TNF-001':
-# - Then a brief summary
-pattern="^(Feat|Fix|Ref|Config) \([^)]+\) '[A-Z]+-[0-9]+':.+$"
+# Get the current branch name
+branch_name=$(git rev-parse --abbrev-ref HEAD)
+
+# Extract ticket ID from branch (e.g., TD-001-feature-description -> TD-001)
+ticket_id=$(echo "$branch_name" | grep -oE '^[A-Z]+-[0-9]+')
+
+# Regex pattern for commit message
+# Matches: Type (Section) 'Ticket-ID': Summary
+pattern="^(Feat|Fix|Ref|Config|Setup) \([^)]+\) '$ticket_id': .+$"
 
 if ! echo "$commit_msg" | grep -Eq "$pattern"; then
-  echo "❌ Invalid commit message format."
-  echo "Expected format: Config (Root-Project) 'TNF-001': Brief summary of changes"
+  echo "❌ Invalid commit message format!"
+  echo "Expected format:"
+  echo "  <Type> (<Section>) '$ticket_id': <Summary>"
+  echo ""
+  echo "Example:"
+  echo "  Feat (Auth-Service) '$ticket_id': Implement login endpoint"
   exit 1
 fi

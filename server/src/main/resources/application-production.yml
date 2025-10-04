@@ -1,0 +1,33 @@
+# Production Configuration
+spring:
+  # Import Secret Keys
+  config:
+    import: "optional:secret.properties"
+  # Database Configuration (Postgresql)
+  datasource:
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/twodo?currentSchema=${twodo.application.schema}
+    hikari:
+      connection-timeout: 20000
+      maximum-pool-size: 5
+  jpa:
+    show-sql: true
+    open-in-view: false
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: false
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  sql:
+    init:
+      mode: always
+      continue-on-error: false
+
+# Logging Configuration
+logging:
+  file:
+    name: ./server/logs/production-logs.txt

@@ -1,3 +1,6 @@
 #!/usr/bin/env sh
 
-echo "🔎 Running type check and lint before commit…"
+# This script runs before every commit
+echo "Running pre-commit checks..."
+# Add your pre-commit commands here
+

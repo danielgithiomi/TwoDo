@@ -68,3 +68,9 @@ debug/
 
 # Dependencies
 patches
+
+# Springboot files
+target/
+.mvn/
+.run/
+logs/
