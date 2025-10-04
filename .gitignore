@@ -70,7 +70,7 @@ debug/
 patches
 
 # Springboot files
-server/target/
-server/.mvn/
+target/
+.mvn/
 .run/
 logs/
