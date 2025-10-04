@@ -6,6 +6,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public record ApplicationProperties(
         String name,
         String version,
+        String schema,
         String developer,
         String description,
         String repository,

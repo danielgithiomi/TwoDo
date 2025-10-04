@@ -2,10 +2,11 @@ twodo:
   application:
     name: TwoDo
     version: 1.0.0
-    description: A personal bucket-list monorepo application for couples and friends to create, share, and track activities.
+    schema: twodo_schema
     developer: Daniel Githiomi
+    manualDBPopulationEnabled: true
     repository: https://github.com/danielgithiomi/twodo
-    manualDBPopulationEnabled: false
+    description: A personal bucket-list monorepo application for couples and friends to create, share, and track activities.
 
 spring:
   application:
