@@ -26,4 +26,4 @@ spring:
 # Logging Configuration
 logging:
   file:
-    name: ./server/logs/development-logs.txt
+    name: ./logs/development-logs.txt

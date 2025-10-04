@@ -30,4 +30,4 @@ spring:
 # Logging Configuration
 logging:
   file:
-    name: ./server/logs/production-logs.txt
+    name: ./logs/production-logs.txt
