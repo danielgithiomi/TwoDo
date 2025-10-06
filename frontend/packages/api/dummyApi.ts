@@ -9,5 +9,5 @@ export async function getHelloWorld() {
   const endpoint = `${API_BASE_URL}/test`;
 
   const response = await fetch(endpoint, { headers });
-  return await response.json();
+  return response.json();
 }
