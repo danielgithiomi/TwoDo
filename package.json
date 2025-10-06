@@ -5,11 +5,9 @@
   "main": "index.js",
   "workspaces": [
     "server",
-    "apps/*",
-    "packages/*"
+    "frontend/apps/*"
   ],
   "scripts": {
-    "prepare": "husky",
     "dev": "turbo run dev --parallel --no-cache",
     "build": "turbo run build",
     "clean": "turbo run clean",
