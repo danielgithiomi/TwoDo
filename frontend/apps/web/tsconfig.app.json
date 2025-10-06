@@ -28,10 +28,9 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
 
-    // ✅ Add these alias paths
     "baseUrl": ".",
     "paths": {
-      "@tdw/images/*": ["./public/assets/images/*"],
+      "@tdw/images": ["./public/assets/images"],
       "@tdw/atoms": ["./../../packages/components/atoms"]
     }
   },

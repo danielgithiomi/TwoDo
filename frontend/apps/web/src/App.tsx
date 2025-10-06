@@ -1,11 +1,11 @@
 import "./App.css";
-import appLogo from "@tdw/images/branding/alt_logo.png";
 import { Button } from "@tdw/atoms";
+import alt_logo from "@tdw/images/branding/alt_logo.png";
 
 function App() {
   return (
     <>
-      <img src={appLogo} alt="Application Logo" />
+      <img src={alt_logo} alt="Application Logo" />
       <Button />
     </>
   );

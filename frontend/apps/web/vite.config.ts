@@ -1,6 +1,13 @@
+import path from "path";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import path from "path";
+import pathAliases from "./path_aliases";
+
+function pathResolver(alias: string) {
+  return path.resolve(__dirname, alias);
+}
+
+const webAliases = pathAliases.web;
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -8,8 +15,8 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
-      "@tdw/images": path.resolve(__dirname, "./public/assets/images"),
-      "@tdw/atoms": path.resolve(__dirname, "./../../packages/components/atoms"),
+      "@tdw/atoms": pathResolver(webAliases.atoms),
+      "@tdw/images": pathResolver(webAliases.images),
     }
   },
   server: {
