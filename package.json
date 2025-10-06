@@ -5,8 +5,7 @@
   "main": "index.js",
   "workspaces": [
     "server",
-    "apps/*",
-    "packages/*"
+    "frontend/apps/*"
   ],
   "scripts": {
     "prepare": "husky",
