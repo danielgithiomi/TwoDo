@@ -4,7 +4,7 @@ const pathAliases = {
         src: "./src",
         baseUrl: ".",
         api: "./../../packages/api",
-        images: "./public/assets/images",
+        images: "./src/assets/images",
         constants: "./../../packages/constants",
         atoms: "./../../packages/components/atoms",
     },
