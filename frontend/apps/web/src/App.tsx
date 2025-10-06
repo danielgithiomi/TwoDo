@@ -1,5 +1,6 @@
 import "./App.css";
 import { Button } from "@tdw/atoms";
+import { DummyData } from "./DummyData";
 import alt_logo from "@tdw/images/branding/alt_logo.png";
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
     <>
       <img src={alt_logo} alt="Application Logo" />
       <Button />
+      <DummyData />
     </>
   );
 }

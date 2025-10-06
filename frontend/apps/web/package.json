@@ -1,8 +1,23 @@
 {
   "name": "web",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "description": "This file contains the shared packages required for the web and mobile frontend application",
+  "keywords": [
+    "frontend",
+    "web"
+  ],
+  "homepage": "https://github.com/danielgithiomi/TwoDo/tree/main#readme",
+  "bugs": {
+    "url": "https://github.com/danielgithiomi/TwoDo/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danielgithiomi/TwoDo.git#main"
+  },
+  "license": "ISC",
+  "author": "danielgithiomi",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -13,6 +28,7 @@
     "prebuild": "npm run copy-assets"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.90.2",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
   },
