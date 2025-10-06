@@ -1,5 +1,5 @@
 import "./App.css";
-const appLogo = "/assets/images/branding/alt_logo.png";
+import appLogo from "@tdw/images/branding/alt_logo.png";
 
 function App() {
   return <img src={appLogo} alt="Application Logo" />;
