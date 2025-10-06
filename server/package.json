@@ -8,6 +8,5 @@
     "test": "./mvnw test"
   },
   "devDependencies": {
-    "vite": "^7.1.9"
   }
 }

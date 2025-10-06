@@ -5,7 +5,7 @@ import { dirname, resolve } from "path";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const destDir = resolve(__dirname, "../public/assets");
+const destDir = resolve(__dirname, "../src/assets");
 const sourceDir = resolve(__dirname, "../../../../assets");
 
 fs.ensureDirSync(destDir);

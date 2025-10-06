@@ -38,7 +38,7 @@
         "./../../packages/api"
       ],
       "@tdw/images": [
-        "./public/assets/images"
+        "./src/assets/images"
       ],
       "@tdw/constants": [
         "./../../packages/constants"
