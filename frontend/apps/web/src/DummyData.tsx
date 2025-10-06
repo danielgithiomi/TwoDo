@@ -1,5 +1,5 @@
+import { getHelloWorld } from "@tdw/api";
 import { useQuery } from "@tanstack/react-query";
-import { getHelloWorld } from "../../../packages/api";
 
 export const DummyData = () => {
   const { data, isError, error } = useQuery({

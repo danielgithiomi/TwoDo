@@ -1,4 +1,4 @@
-import { API_BASE_URL, API_TOKEN } from "../constants/api.constants";
+import { API_BASE_URL, API_TOKEN } from "../constants";
 
 const headers: RequestInit["headers"] = {
   "Content-Type": "application/json",

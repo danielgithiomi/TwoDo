@@ -31,7 +31,9 @@
 
     "baseUrl": ".",
     "paths": {
+      "@tdw/api": ["./../../packages/api"],
       "@tdw/images": ["./public/assets/images"],
+      "@tdw/constants": ["./../../packages/constants"],
       "@tdw/atoms": ["./../../packages/components/atoms"]
     }
   },
