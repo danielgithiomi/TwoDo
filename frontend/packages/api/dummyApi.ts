@@ -1,6 +1,13 @@
-import { API_BASE_URL } from "../constants/api.constants";
+import { API_BASE_URL, API_TOKEN } from "../constants/api.constants";
+
+const headers: RequestInit["headers"] = {
+  "Content-Type": "application/json",
+  Authorization: `Basic ${API_TOKEN}`,
+};
 
 export async function getHelloWorld() {
-    const response = await fetch(`${API_BASE_URL}/test`);
-    return await response.json();
+  const endpoint = `${API_BASE_URL}/test`;
+
+  const response = await fetch(endpoint, { headers });
+  return await response.json();
 }
