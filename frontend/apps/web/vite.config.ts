@@ -19,6 +19,10 @@ export default defineConfig({
             "@tdw/atoms": pathResolver(webAliases.atoms),
             "@tdw/images": pathResolver(webAliases.images),
             "@tdw/constants": pathResolver(webAliases.constants),
+
+            // Packages (@tdp)
+            "@tdp/api": pathResolver(webAliases.api),
+            "@tdp/constants": pathResolver(webAliases.constants),
         }
     },
     server: {
