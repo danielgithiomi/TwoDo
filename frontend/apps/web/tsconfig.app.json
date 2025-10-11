@@ -32,6 +32,7 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
+//    "typeRoots": ["./../../packages/declarations/env.d.ts"],
     "baseUrl": ".",
     "paths": {
       "@tdw/api": [
