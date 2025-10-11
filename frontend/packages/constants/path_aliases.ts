@@ -1,4 +1,4 @@
-const pathAliases = {
+export const pathAliases = {
     // Web
     web: {
         src: "./src",
@@ -9,5 +9,3 @@ const pathAliases = {
         atoms: "./../../packages/components/atoms",
     },
 };
-
-export default pathAliases;
