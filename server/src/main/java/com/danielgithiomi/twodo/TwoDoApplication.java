@@ -1,6 +1,6 @@
 package com.danielgithiomi.twodo;
 
-import com.danielgithiomi.twodo.data.records.ApplicationProperties;
+import com.danielgithiomi.twodo.domains.records.ApplicationProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

@@ -1,4 +1,4 @@
-package com.danielgithiomi.twodo.data.records;
+package com.danielgithiomi.twodo.domains.records;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
