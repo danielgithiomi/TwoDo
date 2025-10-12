@@ -29,7 +29,7 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         return http
-                .headers(headers -> headers.frameOptions().disable())
+                .headers(headers -> headers.frameOptions().disable()) // To allow H2 Console to use IFrames
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(withDefaults())
                 .authorizeHttpRequests(req -> {
