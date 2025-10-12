@@ -1,6 +1,7 @@
 package com.danielgithiomi.twodo.controllers;
 
 import com.danielgithiomi.twodo.domains.dtos.request.CreateUserDto;
+import com.danielgithiomi.twodo.domains.dtos.response.CreatedUserDto;
 import com.danielgithiomi.twodo.domains.models.User;
 import com.danielgithiomi.twodo.services.UserService;
 import jakarta.validation.Valid;
@@ -26,8 +27,9 @@ public class UserController {
     }
 
     @PostMapping
-    private ResponseEntity<String> createUser(@Valid @RequestBody CreateUserDto createUserDto) {
+    private ResponseEntity<CreatedUserDto> createUser(@Valid @RequestBody CreateUserDto createUserDto) {
         log.warn("Received request to create user: {}", createUserDto);
-        return new ResponseEntity<>("Created User", HttpStatus.CREATED);
+        CreatedUserDto createdUser = this.userService.createNewUser(createUserDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
 }

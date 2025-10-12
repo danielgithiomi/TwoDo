@@ -1,5 +1,7 @@
 package com.danielgithiomi.twodo.services;
 
+import com.danielgithiomi.twodo.domains.dtos.request.CreateUserDto;
+import com.danielgithiomi.twodo.domains.dtos.response.CreatedUserDto;
 import com.danielgithiomi.twodo.domains.models.User;
 
 import java.util.List;
@@ -8,7 +10,7 @@ import java.util.UUID;
 
 public interface UserService {
 
-    User createNewUser();
+    CreatedUserDto createNewUser(CreateUserDto createUserDto);
 
     List<User> getAllUsers();
 

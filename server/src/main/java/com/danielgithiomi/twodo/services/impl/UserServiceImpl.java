@@ -1,6 +1,9 @@
 package com.danielgithiomi.twodo.services.impl;
 
+import com.danielgithiomi.twodo.domains.dtos.request.CreateUserDto;
+import com.danielgithiomi.twodo.domains.dtos.response.CreatedUserDto;
 import com.danielgithiomi.twodo.domains.models.User;
+import com.danielgithiomi.twodo.mappers.UserMapper;
 import com.danielgithiomi.twodo.repositories.UserRepository;
 import com.danielgithiomi.twodo.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -14,11 +17,14 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
+    private final UserMapper userMapper;
     private final UserRepository userRepository;
 
     @Override
-    public User createNewUser() {
-        return null;
+    public CreatedUserDto createNewUser(CreateUserDto createUserDto) {
+        User user = userMapper.toEntity(createUserDto);
+        User createdUser = this.userRepository.save(user);
+        return userMapper.toResponseDto(createdUser);
     }
 
     @Override
