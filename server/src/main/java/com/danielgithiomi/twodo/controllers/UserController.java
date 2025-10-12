@@ -2,7 +2,6 @@ package com.danielgithiomi.twodo.controllers;
 
 import com.danielgithiomi.twodo.domains.dtos.request.CreateUserDto;
 import com.danielgithiomi.twodo.domains.dtos.response.CreatedUserDto;
-import com.danielgithiomi.twodo.domains.models.User;
 import com.danielgithiomi.twodo.services.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,8 +21,8 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    private ResponseEntity<List<User>> getUsers() {
-        return ResponseEntity.ok(userService.getAllUsers());
+    private ResponseEntity<List<CreatedUserDto>> getUsers() {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getAllUsers());
     }
 
     @PostMapping

@@ -12,7 +12,7 @@ public interface UserService {
 
     CreatedUserDto createNewUser(CreateUserDto createUserDto);
 
-    List<User> getAllUsers();
+    List<CreatedUserDto> getAllUsers();
 
     Optional<User> getUserById(UUID userId);
 
