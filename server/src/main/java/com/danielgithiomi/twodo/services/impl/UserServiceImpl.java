@@ -7,6 +7,7 @@ import com.danielgithiomi.twodo.mappers.UserMapper;
 import com.danielgithiomi.twodo.repositories.UserRepository;
 import com.danielgithiomi.twodo.services.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,10 +20,15 @@ public class UserServiceImpl implements UserService {
 
     private final UserMapper userMapper;
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public CreatedUserDto createNewUser(CreateUserDto createUserDto) {
         User user = userMapper.toEntity(createUserDto);
+
+        // Password Encryption
+        user.setPassword(passwordEncoder.encode(createUserDto.getPassword()));
+
         User createdUser = this.userRepository.save(user);
         return userMapper.toResponseDto(createdUser);
     }
