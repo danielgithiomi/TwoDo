@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class CreatedUser {
+public class CreatedUserDto {
 
     private String firstName;
     private String lastName;
