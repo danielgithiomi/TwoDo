@@ -28,7 +28,6 @@ public class UserController {
 
     @PostMapping
     private ResponseEntity<CreatedUserDto> createUser(@Valid @RequestBody CreateUserDto createUserDto) {
-        log.warn("Received request to create user: {}", createUserDto);
         CreatedUserDto createdUser = this.userService.createNewUser(createUserDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
