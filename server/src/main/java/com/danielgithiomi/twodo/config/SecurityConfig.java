@@ -1,17 +1,16 @@
 package com.danielgithiomi.twodo.config;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -24,7 +23,10 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Slf4j
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
+
+    private final UserDetailsService userDetailsService;
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -35,8 +37,11 @@ public class SecurityConfig {
                 .cors(withDefaults())
                 .authorizeHttpRequests(req -> {
                     req.requestMatchers("/h2/**").permitAll()
+                            .requestMatchers("/api/v1/test/**").permitAll()
+                            .requestMatchers(HttpMethod.POST, "/api/v1/users").permitAll()
                             .anyRequest().authenticated();
                 })
+                .userDetailsService(userDetailsService)
                 .formLogin(withDefaults())
                 .httpBasic(withDefaults())
                 .build();
@@ -58,18 +63,5 @@ public class SecurityConfig {
         UrlBasedCorsConfigurationSource urlSource = new UrlBasedCorsConfigurationSource();
         urlSource.registerCorsConfiguration("/**", corsConfig);
         return urlSource;
-    }
-
-    @Bean
-    UserDetailsService userDetailsService() {
-
-        UserDetails admin = User.builder()
-                .username("admin")
-                .password(passwordEncoder().encode("admin123"))
-                .roles("ADMIN")
-                .build();
-
-
-        return new InMemoryUserDetailsManager(admin);
     }
 }
