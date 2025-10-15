@@ -50,7 +50,7 @@ public class ApplicationConfig {
 
             roleRepository.saveAll(List.of(user_role, admin_role));
 
-            log.info("Database schema for the {} application: {}", applicationName, databaseSchema);
+            log.info("Database schema populated for the {} application: {}", applicationName, databaseSchema);
         };
     }
 }

@@ -4,7 +4,9 @@ import com.danielgithiomi.twodo.domains.enums.UserRoles;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -27,6 +29,9 @@ public class Role {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, unique = true)
     private UserRoles role;
+
+    @ManyToMany(mappedBy = "roles")
+    private Set<User> user = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {
