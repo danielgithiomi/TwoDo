@@ -1,5 +1,6 @@
 package com.danielgithiomi.twodo.domains.models;
 
+import com.danielgithiomi.twodo.domains.enums.UserRoles;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,25 +11,27 @@ import java.util.UUID;
 @Setter
 @Entity
 @Builder
+@AllArgsConstructor
+@RequiredArgsConstructor
 @Table(
         name = "roles",
         uniqueConstraints = @UniqueConstraint(columnNames = {"role"})
 )
-@AllArgsConstructor
-@RequiredArgsConstructor
-public class Roles {
+public class Role {
 
     @Id
     @Column(name = "role_id")
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID roleId;
 
-    private String role;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, unique = true)
+    private UserRoles role;
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Roles roles = (Roles) o;
+        Role roles = (Role) o;
         return Objects.equals(roleId, roles.roleId) && Objects.equals(role, roles.role);
     }
 
