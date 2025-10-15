@@ -12,7 +12,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static com.danielgithiomi.twodo.domains.enums.UserRoles.ADMIN;
 import static com.danielgithiomi.twodo.domains.enums.UserRoles.USER;
@@ -32,23 +34,28 @@ public class ApplicationConfig {
     CommandLineRunner commandLineRunner(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
         return args -> {
 
-            // Populate database with default data
+            // Populate the database with default data
+            // Application Roles
+            Role user_role = Role.builder().role(USER).build();
+            Role admin_role = Role.builder().role(ADMIN).build();
+
+            roleRepository.saveAll(List.of(user_role, admin_role));
+
             // Admin User
+            Set<Role> adminRoles = new HashSet<Role>();
+            adminRoles.add(admin_role);
+            adminRoles.add(user_role);
+
             User user = User.builder()
                     .firstName("Admin")
                     .lastName("User")
                     .username("admin".toUpperCase())
+                    .roles(adminRoles)
                     .email("admin@twodo.com")
                     .password(passwordEncoder.encode("Admin123!"))
                     .build();
 
             userRepository.save(user);
-
-            // Application Role
-            Role user_role = Role.builder().role(USER).build();
-            Role admin_role = Role.builder().role(ADMIN).build();
-
-            roleRepository.saveAll(List.of(user_role, admin_role));
 
             log.info("Database schema populated for the {} application: {}", applicationName, databaseSchema);
         };

@@ -2,6 +2,7 @@ package com.danielgithiomi.twodo.services.impl;
 
 import com.danielgithiomi.twodo.domains.dtos.request.CreateUserDto;
 import com.danielgithiomi.twodo.domains.dtos.response.CreatedUserDto;
+import com.danielgithiomi.twodo.domains.models.Role;
 import com.danielgithiomi.twodo.domains.models.User;
 import com.danielgithiomi.twodo.mappers.UserMapper;
 import com.danielgithiomi.twodo.repositories.UserRepository;
@@ -10,9 +11,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+
+import static com.danielgithiomi.twodo.domains.enums.UserRoles.USER;
 
 @Service
 @RequiredArgsConstructor
@@ -29,6 +30,9 @@ public class UserServiceImpl implements UserService {
         // Password Encryption
         user.setPassword(passwordEncoder.encode(createUserDto.getPassword()));
 
+        // Add default role
+        user.setRoles(getDefaultRoles());
+
         User createdUser = this.userRepository.save(user);
         return userMapper.toResponseDto(createdUser);
     }
@@ -42,5 +46,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> getUserById(UUID userId) {
         return Optional.empty();
+    }
+
+    private Set<Role> getDefaultRoles() {
+        Set<Role> roles = new HashSet<>();
+        Role defaultRole = Role.builder().role(USER).build();
+        roles.add(defaultRole);
+        return roles;
+
+
     }
 }
