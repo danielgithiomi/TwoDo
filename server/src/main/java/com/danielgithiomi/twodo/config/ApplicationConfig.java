@@ -27,10 +27,11 @@ public class ApplicationConfig {
 
             // Populate database with default data
             User user = User.builder()
-                    .firstName("Daniel")
-                    .lastName("Githiomi")
-                    .email("dg@gmail.com")
-                    .password(passwordEncoder.encode("daniel123!"))
+                    .firstName("Admin")
+                    .lastName("User")
+                    .username("admin".toUpperCase())
+                    .email("admin@twodo.com")
+                    .password(passwordEncoder.encode("Admin123!"))
                     .build();
 
             userRepository.save(user);

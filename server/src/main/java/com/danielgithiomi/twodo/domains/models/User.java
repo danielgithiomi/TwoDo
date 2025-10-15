@@ -39,8 +39,13 @@ public class User {
         this.updatedAt = null;
         this.createdAt = LocalDateTime.now();
 
-        // Generate username
-        this.username = generateUsername();
+        // Generate username if isn't provided in the builder pattern
+        if (this.username == null || this.username.isEmpty()) this.username = generateUsername();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        this.updatedAt = LocalDateTime.now();
     }
 
     @Override
