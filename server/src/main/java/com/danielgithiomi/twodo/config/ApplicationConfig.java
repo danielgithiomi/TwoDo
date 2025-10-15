@@ -1,6 +1,5 @@
 package com.danielgithiomi.twodo.config;
 
-import com.danielgithiomi.twodo.domains.enums.UserRoles;
 import com.danielgithiomi.twodo.domains.models.Role;
 import com.danielgithiomi.twodo.domains.models.User;
 import com.danielgithiomi.twodo.repositories.RoleRepository;
@@ -15,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 
+import static com.danielgithiomi.twodo.domains.enums.UserRoles.ADMIN;
 import static com.danielgithiomi.twodo.domains.enums.UserRoles.USER;
 
 @Slf4j
@@ -46,7 +46,7 @@ public class ApplicationConfig {
 
             // Application Role
             Role user_role = Role.builder().role(USER).build();
-            Role admin_role = Role.builder().role(UserRoles.ADMIN).build();
+            Role admin_role = Role.builder().role(ADMIN).build();
 
             roleRepository.saveAll(List.of(user_role, admin_role));
 

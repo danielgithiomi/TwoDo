@@ -1,5 +1,10 @@
 package com.danielgithiomi.twodo.domains.enums;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+@Getter
+@RequiredArgsConstructor
 public enum UserRoles {
 
     USER("user"),
@@ -7,16 +12,8 @@ public enum UserRoles {
 
     private final String role;
 
-    UserRoles(String role) {
-        this.role = role;
-    }
-
     public static UserRoles fromString(String role) {
         return UserRoles.valueOf(role.toUpperCase());
-    }
-
-    public String getRole() {
-        return role;
     }
 
 }
