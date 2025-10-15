@@ -1,5 +1,6 @@
 package com.danielgithiomi.twodo.security;
 
+import com.danielgithiomi.twodo.domains.models.User;
 import com.danielgithiomi.twodo.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,7 +17,9 @@ public class AuthUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        // Get the userfrom the DB
-        return null;
+        String upperCaseUsername = username.toUpperCase();
+        User dbUser = this.userRepository.findUserByUsername(upperCaseUsername).orElseThrow(() -> new RuntimeException("User with username " + username + " not found"));
+
+        return new AuthUser(dbUser);
     }
 }
