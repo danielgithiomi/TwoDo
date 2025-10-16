@@ -30,4 +30,6 @@ public class UserController {
         CreatedUserDto createdUser = this.userService.createNewUser(createUserDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
+
+
 }
