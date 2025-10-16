@@ -22,7 +22,7 @@ public interface UserMapper {
         if (roles == null || roles.isEmpty()) return List.of();
 
         return roles.stream()
-                .map(role -> "ROLE_" + role.getRole().getRole())
+                .map(role -> "ROLE_" + role.getRole().getRoleName())
                 .toList();
     }
 

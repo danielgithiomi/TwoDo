@@ -10,7 +10,7 @@ public enum UserRoles {
     USER("USER"),
     ADMIN("ADMIN");
 
-    private final String role;
+    private final String roleName;
 
     public static UserRoles fromString(String role) {
         return UserRoles.valueOf(role.toUpperCase());
