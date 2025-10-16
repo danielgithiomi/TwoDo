@@ -5,6 +5,7 @@ import com.danielgithiomi.twodo.domains.dtos.response.CreatedUserDto;
 import com.danielgithiomi.twodo.domains.models.Role;
 import com.danielgithiomi.twodo.domains.models.User;
 import com.danielgithiomi.twodo.mappers.UserMapper;
+import com.danielgithiomi.twodo.repositories.RoleRepository;
 import com.danielgithiomi.twodo.repositories.UserRepository;
 import com.danielgithiomi.twodo.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserMapper userMapper;
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Override
@@ -50,10 +52,10 @@ public class UserServiceImpl implements UserService {
 
     private Set<Role> getDefaultRoles() {
         Set<Role> roles = new HashSet<>();
-        Role defaultRole = Role.builder().role(USER).build();
+        Role defaultRole = roleRepository.findRoleByRole(USER)
+                .orElseThrow(() -> new RuntimeException("Default USER Role not found"));
         roles.add(defaultRole);
         return roles;
-
 
     }
 }
