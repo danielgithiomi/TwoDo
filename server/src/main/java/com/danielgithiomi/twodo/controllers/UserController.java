@@ -25,6 +25,7 @@ public class UserController {
 
     @GetMapping
     private ResponseEntity<ApiSuccessResponse<List<CreatedUserDto>>> getUsers() {
+
         return ResponseEntity.status(OK).body(
                 ApiSuccessResponse.<List<CreatedUserDto>>builder()
                         .httpStatus(OK)
