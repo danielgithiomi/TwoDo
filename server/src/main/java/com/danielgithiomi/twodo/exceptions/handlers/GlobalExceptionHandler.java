@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.badRequest().body(
                 ApiErrorResponse.builder()
-                        .errorStatusCode(CONFLICT.value())
+                        .statusCode(CONFLICT.value())
                         .message(ex.getMessage())
                         .build());
 

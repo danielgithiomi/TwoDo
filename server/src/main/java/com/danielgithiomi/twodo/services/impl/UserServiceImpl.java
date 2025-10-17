@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
 
         // Check if the user exists in the database
         if (userRepository.existsByUsername(user.getUsername()) || userRepository.existsByEmail(user.getEmail()))
-            throw new UserAlreadyExistsException("A user with this username or email already exists");
+            throw new UserAlreadyExistsException("A user with this username or email already exists in the database");
 
         // Password Encryption
         user.setPassword(passwordEncoder.encode(registerUserDto.getPassword()));

@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ApiErrorResponse {
 
-    private int errorStatusCode;
+    private int statusCode;
 
     private List<FieldError> errors;
 
