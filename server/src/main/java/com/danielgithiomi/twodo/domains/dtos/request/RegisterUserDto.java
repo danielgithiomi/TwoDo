@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 @Builder
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class CreateUserDto {
+public class RegisterUserDto {
 
     @NotBlank(message = "First name is required")
     @Size(min = 3, max = 50, message = "First name must be between {min} and {max} characters")

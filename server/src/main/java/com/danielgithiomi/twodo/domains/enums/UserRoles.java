@@ -7,10 +7,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum UserRoles {
 
-    USER("user"),
-    ADMIN("admin");
+    USER("USER"),
+    ADMIN("ADMIN");
 
-    private final String role;
+    private final String roleName;
 
     public static UserRoles fromString(String role) {
         return UserRoles.valueOf(role.toUpperCase());

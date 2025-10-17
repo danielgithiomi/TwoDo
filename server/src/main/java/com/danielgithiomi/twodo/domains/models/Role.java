@@ -4,7 +4,6 @@ import com.danielgithiomi.twodo.domains.enums.UserRoles;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
@@ -31,7 +30,7 @@ public class Role {
     private UserRoles role;
 
     @ManyToMany(mappedBy = "roles")
-    private Set<User> user = new HashSet<>();
+    private Set<User> users;
 
     @Override
     public boolean equals(Object o) {

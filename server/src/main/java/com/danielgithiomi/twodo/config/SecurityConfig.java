@@ -38,7 +38,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(req -> {
                     req.requestMatchers("/h2/**").permitAll()
                             .requestMatchers("/api/v1/test/**").permitAll()
-                            .requestMatchers(HttpMethod.POST, "/api/v1/users").permitAll()
+                            .requestMatchers(HttpMethod.POST, "/api/v1/users/**").permitAll()
                             .anyRequest().authenticated();
                 })
                 .userDetailsService(userDetailsService)
