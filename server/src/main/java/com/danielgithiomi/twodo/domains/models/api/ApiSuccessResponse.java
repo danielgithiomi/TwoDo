@@ -13,16 +13,24 @@ import java.time.LocalDateTime;
 public class ApiSuccessResponse<T> {
 
     private T body;
-    private String message;
     private HttpStatus httpStatus;
-
-    @Builder.Default
-    private int statusCode = this.httpStatus.value();
-
-    @Builder.Default
-    private LocalDateTime timestamp = LocalDateTime.now();
+    private int statusCode;
+    private LocalDateTime timestamp;
+    private String message;
 
     public ApiSuccessResponse() {
         this.timestamp = LocalDateTime.now();
+    }
+
+    public static class ApiSuccessResponseBuilder<T> {
+        public ApiSuccessResponse<T> build() {
+            ApiSuccessResponse<T> response = new ApiSuccessResponse<>();
+            response.body = this.body;
+            response.httpStatus = this.httpStatus;
+            response.statusCode = (this.httpStatus != null) ? this.httpStatus.value() : 0;
+            response.timestamp = this.timestamp != null ? this.timestamp : LocalDateTime.now();
+            response.message = this.message != null ? this.message : "API call successful. Response is in the body.";
+            return response;
+        }
     }
 }
