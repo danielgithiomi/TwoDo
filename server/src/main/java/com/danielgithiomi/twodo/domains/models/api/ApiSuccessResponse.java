@@ -3,19 +3,26 @@ package com.danielgithiomi.twodo.domains.models.api;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
+
+import java.time.LocalDateTime;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class ApiSuccessResponse {
+public class ApiSuccessResponse<T> {
 
-    private HttpStatus httpStatus;
-    private int statusCode;
-    private Object body;
-    private Long timestamp;
+    private T body;
     private String message;
+    private HttpStatus httpStatus;
 
+    @Builder.Default
+    private int statusCode = this.httpStatus.value();
+
+    @Builder.Default
+    private LocalDateTime timestamp = LocalDateTime.now();
+
+    public ApiSuccessResponse() {
+        this.timestamp = LocalDateTime.now();
+    }
 }
