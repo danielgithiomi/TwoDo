@@ -6,18 +6,23 @@ import com.danielgithiomi.twodo.domains.models.Role;
 import com.danielgithiomi.twodo.domains.models.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 
 import java.util.List;
 import java.util.Set;
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = org.mapstruct.ReportingPolicy.IGNORE)
+import static org.mapstruct.ReportingPolicy.IGNORE;
+
+@Mapper(componentModel = "spring", unmappedTargetPolicy = IGNORE)
 public interface UserMapper {
 
     User toEntity(CreateUserDto createUserDto);
 
-    @Mapping(target = "roles", expression = "java(mapRolesToList(user.getRoles()))")
+    // @Mapping(target = "roles", expression = "java(mapRolesToList(user.getRoles()))")
+    @Mapping(target = "roles", qualifiedByName = "mapRolesToList")
     CreatedUserDto toResponseDto(User user);
 
+    @Named("mapRolesToList")
     default List<String> mapRolesToList(Set<Role> roles) {
         if (roles == null || roles.isEmpty()) return List.of();
 
