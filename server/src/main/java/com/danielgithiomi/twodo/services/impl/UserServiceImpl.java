@@ -1,6 +1,6 @@
 package com.danielgithiomi.twodo.services.impl;
 
-import com.danielgithiomi.twodo.domains.dtos.request.CreateUserDto;
+import com.danielgithiomi.twodo.domains.dtos.request.RegisterUserDto;
 import com.danielgithiomi.twodo.domains.dtos.response.CreatedUserDto;
 import com.danielgithiomi.twodo.domains.models.Role;
 import com.danielgithiomi.twodo.domains.models.User;
@@ -26,11 +26,11 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public CreatedUserDto createNewUser(CreateUserDto createUserDto) {
-        User user = userMapper.toEntity(createUserDto);
+    public CreatedUserDto createNewUser(RegisterUserDto registerUserDto) {
+        User user = userMapper.toEntity(registerUserDto);
 
         // Password Encryption
-        user.setPassword(passwordEncoder.encode(createUserDto.getPassword()));
+        user.setPassword(passwordEncoder.encode(registerUserDto.getPassword()));
 
         // Add default role
         user.setRoles(getDefaultRoles());

@@ -1,6 +1,6 @@
 package com.danielgithiomi.twodo.mappers;
 
-import com.danielgithiomi.twodo.domains.dtos.request.CreateUserDto;
+import com.danielgithiomi.twodo.domains.dtos.request.RegisterUserDto;
 import com.danielgithiomi.twodo.domains.dtos.response.CreatedUserDto;
 import com.danielgithiomi.twodo.domains.models.Role;
 import com.danielgithiomi.twodo.domains.models.User;
@@ -16,10 +16,10 @@ import static org.mapstruct.ReportingPolicy.IGNORE;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = IGNORE)
 public interface UserMapper {
 
-    User toEntity(CreateUserDto createUserDto);
+    User toEntity(RegisterUserDto registerUserDto);
 
     // @Mapping(target = "roles", expression = "java(mapRolesToList(user.getRoles()))")
-    @Mapping(target = "roles", qualifiedByName = "mapRolesToList")
+    @Mapping(target = "roles", source = "roles", qualifiedByName = "mapRolesToList")
     CreatedUserDto toResponseDto(User user);
 
     @Named("mapRolesToList")
