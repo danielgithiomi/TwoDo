@@ -8,6 +8,7 @@ import com.danielgithiomi.twodo.mappers.UserMapper;
 import com.danielgithiomi.twodo.repositories.RoleRepository;
 import com.danielgithiomi.twodo.repositories.UserRepository;
 import com.danielgithiomi.twodo.services.UserService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -26,8 +27,18 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
+    @Transactional
     public CreatedUserDto createNewUser(RegisterUserDto registerUserDto) {
         User user = userMapper.toEntity(registerUserDto);
+
+        // Check if the user exists in the database
+        if (userRepository.existsByUsername(user.getUsername())) {
+            throw new RuntimeException("User with username " + user.getUsername() + " already exists");
+        }
+
+        if (userRepository.existsByEmail(user.getEmail())) {
+            throw new RuntimeException("User with email " + user.getEmail() + " already exists");
+        }
 
         // Password Encryption
         user.setPassword(passwordEncoder.encode(registerUserDto.getPassword()));
