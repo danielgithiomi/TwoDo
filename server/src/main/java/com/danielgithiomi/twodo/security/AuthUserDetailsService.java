@@ -18,7 +18,9 @@ public class AuthUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         String upperCaseUsername = username.toUpperCase();
-        User dbUser = this.userRepository.findUserByUsername(upperCaseUsername).orElseThrow(() -> new RuntimeException("User with username " + username + " not found"));
+
+        User dbUser = this.userRepository.findUserByUsername(upperCaseUsername)
+                .orElseThrow(() -> new UsernameNotFoundException("No user with username " + username + " was found in the database."));
 
         return new AuthUser(dbUser);
     }
