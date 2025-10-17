@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -29,18 +31,18 @@ public class SecurityConfig {
     private final UserDetailsService userDetailsService;
 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         return http
                 .headers(headers -> headers.frameOptions().disable()) // To allow H2 Console to use IFrames
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(withDefaults())
-                .authorizeHttpRequests(req -> {
-                    req.requestMatchers("/h2/**").permitAll()
-                            .requestMatchers("/api/v1/test/**").permitAll()
-                            .requestMatchers(HttpMethod.POST, "/api/v1/users/**").permitAll()
-                            .anyRequest().authenticated();
-                })
+                .authorizeHttpRequests(req ->
+                        req.requestMatchers("/h2/**").permitAll()
+                                .requestMatchers("/api/v1/test/**").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/api/v1/users/**").permitAll()
+                                .anyRequest().authenticated()
+                )
                 .userDetailsService(userDetailsService)
                 .formLogin(withDefaults())
                 .httpBasic(withDefaults())
@@ -48,8 +50,13 @@ public class SecurityConfig {
     }
 
     @Bean
-    PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(5);
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+        return configuration.getAuthenticationManager();
     }
 
     @Bean
