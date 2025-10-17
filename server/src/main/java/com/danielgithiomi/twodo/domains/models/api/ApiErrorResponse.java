@@ -14,8 +14,11 @@ import java.util.List;
 public class ApiErrorResponse {
 
     private int errorStatusCode;
-    private String message;
+
     private List<FieldError> errors;
+
+    @Builder.Default
+    private String message = "An unexpected error occurred";
 
     @Data
     @Builder

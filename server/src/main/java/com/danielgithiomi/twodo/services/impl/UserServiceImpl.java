@@ -4,6 +4,7 @@ import com.danielgithiomi.twodo.domains.dtos.request.RegisterUserDto;
 import com.danielgithiomi.twodo.domains.dtos.response.CreatedUserDto;
 import com.danielgithiomi.twodo.domains.models.Role;
 import com.danielgithiomi.twodo.domains.models.User;
+import com.danielgithiomi.twodo.exceptions.UserAlreadyExistsException;
 import com.danielgithiomi.twodo.mappers.UserMapper;
 import com.danielgithiomi.twodo.repositories.RoleRepository;
 import com.danielgithiomi.twodo.repositories.UserRepository;
@@ -32,13 +33,8 @@ public class UserServiceImpl implements UserService {
         User user = userMapper.toEntity(registerUserDto);
 
         // Check if the user exists in the database
-        if (userRepository.existsByUsername(user.getUsername())) {
-            throw new RuntimeException("User with username " + user.getUsername() + " already exists");
-        }
-
-        if (userRepository.existsByEmail(user.getEmail())) {
-            throw new RuntimeException("User with email " + user.getEmail() + " already exists");
-        }
+        if (userRepository.existsByUsername(user.getUsername()) || userRepository.existsByEmail(user.getEmail()))
+            throw new UserAlreadyExistsException("A user with this username or email already exists");
 
         // Password Encryption
         user.setPassword(passwordEncoder.encode(registerUserDto.getPassword()));
