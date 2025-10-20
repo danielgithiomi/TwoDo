@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,6 +55,20 @@ public class GlobalExceptionHandler {
                 ApiErrorResponse.builder()
                         .statusCode(status.value())
                         .message(ex.getMessage())
+                        .build()
+        );
+    }
+
+    @ExceptionHandler(AuthorizationDeniedException.class)
+    public ResponseEntity<ApiErrorResponse> authorizationDeniedException(AuthorizationDeniedException ex) {
+
+        HttpStatus status = HttpStatus.FORBIDDEN;
+        log.error("AuthorizationDeniedException: {}", ex.getMessage());
+
+        return ResponseEntity.status(status).body(
+                ApiErrorResponse.builder()
+                        .statusCode(status.value())
+                        .message(ex.getMessage() + "! You do not have permission to perform this action.")
                         .build()
         );
     }
