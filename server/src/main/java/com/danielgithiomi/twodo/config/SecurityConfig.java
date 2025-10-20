@@ -41,8 +41,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(withDefaults())
                 .authorizeHttpRequests(req ->
-                        req.requestMatchers("/h2/**").permitAll()
-                                .requestMatchers("/api/v1/test/**").permitAll()
+                        req.requestMatchers("/h2/**", "/api/v1/test/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/api/v1/users/**").permitAll()
                                 .anyRequest().authenticated()
                 )
