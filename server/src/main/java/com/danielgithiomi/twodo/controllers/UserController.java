@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,7 +25,8 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    private ResponseEntity<ApiSuccessResponse<List<CreatedUserDto>>> getUsers() {
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<ApiSuccessResponse<List<CreatedUserDto>>> getUsers() {
 
         return ResponseEntity.status(OK).body(
                 ApiSuccessResponse.<List<CreatedUserDto>>builder()
@@ -36,7 +38,7 @@ public class UserController {
     }
 
     @PostMapping
-    private ResponseEntity<ApiSuccessResponse<CreatedUserDto>> createUser(@Valid @RequestBody RegisterUserDto registerUserDto) {
+    public ResponseEntity<ApiSuccessResponse<CreatedUserDto>> createUser(@Valid @RequestBody RegisterUserDto registerUserDto) {
         CreatedUserDto createdUser = this.userService.createNewUser(registerUserDto);
         return ResponseEntity.status(CREATED).body(
                 ApiSuccessResponse.<CreatedUserDto>builder()
