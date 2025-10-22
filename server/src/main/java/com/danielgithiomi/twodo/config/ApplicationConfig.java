@@ -34,6 +34,9 @@ public class ApplicationConfig {
     CommandLineRunner commandLineRunner(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
         return args -> {
 
+            // Generate a secret key for JWT authentication
+            String JWTSecret = generateJwtSecret();
+
             // Populate the database with default data
             // Application Roles
             Role user_role = Role.builder().role(USER).build();
@@ -59,5 +62,10 @@ public class ApplicationConfig {
 
             log.info("Database schema populated for the {} application: {}", applicationName, databaseSchema);
         };
+    }
+
+    @ConditionalOnProperty(prefix = "twodo", value = "application.generateJwtSecretEnabled", havingValue = "false")
+    private String generateJwtSecret() {
+        return "secret";
     }
 }
