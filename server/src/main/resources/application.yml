@@ -5,7 +5,7 @@ twodo:
     schema: twodo_schema
     developer: Daniel Githiomi
     generateJwtSecretEnabled: false
-    manualDBPopulationEnabled: false
+    manualDBPopulationEnabled: true
     repository: https://github.com/danielgithiomi/twodo
     description: A personal bucket-list monorepo application for couples and friends to create, share, and track activities.
 

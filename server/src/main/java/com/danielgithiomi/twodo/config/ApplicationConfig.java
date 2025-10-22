@@ -30,12 +30,21 @@ public class ApplicationConfig {
     String databaseSchema;
 
     @Bean
-    @ConditionalOnProperty(prefix = "twodo", value = "application.manualDBPopulationEnabled", havingValue = "true")
-    CommandLineRunner commandLineRunner(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
+    @ConditionalOnProperty(prefix = "twodo.application", value = "manualDBPopulationEnabled", havingValue = "true")
+    CommandLineRunner commandLineRunner(
+            UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository,
+            @Value("${twodo.application.generateJwtSecretEnabled}") boolean generateJwtSecretEnabled
+
+    ) {
         return args -> {
 
             // Generate a secret key for JWT authentication
-            String JWTSecret = generateJwtSecret();
+            if (generateJwtSecretEnabled) {
+                String JWTSecret = generateJwtSecret();
+                log.info("JWT secret: {}", JWTSecret);
+            } else {
+                log.warn("JWT secret generation is disabled");
+            }
 
             // Populate the database with default data
             // Application Roles
@@ -64,7 +73,6 @@ public class ApplicationConfig {
         };
     }
 
-    @ConditionalOnProperty(prefix = "twodo", value = "application.generateJwtSecretEnabled", havingValue = "false")
     private String generateJwtSecret() {
         return "secret";
     }
