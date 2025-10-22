@@ -39,7 +39,8 @@ public class AuthController {
         String usernameOrEmail = loginRequest.usernameOrEmail();
         String password = loginRequest.password();
 
-        UserDetails validateUserDetails = authService.validateUser(usernameOrEmail, password);
+        UserDetails validatedUserDetails = authService.validateUser(usernameOrEmail, password);
+        String jwtToken = authService.generateJwtToken(validatedUserDetails);
 
         return ResponseEntity
                 .status(status)
@@ -48,7 +49,7 @@ public class AuthController {
                                 .httpStatus(status)
                                 .body(
                                         LoginResponse.builder()
-                                                .jwtToken("sfdljdfbjvld")
+                                                .jwtToken(jwtToken)
                                                 .dateIssued(Date.from(Instant.now()))
                                                 .build()
                                 )

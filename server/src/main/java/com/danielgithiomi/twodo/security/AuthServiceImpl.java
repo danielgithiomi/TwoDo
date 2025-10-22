@@ -44,10 +44,7 @@ public class AuthServiceImpl implements AuthService {
         if (authenticate == null || !authenticate.isAuthenticated())
             throw new ValidateUserException("Invalid username or password. Please check and try again");
 
-        if (authenticate.isAuthenticated()) {
-            return authUserDetailsService.loadUserByUsername(username);
-        }
-        return null;
+        return authUserDetailsService.loadUserByUsername(username);
     }
 
     @Override
