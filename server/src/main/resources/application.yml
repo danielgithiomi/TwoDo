@@ -4,11 +4,14 @@ twodo:
     version: 1.0.0
     schema: twodo_schema
     developer: Daniel Githiomi
-    generateJwtSecretEnabled: false
     manualDBPopulationEnabled: true
     repository: https://github.com/danielgithiomi/twodo
-    JWTSecret: <enable-generateJwtSecretEnabled-to-generate-secret. find-in-terminal>
     description: A personal bucket-list monorepo application for couples and friends to create, share, and track activities.
+    jwtConfig:
+      JWTValidityDurationInHrs: 1
+      generateJwtSecretEnabled: false
+      #JWTSecret: <enable-generateJwtSecretEnabled-to-generate-secret. find-in-terminal>
+      JWTSecret: yYAtOuLT3t4mgRUc3V/erEjNexNn4/vN5gN6ZbX5JqXIGO3Pn0CKvalCxCkkcwk3VIyDUytTpPYQFBLU34j5Hg==
 
 spring:
   application:

@@ -36,7 +36,7 @@ public class ApplicationConfig {
     @ConditionalOnProperty(prefix = "twodo.application", value = "manualDBPopulationEnabled", havingValue = "true")
     CommandLineRunner commandLineRunner(
             UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository,
-            @Value("${twodo.application.generateJwtSecretEnabled}") boolean generateJwtSecretEnabled
+            @Value("${twodo.application.jwtConfig.generateJwtSecretEnabled}") boolean generateJwtSecretEnabled
 
     ) {
         return args -> {
