@@ -3,6 +3,7 @@ package com.danielgithiomi.twodo.security;
 import com.danielgithiomi.twodo.exceptions.ValidateUserException;
 import com.danielgithiomi.twodo.security.interfaces.AuthService;
 import com.danielgithiomi.twodo.utils.HelperFunctions;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
@@ -12,15 +13,14 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
-import java.sql.Date;
 import java.time.Instant;
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.function.Function;
 
 @Slf4j
 @Service
@@ -65,8 +65,48 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public boolean isJwtTokenValid(String authToken) {
-        return false;
+    public boolean isJwtTokenValid(String jwtToken) {
+        return isJwtTokenExpired(jwtToken);
+    }
+
+    @Override
+    public boolean isJwtTokenExpired(String jwtToken) {
+        return Date.from(Instant.now()).after(extractExpirationDate(jwtToken));
+    }
+
+    @Override
+    public String extractUsername(String jwtToken) {
+        return extractClaim(jwtToken, Claims::getSubject);
+    }
+
+    @Override
+    public Date extractExpirationDate(String jwtToken) {
+        return extractClaim(jwtToken, Claims::getExpiration);
+    }
+
+    @Override
+    public Claims extractAllClaims(String jwtToken) {
+        return Jwts.parser()
+                .verifyWith(generateSignWithKey())
+                .build()
+                .parseSignedClaims(jwtToken)
+                .getPayload();
+    }
+
+    @Override
+    public <T> T extractClaim(String jwtToken, Function<Claims, T> claimsResolver) {
+        final Claims claims = extractAllClaims(jwtToken);
+        return claimsResolver.apply(claims);
+    }
+
+    @Override
+    public List<SimpleGrantedAuthority> extractRoles(String jwtToken) {
+        List<?> roles = extractClaim(jwtToken, claims -> claims.get("roles", List.class));
+        return roles
+                .stream()
+                .map(Object::toString)
+                .map(SimpleGrantedAuthority::new)
+                .toList();
     }
 
     @Override
