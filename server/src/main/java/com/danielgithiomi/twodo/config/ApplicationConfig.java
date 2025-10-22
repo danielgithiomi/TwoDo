@@ -4,6 +4,7 @@ import com.danielgithiomi.twodo.domains.models.Role;
 import com.danielgithiomi.twodo.domains.models.User;
 import com.danielgithiomi.twodo.repositories.RoleRepository;
 import com.danielgithiomi.twodo.repositories.UserRepository;
+import io.jsonwebtoken.Jwts;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -12,6 +13,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.crypto.SecretKey;
+import java.util.Base64;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -30,9 +33,21 @@ public class ApplicationConfig {
     String databaseSchema;
 
     @Bean
-    @ConditionalOnProperty(prefix = "twodo", value = "application.manualDBPopulationEnabled", havingValue = "true")
-    CommandLineRunner commandLineRunner(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
+    @ConditionalOnProperty(prefix = "twodo.application", value = "manualDBPopulationEnabled", havingValue = "true")
+    CommandLineRunner commandLineRunner(
+            UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository,
+            @Value("${twodo.application.jwtConfig.generateJwtSecretEnabled}") boolean generateJwtSecretEnabled
+
+    ) {
         return args -> {
+
+            // Generate a secret key for JWT authentication
+            if (generateJwtSecretEnabled) {
+                String JWTSecret = generateJwtSecret();
+                log.info("Generated JWT secret: {}", JWTSecret);
+            } else {
+                log.warn("JWT secret generation is disabled");
+            }
 
             // Populate the database with default data
             // Application Roles
@@ -59,5 +74,10 @@ public class ApplicationConfig {
 
             log.info("Database schema populated for the {} application: {}", applicationName, databaseSchema);
         };
+    }
+
+    private String generateJwtSecret() {
+        SecretKey secretKey = Jwts.SIG.HS512.key().build();
+        return Base64.getEncoder().encodeToString(secretKey.getEncoded());
     }
 }

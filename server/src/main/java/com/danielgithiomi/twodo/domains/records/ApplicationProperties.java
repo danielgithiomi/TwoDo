@@ -10,6 +10,8 @@ public record ApplicationProperties(
         String developer,
         String description,
         String repository,
+        JWTConfigProperties jwtConfig,
         Boolean manualDBPopulationEnabled
+
 ) {
 }
