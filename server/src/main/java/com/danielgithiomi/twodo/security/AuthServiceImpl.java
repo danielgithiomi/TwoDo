@@ -12,6 +12,7 @@ import javax.crypto.SecretKey;
 import java.sql.Date;
 import java.time.Instant;
 import java.util.Base64;
+import java.util.HashMap;
 import java.util.Map;
 
 @Service
@@ -52,7 +53,11 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public Map<String, Object> createJwtClaims(UserDetails userDetails) {
-        return Map.of();
+        Map<String, Object> claims = new HashMap<>();
+
+        claims.put("roles", userDetails.getAuthorities());
+
+        return claims;
     }
 
     private SecretKey generateSignWithKey() {
