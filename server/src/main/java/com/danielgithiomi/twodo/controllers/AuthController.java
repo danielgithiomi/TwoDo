@@ -34,8 +34,6 @@ public class AuthController {
     ) {
         HttpStatus status = OK;
 
-        System.out.println("Login request received: " + loginRequest.toString());
-
         String usernameOrEmail = loginRequest.usernameOrEmail();
         String password = loginRequest.password();
 
