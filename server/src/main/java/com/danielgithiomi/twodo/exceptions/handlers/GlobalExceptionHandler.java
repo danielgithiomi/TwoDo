@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.CONFLICT;
+import static org.springframework.http.HttpStatus.*;
 
 @Slf4j
 @RestController
@@ -49,13 +48,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BadCredentialsException.class) // Thrown by Spring Security after UsernameNotFoundException
     public ResponseEntity<ApiErrorResponse> badCredentialsException(BadCredentialsException ex) {
 
-        HttpStatus status = HttpStatus.NOT_FOUND;
-        log.error("BadCredentialsException: {}", ex.getMessage());
+        HttpStatus status = BAD_REQUEST;
 
         return ResponseEntity.status(status).body(
                 ApiErrorResponse.builder()
                         .statusCode(status.value())
-                        .message(ex.getMessage())
+                        .message("Invalid login credentials. Please check and try again.")
                         .build()
         );
     }
@@ -63,7 +61,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AuthorizationDeniedException.class)
     public ResponseEntity<ApiErrorResponse> authorizationDeniedException(AuthorizationDeniedException ex) {
 
-        HttpStatus status = HttpStatus.FORBIDDEN;
+        HttpStatus status = FORBIDDEN;
         log.error("AuthorizationDeniedException: {}", ex.getMessage());
 
         return ResponseEntity.status(status).body(
@@ -77,7 +75,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ValidateUserException.class)
     public ResponseEntity<ApiErrorResponse> validateUserException(ValidateUserException ex) {
 
-        HttpStatus status = HttpStatus.UNAUTHORIZED;
+        HttpStatus status = UNAUTHORIZED;
         log.error("ValidateUserException: {}", ex.getMessage());
 
         return ResponseEntity.status(status).body(

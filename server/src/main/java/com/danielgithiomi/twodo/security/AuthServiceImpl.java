@@ -6,10 +6,12 @@ import com.danielgithiomi.twodo.utils.HelperFunctions;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,7 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
@@ -28,13 +31,13 @@ public class AuthServiceImpl implements AuthService {
     private final AuthUserDetailsService authUserDetailsService;
 
     @Value("${twodo.application.name}")
-    private static String JWT_ISSUER;
+    private String JWT_ISSUER;
 
     @Value("${twodo.application.jwtConfig.JWTSecret}")
-    private static String JWT_SECRET;
+    private String JWT_SECRET;
 
     @Value("${twodo.application.jwtConfig.JWTValidityDurationInHrs}")
-    private static int JWT_VALIDITY_DURATION_IN_HRS;
+    private int JWT_VALIDITY_DURATION_IN_HRS;
 
     @Override
     public UserDetails validateUser(String username, String password) {
@@ -70,7 +73,10 @@ public class AuthServiceImpl implements AuthService {
     public Map<String, Object> createJwtClaims(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
 
-        claims.put("roles", userDetails.getAuthorities());
+        claims.put("roles", userDetails.getAuthorities()
+                .stream()
+                .map(GrantedAuthority::getAuthority)
+                .toList());
 
         return claims;
     }
