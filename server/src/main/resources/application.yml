@@ -7,6 +7,7 @@ twodo:
     generateJwtSecretEnabled: false
     manualDBPopulationEnabled: true
     repository: https://github.com/danielgithiomi/twodo
+    JWTSecret: <enable-generateJwtSecretEnabled-to-generate-secret. find-in-terminal>
     description: A personal bucket-list monorepo application for couples and friends to create, share, and track activities.
 
 spring:
