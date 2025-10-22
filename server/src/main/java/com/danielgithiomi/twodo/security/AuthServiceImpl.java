@@ -1,10 +1,15 @@
 package com.danielgithiomi.twodo.security;
 
+import com.danielgithiomi.twodo.exceptions.ValidateUserException;
 import com.danielgithiomi.twodo.security.interfaces.AuthService;
 import com.danielgithiomi.twodo.utils.HelperFunctions;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +21,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
+@RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
+
+    private final AuthenticationManager authenticationManager;
+    private final AuthUserDetailsService authUserDetailsService;
 
     @Value("${twodo.application.name}")
     private static String JWT_ISSUER;
@@ -29,6 +38,15 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public UserDetails validateUser(String username, String password) {
+        Authentication authenticate = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(username, password));
+
+        if (authenticate == null || !authenticate.isAuthenticated())
+            throw new ValidateUserException("Invalid username or password. Please check and try again");
+
+        if (authenticate.isAuthenticated()) {
+            return authUserDetailsService.loadUserByUsername(username);
+        }
         return null;
     }
 

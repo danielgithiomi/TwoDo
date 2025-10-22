@@ -2,6 +2,7 @@ package com.danielgithiomi.twodo.exceptions.handlers;
 
 import com.danielgithiomi.twodo.domains.models.api.ApiErrorResponse;
 import com.danielgithiomi.twodo.exceptions.UserAlreadyExistsException;
+import com.danielgithiomi.twodo.exceptions.ValidateUserException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -69,6 +70,20 @@ public class GlobalExceptionHandler {
                 ApiErrorResponse.builder()
                         .statusCode(status.value())
                         .message(ex.getMessage() + "! You do not have permission to perform this action.")
+                        .build()
+        );
+    }
+
+    @ExceptionHandler(ValidateUserException.class)
+    public ResponseEntity<ApiErrorResponse> validateUserException(ValidateUserException ex) {
+
+        HttpStatus status = HttpStatus.UNAUTHORIZED;
+        log.error("ValidateUserException: {}", ex.getMessage());
+
+        return ResponseEntity.status(status).body(
+                ApiErrorResponse.builder()
+                        .statusCode(status.value())
+                        .message(ex.getMessage())
                         .build()
         );
     }
