@@ -1,7 +1,7 @@
 package com.danielgithiomi.twodo.exceptions.handlers;
 
 import com.danielgithiomi.twodo.domains.models.api.ApiErrorResponse;
-import com.danielgithiomi.twodo.exceptions.JWTExpirationException;
+import com.danielgithiomi.twodo.exceptions.JWTAuthenticationException;
 import com.danielgithiomi.twodo.exceptions.ValidateUserException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -61,11 +61,11 @@ public class AuthenticationExceptionHandler {
         );
     }
 
-    @ExceptionHandler(JWTExpirationException.class)
-    public ResponseEntity<ApiErrorResponse> jWTExpirationException(JWTExpirationException ex) {
+    @ExceptionHandler(JWTAuthenticationException.class)
+    public ResponseEntity<ApiErrorResponse> jWTAuthenticationException(JWTAuthenticationException ex) {
 
         HttpStatus status = FORBIDDEN;
-        log.error("JWTExpirationException: {}", ex.getMessage());
+        log.error("JWTAuthenticationException: {}", ex.getMessage());
 
         return ResponseEntity.status(status).body(
                 ApiErrorResponse.builder()

@@ -1,7 +1,7 @@
 package com.danielgithiomi.twodo.security.JWT;
 
-import com.danielgithiomi.twodo.domains.models.User;
-import com.danielgithiomi.twodo.exceptions.JWTExpirationException;
+import com.danielgithiomi.twodo.exceptions.JWTAuthenticationException;
+import com.danielgithiomi.twodo.security.AuthUser;
 import com.danielgithiomi.twodo.security.AuthUserDetailsService;
 import com.danielgithiomi.twodo.security.interfaces.AuthService;
 import jakarta.servlet.FilterChain;
@@ -13,7 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -44,10 +43,11 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         log.warn("User request: {}", username);
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = authUserDetailsService.loadUserByUsername(username);
 
-            if (userDetails == null || !authService.isJwtTokenValid(jwtToken))
-                throw new JWTExpirationException("The JWT for user " + username + " has expired. Please login again");
+            if (!authService.isJwtTokenValid(jwtToken))
+                throw new JWTAuthenticationException("The JWT for user " + username + " has expired. Please login again");
+
+            AuthUser userDetails = (AuthUser) authUserDetailsService.loadUserByUsername(username);
 
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                     userDetails, userDetails.getPassword(), userDetails.getAuthorities()
@@ -59,10 +59,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 
             // Add additional information to the request headers
-            if (userDetails instanceof User user) {
-                log.warn("User is instance of: {}", user);
-                request.setAttribute("userId", user.getUserId());
-            }
+            request.setAttribute("userId", userDetails.getUserId());
         }
 
         filterChain.doFilter(request, response);

@@ -1,7 +1,5 @@
 package com.danielgithiomi.twodo.config;
 
-import com.danielgithiomi.twodo.security.AuthServiceImpl;
-import com.danielgithiomi.twodo.security.AuthUserDetailsService;
 import com.danielgithiomi.twodo.security.JWT.JwtAuthFilter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,8 +33,10 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+    private final JwtAuthFilter jwtAuthFilter;
+
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthFilter jwtAuthFilter) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         return http
                 .headers(headers -> headers.frameOptions(FrameOptionsConfig::disable)) // To allow H2 Console to use IFrames
@@ -50,11 +50,6 @@ public class SecurityConfig {
                 )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
-    }
-
-    @Bean
-    public JwtAuthFilter jwtAuthFilter(AuthServiceImpl authService, AuthUserDetailsService authUserDetailsService) {
-        return new JwtAuthFilter(authService, authUserDetailsService);
     }
 
     @Bean

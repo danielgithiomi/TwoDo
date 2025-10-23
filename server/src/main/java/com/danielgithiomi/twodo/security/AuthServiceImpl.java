@@ -1,5 +1,6 @@
 package com.danielgithiomi.twodo.security;
 
+import com.danielgithiomi.twodo.exceptions.JWTAuthenticationException;
 import com.danielgithiomi.twodo.exceptions.ValidateUserException;
 import com.danielgithiomi.twodo.security.interfaces.AuthService;
 import com.danielgithiomi.twodo.utils.HelperFunctions;
@@ -8,7 +9,9 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -27,8 +30,13 @@ import java.util.function.Function;
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
 
-    private final AuthenticationManager authenticationManager;
+    private AuthenticationManager authenticationManager;
     private final AuthUserDetailsService authUserDetailsService;
+
+    @Autowired
+    public void setAuthenticationManager(@Lazy AuthenticationManager authenticationManager) {
+        this.authenticationManager = authenticationManager;
+    }
 
     @Value("${twodo.application.name}")
     private String JWT_ISSUER;
@@ -66,12 +74,18 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public boolean isJwtTokenValid(String jwtToken) {
-        return isJwtTokenExpired(jwtToken);
+        try {
+            Claims claims = extractAllClaims(jwtToken);
+            return !isJwtTokenExpired(jwtToken);
+        } catch (Exception e) {
+            throw new JWTAuthenticationException("The JWT passed in is invalid or expired.");
+        }
     }
 
     @Override
     public boolean isJwtTokenExpired(String jwtToken) {
-        return Date.from(Instant.now()).before(extractExpirationDate(jwtToken));
+        Date jwtExpirationDate = extractExpirationDate(jwtToken);
+        return jwtExpirationDate == null || Date.from(Instant.now()).before(jwtExpirationDate);
     }
 
     @Override
