@@ -49,7 +49,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             log.info("🔐 Authenticating user: {}", username);
 
-            if (!authService.isJwtTokenValid(jwtToken)) {
+            if (authService.isJwtTokenValid(jwtToken)) {
                 log.error("❌ JWT token is invalid or expired for user: {}", username);
                 throw new JWTAuthenticationException("The JWT for user " + username + " has expired. Please login again");
             }
