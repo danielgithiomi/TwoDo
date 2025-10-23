@@ -7,12 +7,14 @@ import com.danielgithiomi.twodo.domains.models.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Set;
 
 import static org.mapstruct.ReportingPolicy.IGNORE;
 
+@Component
 @Mapper(componentModel = "spring", unmappedTargetPolicy = IGNORE)
 public interface UserMapper {
 
