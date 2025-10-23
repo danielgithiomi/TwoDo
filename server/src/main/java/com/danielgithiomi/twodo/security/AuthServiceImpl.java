@@ -49,13 +49,15 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public UserDetails validateUser(String username, String password) {
+        UserDetails userDetails = authUserDetailsService.loadUserByUsername(username);
+
         Authentication authenticate = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(username, password));
 
         if (authenticate == null || !authenticate.isAuthenticated())
             throw new ValidateUserException("Invalid username or password. Please check and try again");
 
-        return authUserDetailsService.loadUserByUsername(username);
+        return userDetails;
     }
 
     @Override
