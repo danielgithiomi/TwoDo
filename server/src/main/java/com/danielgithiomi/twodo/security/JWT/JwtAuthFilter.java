@@ -33,35 +33,47 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain) throws ServletException, IOException {
 
+        log.info("🔍 JWT Filter processing: {} {}", request.getMethod(), request.getRequestURI());
+
         String jwtToken = extractJwtToken(request);
         if (jwtToken == null) {
+            log.info("❌ No JWT token found in Authorization header");
             filterChain.doFilter(request, response);
             return;
         }
 
+        log.info("✅ JWT token found, extracting username...");
         String username = authService.extractUsername(jwtToken);
-        log.warn("User request: {}", username);
+        log.info("👤 Username from JWT: {}", username);
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            log.info("🔐 Authenticating user: {}", username);
 
-            if (!authService.isJwtTokenValid(jwtToken))
+            if (!authService.isJwtTokenValid(jwtToken)) {
+                log.error("❌ JWT token is invalid or expired for user: {}", username);
                 throw new JWTAuthenticationException("The JWT for user " + username + " has expired. Please login again");
+            }
 
+            log.info("✅ JWT token is valid, loading user details...");
             AuthUser userDetails = (AuthUser) authUserDetailsService.loadUserByUsername(username);
 
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                    userDetails, userDetails.getPassword(), userDetails.getAuthorities()
+                    userDetails, null, userDetails.getAuthorities()
             );
             authenticationToken.setDetails(
                     new WebAuthenticationDetailsSource().buildDetails(request)
             );
 
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            log.info("✅ Authentication successful for user: {} with roles: {}", username, userDetails.getAuthorities());
 
-            // Add additional information to the request headers
+            // Add additional information to the request attributes
             request.setAttribute("userId", userDetails.getUserId());
+        } else if (username != null) {
+            log.info("ℹ️ User already authenticated in SecurityContext");
         }
 
+        log.info("➡️ Passing request to next filter");
         filterChain.doFilter(request, response);
     }
 

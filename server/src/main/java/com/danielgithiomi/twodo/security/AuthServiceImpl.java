@@ -75,7 +75,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public boolean isJwtTokenValid(String jwtToken) {
         try {
-            Claims claims = extractAllClaims(jwtToken);
+            extractAllClaims(jwtToken);
             return !isJwtTokenExpired(jwtToken);
         } catch (Exception e) {
             throw new JWTAuthenticationException("The JWT passed in is invalid or expired.");
