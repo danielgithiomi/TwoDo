@@ -7,6 +7,7 @@ import com.danielgithiomi.twodo.domains.models.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -32,5 +33,7 @@ public interface UserMapper {
                 .map(role -> "ROLE_" + role.getRole().getRoleName())
                 .toList();
     }
+
+    CreatedUserDto fromDetailsToDto(UserDetails userDetails);
 
 }
