@@ -20,6 +20,13 @@ spring:
   profiles:
     active: development
     default: production
+  web:
+    cors:
+      allowed-origins: "http://localhost:5173"
 
 server:
   port: 8080
+
+logging:
+  level:
+    org.springframework.security: DEBUG

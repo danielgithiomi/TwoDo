@@ -24,6 +24,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.List;
 
 import static org.springframework.security.config.Customizer.withDefaults;
+import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Slf4j
 @Configuration
@@ -41,13 +42,13 @@ public class SecurityConfig {
                 .headers(headers -> headers.frameOptions(FrameOptionsConfig::disable)) // To allow H2 Console to use IFrames
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(withDefaults())
+                .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
                 .authorizeHttpRequests(req ->
-                        req.requestMatchers("/h2/**", "/api/v1/test/**", "/api/v1/auth/**").permitAll()
+                        req.requestMatchers("/error", "/h2/**", "/api/v1/test/**").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/api/v1/auth/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/api/v1/users/**").permitAll()
                                 .anyRequest().authenticated()
                 )
-                .formLogin(withDefaults())
-                .httpBasic(withDefaults())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
@@ -66,7 +67,8 @@ public class SecurityConfig {
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration corsConfig = new CorsConfiguration();
         corsConfig.setAllowCredentials(true);
-        corsConfig.setAllowedOrigins(List.of("http://localhost:5173"));
+        corsConfig.applyPermitDefaultValues();
+//        corsConfig.setAllowedOrigins(List.of("http://localhost:5173"));
         corsConfig.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
         corsConfig.setAllowedHeaders(List.of("*", "Authorization", "Cache-Control", "Content-Type", "Accept", "X-Requested-With"));
 
