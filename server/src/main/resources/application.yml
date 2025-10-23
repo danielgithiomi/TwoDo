@@ -7,6 +7,11 @@ twodo:
     manualDBPopulationEnabled: true
     repository: https://github.com/danielgithiomi/twodo
     description: A personal bucket-list monorepo application for couples and friends to create, share, and track activities.
+    jwtConfig:
+      JWTValidityDurationInHrs: 1
+      generateJwtSecretEnabled: false
+      #JWTSecret: <enable-generateJwtSecretEnabled-to-generate-secret. find-in-terminal>
+      JWTSecret: yYAtOuLT3t4mgRUc3V/erEjNexNn4/vN5gN6ZbX5JqXIGO3Pn0CKvalCxCkkcwk3VIyDUytTpPYQFBLU34j5Hg==
 
 spring:
   application:
@@ -15,6 +20,13 @@ spring:
   profiles:
     active: development
     default: production
+  web:
+    cors:
+      allowed-origins: "http://localhost:5173"
 
 server:
   port: 8080
+
+logging:
+  level:
+    org.springframework.security: DEBUG
