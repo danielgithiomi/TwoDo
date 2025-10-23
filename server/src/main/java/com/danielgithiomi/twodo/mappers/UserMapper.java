@@ -4,9 +4,11 @@ import com.danielgithiomi.twodo.domains.dtos.request.RegisterUserDto;
 import com.danielgithiomi.twodo.domains.dtos.response.CreatedUserDto;
 import com.danielgithiomi.twodo.domains.models.Role;
 import com.danielgithiomi.twodo.domains.models.User;
+import com.danielgithiomi.twodo.security.AuthUser;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -34,6 +36,33 @@ public interface UserMapper {
                 .toList();
     }
 
-    CreatedUserDto fromDetailsToDto(UserDetails userDetails);
+    default CreatedUserDto fromDetailsToDto(UserDetails userDetails) {
+        if (userDetails == null) {
+            return null;
+        }
+
+        if (userDetails instanceof AuthUser(User user)) {
+            // Map the User to CreatedUserDto
+            return CreatedUserDto.builder()
+                    .firstName(user.getFirstName())
+                    .lastName(user.getLastName())
+                    .username(user.getUsername())
+                    .email(user.getEmail())
+                    .roles(userDetails.getAuthorities().stream()
+                            .map(GrantedAuthority::getAuthority)
+                            .toList())
+                    .createdAt(user.getCreatedAt())
+                    .updatedAt(user.getUpdatedAt())
+                    .build();
+        }
+
+        // Fallback for other UserDetails implementations (e.g., Spring's default User)
+        return CreatedUserDto.builder()
+                .username(userDetails.getUsername())
+                .roles(userDetails.getAuthorities().stream()
+                        .map(GrantedAuthority::getAuthority)
+                        .toList())
+                .build();
+    }
 
 }
