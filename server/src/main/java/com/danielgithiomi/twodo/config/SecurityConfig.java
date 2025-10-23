@@ -1,5 +1,7 @@
 package com.danielgithiomi.twodo.config;
 
+import com.danielgithiomi.twodo.security.AuthServiceImpl;
+import com.danielgithiomi.twodo.security.AuthUserDetailsService;
 import com.danielgithiomi.twodo.security.JWT.JwtAuthFilter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +26,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.List;
 
 import static org.springframework.security.config.Customizer.withDefaults;
+import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Slf4j
 @Configuration
@@ -32,24 +35,26 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final JwtAuthFilter jwtAuthFilter;
-
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthFilter jwtAuthFilter) throws Exception {
 
         return http
                 .headers(headers -> headers.frameOptions(FrameOptionsConfig::disable)) // To allow H2 Console to use IFrames
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(withDefaults())
+                .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
                 .authorizeHttpRequests(req ->
                         req.requestMatchers("/h2/**", "/api/v1/test/**", "/api/v1/auth/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/api/v1/users/**").permitAll()
                                 .anyRequest().authenticated()
                 )
-                .formLogin(withDefaults())
-                .httpBasic(withDefaults())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
+    }
+
+    @Bean
+    public JwtAuthFilter jwtAuthFilter(AuthServiceImpl authService, AuthUserDetailsService authUserDetailsService) {
+        return new JwtAuthFilter(authService, authUserDetailsService);
     }
 
     @Bean
