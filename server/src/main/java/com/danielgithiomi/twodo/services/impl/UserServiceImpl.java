@@ -1,7 +1,7 @@
 package com.danielgithiomi.twodo.services.impl;
 
 import com.danielgithiomi.twodo.domains.dtos.request.RegisterUserDto;
-import com.danielgithiomi.twodo.domains.dtos.response.CreatedUserDto;
+import com.danielgithiomi.twodo.domains.dtos.response.UserResponseDto;
 import com.danielgithiomi.twodo.domains.models.Role;
 import com.danielgithiomi.twodo.domains.models.User;
 import com.danielgithiomi.twodo.exceptions.UserAlreadyExistsException;
@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public CreatedUserDto createNewUser(RegisterUserDto registerUserDto) {
+    public UserResponseDto createNewUser(RegisterUserDto registerUserDto) {
         User user = userMapper.toEntity(registerUserDto);
 
         // Check if the user exists in the database
@@ -51,13 +51,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<CreatedUserDto> getAllUsers() {
+    public List<UserResponseDto> getAllUsers() {
         return userRepository.findAll().stream().map(userMapper::toResponseDto).toList();
     }
 
 
     @Override
-    public CreatedUserDto getUserById(UUID userId) {
+    public UserResponseDto getUserById(UUID userId) {
         User user = userRepository.findById(userId).orElseThrow(() ->
                 new UserNotFoundException("No user found that matches the User-Id: {" + userId + "}")
         );
@@ -67,8 +67,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @org.springframework.transaction.annotation.Transactional
-    public CreatedUserDto deleteUserByUserId(UUID userId) {
-        CreatedUserDto userToDelete = getUserById(userId);
+    public UserResponseDto deleteUserByUserId(UUID userId) {
+        UserResponseDto userToDelete = getUserById(userId);
         this.userRepository.deleteUserByUserId(userId);
 
         return userToDelete;

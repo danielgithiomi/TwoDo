@@ -1,8 +1,8 @@
 package com.danielgithiomi.twodo.controllers;
 
 import com.danielgithiomi.twodo.domains.dtos.request.LoginRequest;
-import com.danielgithiomi.twodo.domains.dtos.response.CreatedUserDto;
 import com.danielgithiomi.twodo.domains.dtos.response.LoginResponse;
+import com.danielgithiomi.twodo.domains.dtos.response.UserResponseDto;
 import com.danielgithiomi.twodo.domains.models.api.ApiSuccessResponse;
 import com.danielgithiomi.twodo.security.AuthUser;
 import com.danielgithiomi.twodo.security.interfaces.AuthService;
@@ -31,20 +31,20 @@ public class AuthController {
     private final UserService userService;
 
     @GetMapping
-    public ResponseEntity<ApiSuccessResponse<CreatedUserDto>> getAuth(Authentication authentication) {
+    public ResponseEntity<ApiSuccessResponse<UserResponseDto>> getAuth(Authentication authentication) {
 
         if (authentication == null)
             throw new IllegalStateException("No authenticated user found. Please login first to access this resource.");
 
         AuthUser authenticatedUser = (AuthUser) authentication.getPrincipal();
-        CreatedUserDto createdUserDto = this.userService.getUserById(authenticatedUser.getUserId());
+        UserResponseDto userResponseDto = this.userService.getUserById(authenticatedUser.getUserId());
 
         HttpStatus statusCode = OK;
 
         return ResponseEntity.status(statusCode).body(
-                ApiSuccessResponse.<CreatedUserDto>builder()
+                ApiSuccessResponse.<UserResponseDto>builder()
                         .httpStatus(statusCode)
-                        .body(createdUserDto)
+                        .body(userResponseDto)
                         .message("Logged in details retrieved successfully for user: " + authenticatedUser.getUsername())
                         .build()
         );

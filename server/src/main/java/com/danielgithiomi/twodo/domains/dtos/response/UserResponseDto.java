@@ -13,7 +13,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class CreatedUserDto {
+public class UserResponseDto {
 
     private UUID userId;
     private String firstName;

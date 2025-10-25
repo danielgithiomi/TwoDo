@@ -1,19 +1,19 @@
 package com.danielgithiomi.twodo.services;
 
 import com.danielgithiomi.twodo.domains.dtos.request.RegisterUserDto;
-import com.danielgithiomi.twodo.domains.dtos.response.CreatedUserDto;
+import com.danielgithiomi.twodo.domains.dtos.response.UserResponseDto;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface UserService {
 
-    CreatedUserDto createNewUser(RegisterUserDto registerUserDto);
+    UserResponseDto createNewUser(RegisterUserDto registerUserDto);
 
-    List<CreatedUserDto> getAllUsers();
+    List<UserResponseDto> getAllUsers();
 
-    CreatedUserDto getUserById(UUID userId);
+    UserResponseDto getUserById(UUID userId);
 
-    CreatedUserDto deleteUserByUserId(UUID userId);
+    UserResponseDto deleteUserByUserId(UUID userId);
 
 }
