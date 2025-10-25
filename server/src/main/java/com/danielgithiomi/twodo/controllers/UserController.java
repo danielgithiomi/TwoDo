@@ -12,6 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
@@ -28,11 +29,13 @@ public class UserController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ApiSuccessResponse<List<CreatedUserDto>>> getUsers() {
 
+        List<CreatedUserDto> users = this.userService.getAllUsers();
+
         return ResponseEntity.status(OK).body(
                 ApiSuccessResponse.<List<CreatedUserDto>>builder()
                         .httpStatus(OK)
-                        .message("Successfully retrieved all users")
-                        .body(this.userService.getAllUsers())
+                        .message("Successfully retrieved all {" + users.size() + "} users")
+                        .body(users)
                         .build()
         );
     }
@@ -45,6 +48,20 @@ public class UserController {
                         .body(createdUser)
                         .message("New user created with username " + createdUser.getUsername() + " and email " + createdUser.getEmail())
                         .httpStatus(CREATED)
+                        .build()
+        );
+    }
+
+    @DeleteMapping("/{user_id}/delete")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<ApiSuccessResponse<CreatedUserDto>> deleteUserById(@PathVariable("user_id") UUID userId) {
+        CreatedUserDto deletedUser = this.userService.deleteUserByUserId(userId);
+
+        return ResponseEntity.status(OK).body(
+                ApiSuccessResponse.<CreatedUserDto>builder()
+                        .body(deletedUser)
+                        .message("User with id {" + userId + "} has been deleted successfully.")
+                        .httpStatus(OK)
                         .build()
         );
     }
