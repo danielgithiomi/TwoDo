@@ -1,10 +1,12 @@
 package com.danielgithiomi.twodo.security;
 
-import com.danielgithiomi.twodo.exceptions.JWTAuthenticationException;
+import com.danielgithiomi.twodo.exceptions.JwtAuthenticationException;
 import com.danielgithiomi.twodo.exceptions.ValidateUserException;
 import com.danielgithiomi.twodo.security.interfaces.AuthService;
 import com.danielgithiomi.twodo.utils.HelperFunctions;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
@@ -76,18 +78,14 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public boolean isJwtTokenValid(String jwtToken) {
-        try {
-            extractAllClaims(jwtToken);
-            return !isJwtTokenExpired(jwtToken);
-        } catch (Exception e) {
-            throw new JWTAuthenticationException("The JWT passed in is invalid or expired.");
-        }
+        extractAllClaims(jwtToken);
+        return !isJwtTokenExpired(jwtToken);
     }
 
     @Override
     public boolean isJwtTokenExpired(String jwtToken) {
         Date jwtExpirationDate = extractExpirationDate(jwtToken);
-        return jwtExpirationDate == null || Date.from(Instant.now()).before(jwtExpirationDate);
+        return jwtExpirationDate != null && Date.from(Instant.now()).after(jwtExpirationDate);
     }
 
     @Override
@@ -102,11 +100,19 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public Claims extractAllClaims(String jwtToken) {
-        return Jwts.parser()
-                .verifyWith(generateSignWithKey())
-                .build()
-                .parseSignedClaims(jwtToken)
-                .getPayload();
+        try {
+            return Jwts.parser()
+                    .verifyWith(generateSignWithKey())
+                    .build()
+                    .parseSignedClaims(jwtToken)
+                    .getPayload();
+        } catch (ExpiredJwtException e) {
+            throw new JwtAuthenticationException("The JWT passed in is expired.", e.getMessage());
+        } catch (JwtException e) {
+            throw new JwtAuthenticationException("The JWT passed in is invalid", e.getMessage());
+        } catch (Exception e) {
+            throw new JwtAuthenticationException("An error occurred while parsing the JWT", e.getMessage());
+        }
     }
 
     @Override

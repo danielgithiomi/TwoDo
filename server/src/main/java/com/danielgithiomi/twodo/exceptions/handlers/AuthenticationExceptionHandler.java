@@ -1,7 +1,7 @@
 package com.danielgithiomi.twodo.exceptions.handlers;
 
 import com.danielgithiomi.twodo.domains.models.api.ApiErrorResponse;
-import com.danielgithiomi.twodo.exceptions.JWTAuthenticationException;
+import com.danielgithiomi.twodo.exceptions.JwtAuthenticationException;
 import com.danielgithiomi.twodo.exceptions.ValidateUserException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -11,6 +11,9 @@ import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.springframework.http.HttpStatus.*;
 
@@ -61,16 +64,27 @@ public class AuthenticationExceptionHandler {
         );
     }
 
-    @ExceptionHandler(JWTAuthenticationException.class)
-    public ResponseEntity<ApiErrorResponse> jWTAuthenticationException(JWTAuthenticationException ex) {
+    @ExceptionHandler(JwtAuthenticationException.class)
+    public ResponseEntity<ApiErrorResponse> jWTAuthenticationException(JwtAuthenticationException ex) {
 
         HttpStatus status = FORBIDDEN;
-        log.error("JWTAuthenticationException: {}", ex.getMessage());
+        log.error("JwtAuthenticationException: {}", ex.getMessage(), ex);
+
+        List<ApiErrorResponse.FieldError> errors = new ArrayList<>();
+        if (ex.getJwtErrorMessage() != null) {
+            errors.add(ApiErrorResponse.FieldError.builder()
+                    .fieldName("JWT")
+                    .fieldMessage(ex.getJwtErrorMessage())
+                    .build());
+        } else {
+            errors = List.of();
+        }
 
         return ResponseEntity.status(status).body(
                 ApiErrorResponse.builder()
                         .statusCode(status.value())
                         .message(ex.getMessage())
+                        .errors(errors)
                         .build()
         );
     }
