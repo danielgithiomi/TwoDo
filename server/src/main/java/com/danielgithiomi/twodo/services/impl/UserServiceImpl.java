@@ -1,20 +1,24 @@
 package com.danielgithiomi.twodo.services.impl;
 
 import com.danielgithiomi.twodo.domains.dtos.request.RegisterUserDto;
-import com.danielgithiomi.twodo.domains.dtos.response.CreatedUserDto;
+import com.danielgithiomi.twodo.domains.dtos.response.UserResponseDto;
 import com.danielgithiomi.twodo.domains.models.Role;
 import com.danielgithiomi.twodo.domains.models.User;
 import com.danielgithiomi.twodo.exceptions.UserAlreadyExistsException;
+import com.danielgithiomi.twodo.exceptions.UserNotFoundException;
 import com.danielgithiomi.twodo.mappers.UserMapper;
 import com.danielgithiomi.twodo.repositories.RoleRepository;
 import com.danielgithiomi.twodo.repositories.UserRepository;
 import com.danielgithiomi.twodo.services.UserService;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 import static com.danielgithiomi.twodo.domains.enums.UserRoles.USER;
 
@@ -29,7 +33,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public CreatedUserDto createNewUser(RegisterUserDto registerUserDto) {
+    public UserResponseDto createNewUser(RegisterUserDto registerUserDto) {
         User user = userMapper.toEntity(registerUserDto);
 
         // Check if the user exists in the database
@@ -47,15 +51,29 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<CreatedUserDto> getAllUsers() {
+    public List<UserResponseDto> getAllUsers() {
         return userRepository.findAll().stream().map(userMapper::toResponseDto).toList();
     }
 
 
     @Override
-    public Optional<User> getUserById(UUID userId) {
-        return Optional.empty();
+    public UserResponseDto getUserById(UUID userId) {
+        User user = userRepository.findById(userId).orElseThrow(() ->
+                new UserNotFoundException("No user found that matches the User-Id: {" + userId + "}")
+        );
+
+        return userMapper.toResponseDto(user);
     }
+
+    @Override
+    @org.springframework.transaction.annotation.Transactional
+    public UserResponseDto deleteUserByUserId(UUID userId) {
+        UserResponseDto userToDelete = getUserById(userId);
+        this.userRepository.deleteUserByUserId(userId);
+
+        return userToDelete;
+    }
+
 
     private Set<Role> getDefaultRoles() {
         Set<Role> roles = new HashSet<>();

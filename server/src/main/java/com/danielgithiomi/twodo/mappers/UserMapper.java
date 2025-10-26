@@ -1,7 +1,7 @@
 package com.danielgithiomi.twodo.mappers;
 
 import com.danielgithiomi.twodo.domains.dtos.request.RegisterUserDto;
-import com.danielgithiomi.twodo.domains.dtos.response.CreatedUserDto;
+import com.danielgithiomi.twodo.domains.dtos.response.UserResponseDto;
 import com.danielgithiomi.twodo.domains.models.Role;
 import com.danielgithiomi.twodo.domains.models.User;
 import com.danielgithiomi.twodo.security.AuthUser;
@@ -25,7 +25,7 @@ public interface UserMapper {
 
     // @Mapping(target = "roles", expression = "java(mapRolesToList(user.getRoles()))")
     @Mapping(target = "roles", source = "roles", qualifiedByName = "mapRolesToList")
-    CreatedUserDto toResponseDto(User user);
+    UserResponseDto toResponseDto(User user);
 
     @Named("mapRolesToList")
     default List<String> mapRolesToList(Set<Role> roles) {
@@ -36,14 +36,14 @@ public interface UserMapper {
                 .toList();
     }
 
-    default CreatedUserDto fromDetailsToDto(UserDetails userDetails) {
+    default UserResponseDto fromDetailsToDto(UserDetails userDetails) {
         if (userDetails == null) {
             return null;
         }
 
         if (userDetails instanceof AuthUser(User user)) {
-            // Map the User to CreatedUserDto
-            return CreatedUserDto.builder()
+            // Map the User to UserResponseDto
+            return UserResponseDto.builder()
                     .firstName(user.getFirstName())
                     .lastName(user.getLastName())
                     .username(user.getUsername())
@@ -57,7 +57,7 @@ public interface UserMapper {
         }
 
         // Fallback for other UserDetails implementations (e.g., Spring's default User)
-        return CreatedUserDto.builder()
+        return UserResponseDto.builder()
                 .username(userDetails.getUsername())
                 .roles(userDetails.getAuthorities().stream()
                         .map(GrantedAuthority::getAuthority)

@@ -2,6 +2,7 @@ package com.danielgithiomi.twodo.exceptions.handlers;
 
 import com.danielgithiomi.twodo.domains.models.api.ApiErrorResponse;
 import com.danielgithiomi.twodo.exceptions.UserAlreadyExistsException;
+import com.danielgithiomi.twodo.exceptions.UserNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,19 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ApiErrorResponse> illegalArgumentException(IllegalArgumentException ex) {
+
+        HttpStatus status = BAD_REQUEST;
+
+        return ResponseEntity.status(status).body(
+                ApiErrorResponse.builder()
+                        .statusCode(status.value())
+                        .message(ex.getMessage())
+                        .build());
+
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ApiErrorResponse> userNotFoundException(UserNotFoundException ex) {
 
         HttpStatus status = BAD_REQUEST;
 

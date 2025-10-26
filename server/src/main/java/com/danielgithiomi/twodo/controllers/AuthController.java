@@ -1,12 +1,12 @@
 package com.danielgithiomi.twodo.controllers;
 
 import com.danielgithiomi.twodo.domains.dtos.request.LoginRequest;
-import com.danielgithiomi.twodo.domains.dtos.response.CreatedUserDto;
 import com.danielgithiomi.twodo.domains.dtos.response.LoginResponse;
+import com.danielgithiomi.twodo.domains.dtos.response.UserResponseDto;
 import com.danielgithiomi.twodo.domains.models.api.ApiSuccessResponse;
-import com.danielgithiomi.twodo.mappers.UserMapper;
 import com.danielgithiomi.twodo.security.AuthUser;
 import com.danielgithiomi.twodo.security.interfaces.AuthService;
+import com.danielgithiomi.twodo.services.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
@@ -28,27 +27,25 @@ import static org.springframework.http.HttpStatus.OK;
 @RequestMapping("/api/v1/auth")
 public class AuthController {
 
-    private final UserMapper userMapper;
     private final AuthService authService;
-    private final UserDetailsService userDetailsService;
+    private final UserService userService;
 
     @GetMapping
-    public ResponseEntity<ApiSuccessResponse<CreatedUserDto>> getAuth(Authentication authentication) {
+    public ResponseEntity<ApiSuccessResponse<UserResponseDto>> getAuth(Authentication authentication) {
 
         if (authentication == null)
             throw new IllegalStateException("No authenticated user found. Please login first to access this resource.");
 
         AuthUser authenticatedUser = (AuthUser) authentication.getPrincipal();
-        UserDetails userDetails = userDetailsService.loadUserByUsername(authenticatedUser.getUsername());
-        CreatedUserDto loggedInUser = userMapper.fromDetailsToDto(userDetails);
+        UserResponseDto userResponseDto = this.userService.getUserById(authenticatedUser.getUserId());
 
         HttpStatus statusCode = OK;
 
         return ResponseEntity.status(statusCode).body(
-                ApiSuccessResponse.<CreatedUserDto>builder()
+                ApiSuccessResponse.<UserResponseDto>builder()
                         .httpStatus(statusCode)
-                        .body(loggedInUser)
-                        .message("Logged in details retrieved successfully for user: " + loggedInUser.getUsername())
+                        .body(userResponseDto)
+                        .message("Logged in details retrieved successfully for user: " + authenticatedUser.getUsername())
                         .build()
         );
     }

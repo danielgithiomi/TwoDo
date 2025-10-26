@@ -1,6 +1,6 @@
 package com.danielgithiomi.twodo.security.JWT;
 
-import com.danielgithiomi.twodo.exceptions.JWTAuthenticationException;
+import com.danielgithiomi.twodo.exceptions.JwtAuthenticationException;
 import com.danielgithiomi.twodo.security.AuthUser;
 import com.danielgithiomi.twodo.security.AuthUserDetailsService;
 import com.danielgithiomi.twodo.security.interfaces.AuthService;
@@ -19,6 +19,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
+import static jakarta.servlet.http.HttpServletResponse.SC_FORBIDDEN;
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -35,46 +37,60 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         log.info("🔍 JWT Filter processing: {} {}", request.getMethod(), request.getRequestURI());
 
-        String jwtToken = extractJwtToken(request);
-        if (jwtToken == null) {
-            log.info("❌ No JWT token found in Authorization header");
-            filterChain.doFilter(request, response);
-            return;
-        }
-
-        log.info("✅ JWT token found, extracting username...");
-        String username = authService.extractUsername(jwtToken);
-        log.info("👤 Username from JWT: {}", username);
-
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            log.info("🔐 Authenticating user: {}", username);
-
-            if (authService.isJwtTokenValid(jwtToken)) {
-                log.error("❌ JWT token is invalid or expired for user: {}", username);
-                throw new JWTAuthenticationException("The JWT for user " + username + " has expired. Please login again");
+        try {
+            String jwtToken = extractJwtToken(request);
+            if (jwtToken == null) {
+                log.info("❌ No JWT token found in Authorization header");
+                filterChain.doFilter(request, response);
+                return;
             }
 
-            log.info("✅ JWT token is valid, loading user details...");
-            AuthUser userDetails = (AuthUser) authUserDetailsService.loadUserByUsername(username);
+            log.info("✅ JWT token found, extracting username...");
+            String username = authService.extractUsername(jwtToken);
+            log.info("👤 Username from JWT: {}", username);
 
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                    userDetails, null, userDetails.getAuthorities()
+            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                log.info("🔐 Authenticating user: {}", username);
+
+                if (!authService.isJwtTokenValid(jwtToken)) {
+                    log.error("❌ JWT token is invalid or expired for user: {}", username);
+                    throw new JwtAuthenticationException("The JWT for user " + username + " has expired. Please login again");
+                }
+
+                log.info("✅ JWT token is valid, loading user details...");
+                AuthUser userDetails = (AuthUser) authUserDetailsService.loadUserByUsername(username);
+
+                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                        userDetails, null, userDetails.getAuthorities()
+                );
+                authenticationToken.setDetails(
+                        new WebAuthenticationDetailsSource().buildDetails(request)
+                );
+
+                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                log.info("✅ Authentication successful for user: {} with roles: {}", username, userDetails.getAuthorities());
+
+                // Add additional information to the request attributes
+                request.setAttribute("userId", userDetails.getUserId());
+            } else if (username != null) {
+                log.info("ℹ️ User already authenticated in SecurityContext");
+            }
+
+            log.info("➡️ Passing request to next filter");
+            filterChain.doFilter(request, response);
+
+        } catch (JwtAuthenticationException e) {
+            log.error("❌ JWT Authentication Error: {}", e.getMessage(), e);
+            response.setStatus(SC_FORBIDDEN);
+            response.setContentType("application/json");
+            response.getWriter().write(
+                    String.format("{\"status\": %d, \"error\": \"%s\", \"message\": \"%s\", \"details\": \"%s\"}",
+                            SC_FORBIDDEN,
+                            "JWT Authentication Error",
+                            e.getMessage(),
+                            e.getJwtErrorMessage())
             );
-            authenticationToken.setDetails(
-                    new WebAuthenticationDetailsSource().buildDetails(request)
-            );
-
-            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-            log.info("✅ Authentication successful for user: {} with roles: {}", username, userDetails.getAuthorities());
-
-            // Add additional information to the request attributes
-            request.setAttribute("userId", userDetails.getUserId());
-        } else if (username != null) {
-            log.info("ℹ️ User already authenticated in SecurityContext");
         }
-
-        log.info("➡️ Passing request to next filter");
-        filterChain.doFilter(request, response);
     }
 
     private String extractJwtToken(HttpServletRequest request) {

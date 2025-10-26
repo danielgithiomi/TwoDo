@@ -34,6 +34,7 @@ public class User {
     private String lastName;
     @Column(nullable = false, unique = true)
     private String username;
+    private String avatarUrl;
     @Column(nullable = false, unique = true)
     private String email;
     @Column(nullable = false)

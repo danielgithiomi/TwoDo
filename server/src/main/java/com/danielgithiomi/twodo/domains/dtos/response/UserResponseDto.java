@@ -7,13 +7,15 @@ import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @Builder
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class CreatedUserDto {
+public class UserResponseDto {
 
+    private UUID userId;
     private String firstName;
     private String lastName;
     private String username;

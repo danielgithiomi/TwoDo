@@ -20,7 +20,7 @@ public class AuthUserDetailsService implements UserDetailsService {
         String upperCaseUsername = username.toUpperCase();
 
         User dbUser = this.userRepository.findUserByUsername(upperCaseUsername)
-                .orElseThrow(() -> new UsernameNotFoundException("No user with username " + username + " was found in the database."));
+                .orElseThrow(() -> new UsernameNotFoundException("No user with username {" + username + "} was found in the database."));
 
         return new AuthUser(dbUser);
     }
