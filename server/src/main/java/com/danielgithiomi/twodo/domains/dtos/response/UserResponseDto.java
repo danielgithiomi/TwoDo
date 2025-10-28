@@ -20,6 +20,7 @@ public class UserResponseDto {
     private String lastName;
     private String username;
     private String email;
+    private String avatarUrl;
     private List<String> roles;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
