@@ -35,11 +35,6 @@ public class AuthServiceImpl implements AuthService {
     private AuthenticationManager authenticationManager;
     private final AuthUserDetailsService authUserDetailsService;
 
-    @Autowired
-    public void setAuthenticationManager(@Lazy AuthenticationManager authenticationManager) {
-        this.authenticationManager = authenticationManager;
-    }
-
     @Value("${twodo.application.name}")
     private String JWT_ISSUER;
 
@@ -48,6 +43,11 @@ public class AuthServiceImpl implements AuthService {
 
     @Value("${twodo.application.jwtConfig.JWTValidityDurationInHrs}")
     private int JWT_VALIDITY_DURATION_IN_HRS;
+
+    @Autowired
+    public void setAuthenticationManager(@Lazy AuthenticationManager authenticationManager) {
+        this.authenticationManager = authenticationManager;
+    }
 
     @Override
     public UserDetails validateUser(String username, String password) {
