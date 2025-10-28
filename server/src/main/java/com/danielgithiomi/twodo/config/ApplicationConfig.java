@@ -64,9 +64,10 @@ public class ApplicationConfig {
             User user = User.builder()
                     .firstName("Admin")
                     .lastName("User")
-                    .username("admin".toUpperCase())
                     .roles(adminRoles)
                     .email("admin@twodo.com")
+                    .username("admin".toUpperCase())
+                    .avatarUrl("https://i.pravatar.cc/150?img=admin")
                     .password(passwordEncoder.encode("Admin123!"))
                     .build();
 
