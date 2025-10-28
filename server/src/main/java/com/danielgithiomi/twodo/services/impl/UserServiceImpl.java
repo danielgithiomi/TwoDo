@@ -40,6 +40,9 @@ public class UserServiceImpl implements UserService {
         if (userRepository.existsByUsername(user.getUsername()) || userRepository.existsByEmail(user.getEmail()))
             throw new UserAlreadyExistsException("A user with this username or email already exists in the database");
 
+        // Default avatar URL
+        user.setAvatarUrl("https://i.pravatar.cc/150?img=" + user.getUsername());
+
         // Password Encryption
         user.setPassword(passwordEncoder.encode(registerUserDto.getPassword()));
 
