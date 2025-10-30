@@ -41,6 +41,8 @@ public class User {
     @Column(nullable = false)
     private String password;
     @Column(nullable = false)
+    private String gender;
+    @Column(nullable = false)
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
