@@ -1,6 +1,5 @@
 package com.danielgithiomi.twodo.domains.models;
 
-import com.danielgithiomi.twodo.domains.enums.Gender;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -42,7 +41,7 @@ public class User {
     @Column(nullable = false)
     private String password;
     @Column(nullable = false)
-    private Gender gender;
+    private String gender;
     @Column(nullable = false)
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

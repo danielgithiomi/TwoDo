@@ -19,6 +19,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static com.danielgithiomi.twodo.domains.enums.Gender.OTHER;
 import static com.danielgithiomi.twodo.domains.enums.UserRoles.ADMIN;
 import static com.danielgithiomi.twodo.domains.enums.UserRoles.USER;
 
@@ -65,6 +66,7 @@ public class ApplicationConfig {
                     .firstName("Admin")
                     .lastName("User")
                     .roles(adminRoles)
+                    .gender(OTHER.getGenderName())
                     .email("admin@twodo.com")
                     .username("admin".toUpperCase())
                     .avatarUrl("https://i.pravatar.cc/150?img=admin")
