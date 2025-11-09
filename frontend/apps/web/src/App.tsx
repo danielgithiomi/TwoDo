@@ -4,6 +4,9 @@ import { DummyData } from "./DummyData";
 import alt_logo from "@tdw/images/branding/alt_logo.png";
 
 function App() {
+
+  
+
   return (
     <>
       <img src={alt_logo} alt="Application Logo" />
