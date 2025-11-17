@@ -1,4 +1,6 @@
-import { API_BASE_URL, API_TOKEN } from "@tdp/constants";
+import { API_BASE_URL } from "@tdp/constants";
+
+const API_TOKEN: string = "dummy-api-token"
 
 const headers: RequestInit["headers"] = {
   "Content-Type": "application/json",

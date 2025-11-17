@@ -6,10 +6,8 @@ export const API_BASE_URL: string = "http://localhost:8080/api/v1";
 export const API_USERNAME: string = "admin";
 export const API_PASSWORD: string = "admin123";
 
-export const API_TOKEN: string = btoa(`${API_USERNAME}:${API_PASSWORD}`);
-
-if (!API_BASE_URL || !API_USERNAME || !API_PASSWORD || !API_TOKEN) {
+if (!API_BASE_URL || !API_USERNAME || !API_PASSWORD) {
   throw new Error(
-    "API_BASE_URL, API_USERNAME, API_PASSWORD, and API_TOKEN must be defined in the environment variables"
+    "API_BASE_URL, API_USERNAME and API_PASSWORD must be defined in the environment variables"
   );
 }
