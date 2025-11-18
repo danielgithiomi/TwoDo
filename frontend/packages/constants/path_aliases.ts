@@ -3,9 +3,11 @@ export const pathAliases = {
     web: {
         src: "./src",
         baseUrl: ".",
-        api: "./../../packages/api",
+        api: "./../../api",
+        types: "./../../types",
+        stores: "./../../stores",
         images: "./src/assets/images",
-        constants: "./../../packages/constants",
+        constants: "./../../constants",
         atoms: "./../../packages/components/atoms",
-    },
+    }
 };

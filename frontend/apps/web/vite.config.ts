@@ -15,14 +15,14 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
-      "@tdw/api": pathResolver(webAliases.api),
       "@tdw/atoms": pathResolver(webAliases.atoms),
       "@tdw/images": pathResolver(webAliases.images),
-      "@tdw/constants": pathResolver(webAliases.constants),
 
       // Packages (@tdp)
-      "@tdp/api": pathResolver(webAliases.api),
-      "@tdp/constants": pathResolver(webAliases.constants),
+      "@tdw/api": pathResolver(webAliases.api),
+      "@tdw/types": pathResolver(webAliases.types),
+      "@tdw/stores": pathResolver(webAliases.stores),
+      "@tdw/constants": pathResolver(webAliases.constants),
     },
   },
   server: {
