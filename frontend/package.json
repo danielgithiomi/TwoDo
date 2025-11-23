@@ -23,7 +23,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.1.17"
+    "@tailwindcss/vite": "^4.1.17",
+    "classnames": "^2.5.1",
+    "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.22",
