@@ -10,6 +10,7 @@ export const Home = () => {
   const handleNavigateToCreateNewUser = () => {
     navigate(RoutePaths.SignUp);
   };
+
   return (
     <>
       <img className="mx-auto" src={alt_logo} alt="Application Logo" />
