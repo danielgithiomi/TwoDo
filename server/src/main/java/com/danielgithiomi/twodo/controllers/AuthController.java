@@ -30,7 +30,7 @@ public class AuthController {
     private final AuthService authService;
     private final UserService userService;
 
-    @GetMapping
+    @GetMapping("/me")
     public ResponseEntity<ApiSuccessResponse<UserResponseDto>> getAuth(Authentication authentication) {
 
         if (authentication == null)
