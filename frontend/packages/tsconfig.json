@@ -10,9 +10,10 @@
     "paths": {
       "@tdp/*": ["./*/src"],
       "@tdp/api": ["./api"],
+      "@tdp/libs": ["./libs"],
       "@tdp/types": ["./types"],
-      "@tdp/constants": ["./constants"],
       "@tdp/stores": ["./stores"],
+      "@tdp/constants": ["./constants"],
       "@tdp/components": ["./components"]
     }
   },

@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { cn } from "@tdp/libs";
 import { ButtonProps } from "../Button.types";
 
 export const Button: FC<ButtonProps> = ({
@@ -9,7 +10,7 @@ export const Button: FC<ButtonProps> = ({
   ...rest
 }) => {
   return (
-    <button className={className} id={id} onClick={onClick} {...rest}>
+    <button className={cn("bg-red-600", className)} id={id} onClick={onClick} {...rest}>
       {label}
     </button>
   );
