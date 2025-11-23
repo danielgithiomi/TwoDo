@@ -1,16 +1,24 @@
 import { Button } from "@tdw/atoms";
+import { RoutePaths } from "../routes";
 import { DummyData } from "./../DummyData";
+import { useNavigate } from "react-router-dom";
 import alt_logo from "@tdw/images/branding/alt_logo.png";
 
 export const Home = () => {
+  const navigate = useNavigate();
+
+  const handleNavigateToCreateNewUser = () => {
+    navigate(RoutePaths.SignUp);
+  };
+
   return (
     <>
-      <img src={alt_logo} alt="Application Logo" />
+      <img className="mx-auto" src={alt_logo} alt="Application Logo" />
       <Button
         id="to-create-new-user"
         label="Create New User"
-        className="border border-white p-2"
-        onClick={() => alert("Button clicked")}
+        onClick={handleNavigateToCreateNewUser}
+        className="border border-white p-2 rounded-lg m-4"
       />
       <DummyData />
     </>

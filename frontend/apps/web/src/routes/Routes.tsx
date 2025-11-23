@@ -21,5 +21,9 @@ export const AppRoutes: RouteObject[] = [
     {
         path: RoutePaths.NotFound,
         element: <div>404</div>
+    },
+    {
+        path: RoutePaths.SignUp,
+        element: <div>Sign Up</div>
     }
 ]
