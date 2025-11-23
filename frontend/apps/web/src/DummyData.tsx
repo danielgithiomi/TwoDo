@@ -1,4 +1,4 @@
-import { GenderService, getActiveUsers } from "@tdw/api";
+import { GenderService, getActiveUsers } from "@tdp/api";
 import { useQuery } from "@tanstack/react-query";
 
 export const DummyData = () => {
