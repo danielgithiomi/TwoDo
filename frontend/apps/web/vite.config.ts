@@ -20,6 +20,7 @@ export default defineConfig({
 
       // Packages (@tdp)
       "@tdp/api": pathResolver(webAliases.api),
+      "@tdp/libs": pathResolver(webAliases.libs),
       "@tdp/types": pathResolver(webAliases.types),
       "@tdp/stores": pathResolver(webAliases.stores),
       "@tdp/constants": pathResolver(webAliases.constants),
