@@ -31,13 +31,13 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@tdw/api": ["./../../packages/api"],
+      "@tdp/api": ["./../../packages/api"],
       "@tdw/images": ["./src/assets/images"],
-      "@tdw/types": ["./../../packages/types"],
-      "@tdw/stores": ["./../../packages/stores"],
-      "@tdw/constants": ["./../../packages/constants"],
-      "@tdw/components": ["./../../packages/components"],
-      "@tdw/atoms": ["./../../packages/components/atoms"],
+      "@tdp/types": ["./../../packages/types"],
+      "@tdp/stores": ["./../../packages/stores"],
+      "@tdp/constants": ["./../../packages/constants"],
+      "@tdp/components": ["./../../packages/components"],
+      "@tdw/atoms": ["./../../packages/components/atoms"]
     }
   },
   "include": ["src/**/*", "./../../packages/**/*"]
