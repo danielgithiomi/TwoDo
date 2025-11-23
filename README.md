@@ -36,7 +36,6 @@ The project focuses on building a modern, cross-platform experience while mainta
 Below is a glimpse of the application. Screenshots have been added for each platform to give a preview.
 
 ![Alt Logo](./assets/images/branding/alt_logo.png)
-![App Logo](./assets/images/branding/app_logo.png)
 
 ---
 
