@@ -18,7 +18,7 @@ export const Home = () => {
         id="to-create-new-user"
         label="Create New User"
         onClick={handleNavigateToCreateNewUser}
-        className="border border-white p-2 rounded-lg m-4"
+        className="border-white border p-2 rounded-md m-4"
       />
       <DummyData />
     </>
