@@ -10,12 +10,7 @@ export const Button: FC<ButtonProps> = ({
   ...rest
 }) => {
   return (
-    <button
-      className={cn("bg-orange-600", className)}
-      id={id}
-      onClick={onClick}
-      {...rest}
-    >
+    <button className={cn("bg-red-600", className)} id={id} onClick={onClick} {...rest}>
       {label}
     </button>
   );
