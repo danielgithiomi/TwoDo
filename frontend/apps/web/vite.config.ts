@@ -15,6 +15,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      "@pages": pathResolver(webAliases.pages),
       "@tdw/atoms": pathResolver(webAliases.atoms),
       "@tdw/images": pathResolver(webAliases.images),
 

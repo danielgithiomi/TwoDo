@@ -3,6 +3,7 @@ export const pathAliases = {
   web: {
     src: "./src",
     baseUrl: ".",
+    pages: "./src/pages",
     api: "./../../packages/api",
     images: "./src/assets/images",
     libs: "./../../packages/libs",

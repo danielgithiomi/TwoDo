@@ -1,4 +1,4 @@
-import { Home } from "../pages/Home";
+import { Home, SignUp } from "@pages";
 import { RoutePaths } from "./RoutePaths";
 import type { RouteObject } from "react-router-dom";
 
@@ -18,6 +18,6 @@ export const AppRoutes: RouteObject[] = [
     },
     {
         path: RoutePaths.SignUp,
-        element: <div>Sign Up</div>
+        element: <SignUp />
     }
 ]
