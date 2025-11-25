@@ -31,6 +31,7 @@
     ],
     "baseUrl": ".",
     "paths": {
+      "@pages": ["./src/pages"],
       "@tdp/api": ["./../../packages/api"],
       "@tdw/images": ["./src/assets/images"],
       "@tdp/libs": ["./../../packages/libs"],
