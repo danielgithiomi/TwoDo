@@ -32,14 +32,15 @@
     "baseUrl": ".",
     "paths": {
       "@pages": ["./src/pages"],
-      "@tdp/api": ["./../../packages/api"],
       "@tdw/images": ["./src/assets/images"],
+      "@tdw/atoms": ["./../../packages/components/atoms"],
+      
+      "@tdp/api": ["./../../packages/api"],
       "@tdp/libs": ["./../../packages/libs"],
       "@tdp/types": ["./../../packages/types"],
       "@tdp/stores": ["./../../packages/stores"],
       "@tdp/constants": ["./../../packages/constants"],
       "@tdp/components": ["./../../packages/components"],
-      "@tdw/atoms": ["./../../packages/components/atoms"]
     }
   },
   "include": ["src/**/*", "./../../packages/**/*"]
