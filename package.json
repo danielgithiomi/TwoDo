@@ -5,14 +5,13 @@
   "main": "index.js",
   "workspaces": [
     "server",
-    "frontend",
-    "frontend/apps/*",
-    "frontend/packages/*"
+    "frontend/apps/*"
   ],
   "scripts": {
     "dev": "turbo run dev --parallel --no-cache",
     "build": "turbo run build",
-    "clean": "turbo run clean",    "test": "turbo run test",
+    "clean": "turbo run clean",
+    "test": "turbo run test",
     "dev:server": "turbo run dev --filter=server",
     "dev:web": "turbo run dev --filter=web",
     "dev:mobile": "turbo run dev --filter=mobile"
@@ -27,6 +26,10 @@
     "url": "https://github.com/danielgithiomi/TwoDo/issues"
   },
   "homepage": "https://github.com/danielgithiomi/TwoDo#readme",
+  "dependencies": {
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
   "devDependencies": {
     "husky": "^9.1.7",
     "turbo": "latest"

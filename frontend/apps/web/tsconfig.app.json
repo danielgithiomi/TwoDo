@@ -31,6 +31,9 @@
     ],
     "baseUrl": ".",
     "paths": {
+      "react": ["../../../node_modules/react"],
+      "react-dom": ["../../../node_modules/react-dom"],
+
       "@pages": ["./src/pages"],
       "@tdw/images": ["./src/assets/images"],
       "@tdw/atoms": ["./../../packages/components/atoms"],
@@ -44,5 +47,5 @@
       "@tdp/components": ["./../../packages/components"],
     }
   },
-  "include": ["src/**/*", "./../../packages/**/*"]
+  "include": ["src/**/*", "./../../packages/**/*", "../../../frontend/**/*"]
 }

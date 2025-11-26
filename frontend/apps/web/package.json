@@ -29,10 +29,6 @@
     "clean": "echo \"Cleaning web\" && rm -rf node_modules dist .next"
   },
   "dependencies": {
-    "@tanstack/react-query": "^5.90.2",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
-    "react-router-dom": "^7.9.6"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",
@@ -48,5 +44,6 @@
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.45.0",
     "vite": "^7.1.7"
-  }
+  },
+  "packageManager": "npm@10.9.2"
 }
