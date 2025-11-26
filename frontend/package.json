@@ -18,9 +18,9 @@
   "license": "ISC",
   "author": "danielgithiomi",
   "type": "commonjs",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "echo \"Cleaning frontend\" && rm -rf node_modules dist .next"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -34,6 +34,13 @@
     "autoprefixer": "^10.4.22",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.17",
-    "vite": "^7.2.4"
-  }
+    "vite": "^7.2.4",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "peerDependencies": {
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "packageManager": "npm@10.9.2"
 }

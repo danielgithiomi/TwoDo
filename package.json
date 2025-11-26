@@ -5,13 +5,14 @@
   "main": "index.js",
   "workspaces": [
     "server",
-    "frontend/apps/*"
+    "frontend",
+    "frontend/apps/*",
+    "frontend/packages/*"
   ],
   "scripts": {
     "dev": "turbo run dev --parallel --no-cache",
     "build": "turbo run build",
-    "clean": "turbo run clean",
-    "test": "turbo run test",
+    "clean": "turbo run clean",    "test": "turbo run test",
     "dev:server": "turbo run dev --filter=server",
     "dev:web": "turbo run dev --filter=web",
     "dev:mobile": "turbo run dev --filter=mobile"
@@ -28,7 +29,7 @@
   "homepage": "https://github.com/danielgithiomi/TwoDo#readme",
   "devDependencies": {
     "husky": "^9.1.7",
-    "turbo": "^2.5.8"
+    "turbo": "latest"
   },
   "packageManager": "npm@10.9.2"
 }

@@ -25,7 +25,8 @@
     "preview": "vite preview",
     "copy-assets": "node scripts/copy-assets.js",
     "predev": "npm run copy-assets",
-    "prebuild": "npm run copy-assets"
+    "prebuild": "npm run copy-assets",
+    "clean": "echo \"Cleaning web\" && rm -rf node_modules dist .next"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.90.2",
