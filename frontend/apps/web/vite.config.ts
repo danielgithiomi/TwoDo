@@ -18,6 +18,7 @@ export default defineConfig({
       "@pages": pathResolver(webAliases.pages),
       "@tdw/atoms": pathResolver(webAliases.atoms),
       "@tdw/images": pathResolver(webAliases.images),
+      "@tdw/molecules": pathResolver(webAliases.molecules),
       
       // Packages (@tdp)
       "@tdp/api": pathResolver(webAliases.api),

@@ -1,5 +1,6 @@
 import { type FC } from "react";
 import { Input } from "@tdw/atoms";
+import { Form } from "@tdw/molecules";
 
 export const SignUp: FC = () => {
   return (
@@ -8,7 +9,7 @@ export const SignUp: FC = () => {
         Sign Up
       </h1>
 
-      <form action="">
+      <Form>
         <Input
           label="First Name"
           id="first_name"
@@ -33,7 +34,7 @@ export const SignUp: FC = () => {
           name="password"
           placeholder="Password"
         />
-      </form>
+      </Form>
     </div>
   );
 };

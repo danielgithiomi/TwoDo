@@ -34,6 +34,7 @@
       "@pages": ["./src/pages"],
       "@tdw/images": ["./src/assets/images"],
       "@tdw/atoms": ["./../../packages/components/atoms"],
+      "@tdw/molecules": ["./../../packages/components/molecules"],
       
       "@tdp/api": ["./../../packages/api"],
       "@tdp/libs": ["./../../packages/libs"],
