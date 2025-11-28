@@ -2,13 +2,13 @@
   "name": "server",
   "private": true,
   "scripts": {
-    "dev": "./mvnw spring-boot:run",
-    "build": "./mvnw clean package",
-    "clean": "./mvnw clean && rimraf target .turbo logs",
+    "lint": "eslint .",
     "test": "./mvnw test",
     "install": "./mvnw install",
-    "lint": "eslint .",
-    "check-types": "tsc --noEmit"
+    "check-types": "tsc --noEmit",
+    "build": "./mvnw clean package",
+    "dev": "./mvnw spring-boot:run",
+    "clean": "./mvnw clean && rimraf target .turbo logs"
   },
   "devDependencies": {}
 }
