@@ -2,13 +2,13 @@
   "name": "server",
   "private": true,
   "scripts": {
-    "lint": "eslint .",
     "test": "./mvnw test",
     "install": "./mvnw install",
-    "check-types": "tsc --noEmit",
     "build": "./mvnw clean package",
     "dev": "./mvnw spring-boot:run",
-    "clean": "./mvnw clean && rimraf target .turbo logs"
+    "clean": "./mvnw clean && rimraf target .turbo logs",
+    "lint": "echo \"Skipping linting checking for server\"",
+    "check-types": "echo \"Skipping type checking for server\""
   },
   "devDependencies": {}
 }

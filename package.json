@@ -9,10 +9,10 @@
     "frontend/apps/web"
   ],
   "scripts": {
+    "prepare": "husky",
     "test": "turbo run test",
     "lint": "turbo run lint",
     "build": "turbo run build",
-    "prepare": "husky",
     "check-types": "turbo run check-types",
     "dev:web": "turbo run dev --filter=web",
     "dev": "turbo run dev --parallel --no-cache",

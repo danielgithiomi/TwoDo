@@ -28,6 +28,11 @@
     "lint": {
       "cache": false,
       "outputs": []
+    },
+
+    "check-types": {
+      "cache": false,
+      "outputs": []
     }
   }
 }
