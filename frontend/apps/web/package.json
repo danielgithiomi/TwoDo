@@ -20,11 +20,13 @@
   "author": "danielgithiomi",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
     "lint": "eslint .",
+    "check-types": "tsc --noEmit",
+    "build": "tsc -b && vite build",
     "preview": "vite preview",
     "predev": "npm run copy-assets",
     "prebuild": "npm run copy-assets",
+    "test": "echo \"Error: no test specified\"",
     "copy-assets": "node scripts/copy-assets.js",
     "clean": "echo \"Cleaning web\" && rimraf node_modules dist .next && rimraf node_modules package-lock.json yarn.lock dist .next node_modules/.vite .cache .turbo"
   },
