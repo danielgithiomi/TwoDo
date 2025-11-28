@@ -14,10 +14,14 @@ export default defineConfig({
   plugins: [tailwindcss()],
   resolve: {
     alias: {
+      "react": path.resolve(__dirname, "../../../node_modules/react"),
+      "react-dom": path.resolve(__dirname, "../../../node_modules/react-dom"),
+
       "@": path.resolve(__dirname, "./src"),
       "@pages": pathResolver(webAliases.pages),
       "@tdw/atoms": pathResolver(webAliases.atoms),
       "@tdw/images": pathResolver(webAliases.images),
+      "@tdw/molecules": pathResolver(webAliases.molecules),
 
       // Packages (@tdp)
       "@tdp/api": pathResolver(webAliases.api),

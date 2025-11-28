@@ -14,7 +14,7 @@
       "@tdp/types": ["./types"],
       "@tdp/stores": ["./stores"],
       "@tdp/constants": ["./constants"],
-      "@tdp/components": ["./components"]
+      "@tdp/components/*": ["./components/*"]
     }
   },
   "include": ["**/*.ts"],
