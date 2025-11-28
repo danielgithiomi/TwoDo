@@ -39,7 +39,8 @@ public interface UserMapper {
             return null;
         }
 
-        if (userDetails instanceof AuthUser(User user)) {
+        if (userDetails instanceof AuthUser authUser) {
+            User user = authUser.user();
             // Map the User to UserResponseDto
             return UserResponseDto.builder()
                     .firstName(user.getFirstName())

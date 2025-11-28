@@ -23,9 +23,9 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "copy-assets": "node scripts/copy-assets.js",
     "predev": "npm run copy-assets",
     "prebuild": "npm run copy-assets",
+    "copy-assets": "node scripts/copy-assets.js",
     "clean": "echo \"Cleaning web\" && rimraf node_modules dist .next && rimraf node_modules package-lock.json yarn.lock dist .next node_modules/.vite .cache .turbo"
   },
   "dependencies": {

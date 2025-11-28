@@ -5,7 +5,8 @@
   "main": "index.js",
   "workspaces": [
     "server",
-    "frontend/*"
+    "frontend",
+    "frontend/apps/web"
   ],
   "scripts": {
     "dev": "turbo run dev --parallel --no-cache",

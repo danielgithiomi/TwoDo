@@ -27,7 +27,7 @@
     "noUncheckedSideEffectImports": true,
     "typeRoots": [
       "./../../packages/types/declarations",
-      "./node_modules/@types"
+      "./../../node_modules/@types"
     ],
     "baseUrl": ".",
     "paths": {
