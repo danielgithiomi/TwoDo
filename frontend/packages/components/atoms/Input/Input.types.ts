@@ -1,3 +1,6 @@
-export interface InputProps extends Pick<HTMLInputElement, "id" | "name" | "placeholder"> {
+import { InputHTMLAttributes } from "react";
+
+export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+    name: string;
     label?: string;
 }

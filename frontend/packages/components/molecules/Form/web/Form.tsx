@@ -1,10 +1,17 @@
-import type { FC } from "react";
+import { FormProvider } from "react-hook-form";
 import type { FormProps } from "../Form.types";
 
-export const Form: FC<FormProps> = ({ children }) => {
-    return (
-        <form action="">
-            {children}
-        </form>
-    );
-};
+export function Form<TFormValues extends Record<string, string>>({
+  methods,
+  children,
+  className,
+  onZodSubmit,
+}: FormProps<TFormValues>) {
+  return (
+    <FormProvider {...methods}>
+      <form className={className} onSubmit={methods.handleSubmit(onZodSubmit)}>
+        {children}
+      </form>
+    </FormProvider>
+  );
+}
