@@ -5,12 +5,12 @@
   "main": "index.js",
   "workspaces": [
     "server",
-    "frontend/apps/*"
+    "frontend/*"
   ],
   "scripts": {
     "dev": "turbo run dev --parallel --no-cache",
     "build": "turbo run build",
-    "clean": "turbo run clean",
+    "clean": "turbo run clean && rimraf node_modules package-lock.json .turbo .expo .cache && npm cache clean --force",
     "test": "turbo run test",
     "dev:server": "turbo run dev --filter=server",
     "dev:web": "turbo run dev --filter=web",
@@ -26,13 +26,23 @@
     "url": "https://github.com/danielgithiomi/TwoDo/issues"
   },
   "homepage": "https://github.com/danielgithiomi/TwoDo#readme",
-  "dependencies": {
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1"
-  },
   "devDependencies": {
     "husky": "^9.1.7",
-    "turbo": "latest"
+    "turbo": "latest",
+    "rimraf": "^6.0.1"
+  },
+  "lint-staged": {
+    "packages/styles/index.css": [
+      "git add"
+    ],
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write",
+      "vitest related --run"
+    ],
+    "*.{css,md}": [
+      "prettier --write"
+    ]
   },
   "packageManager": "npm@10.9.2"
 }

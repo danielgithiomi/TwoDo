@@ -26,9 +26,11 @@
     "copy-assets": "node scripts/copy-assets.js",
     "predev": "npm run copy-assets",
     "prebuild": "npm run copy-assets",
-    "clean": "echo \"Cleaning web\" && rm -rf node_modules dist .next"
+    "clean": "echo \"Cleaning web\" && rimraf node_modules dist .next && rimraf node_modules package-lock.json yarn.lock dist .next node_modules/.vite .cache .turbo"
   },
   "dependencies": {
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",

@@ -4,9 +4,9 @@
   "scripts": {
     "dev": "./mvnw spring-boot:run",
     "build": "./mvnw clean package",
-    "clean": "./mvnw clean",
-    "test": "./mvnw test"
+    "clean": "./mvnw clean && rimraf target .turbo logs",
+    "test": "./mvnw test",
+    "install": "./mvnw install"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }
