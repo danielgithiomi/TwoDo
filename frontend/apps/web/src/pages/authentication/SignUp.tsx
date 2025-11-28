@@ -49,13 +49,13 @@ export const SignUp: React.FC = () => {
           label="Password"
           id="password"
           name="password"
-          placeholder="Password"
+          placeholder="••••••••"
         />
         <Input
           label="Confirm Password"
           id="confirm_password"
           name="confirm_password"
-          placeholder="Confirm Password"
+          placeholder="••••••••"
         />
         <Button key="submit" type="submit" label="Sign Up" />
       </Form>
