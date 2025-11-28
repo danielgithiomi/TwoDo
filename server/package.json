@@ -6,7 +6,9 @@
     "build": "./mvnw clean package",
     "clean": "./mvnw clean && rimraf target .turbo logs",
     "test": "./mvnw test",
-    "install": "./mvnw install"
+    "install": "./mvnw install",
+    "lint": "eslint .",
+    "check-types": "tsc --noEmit"
   },
   "devDependencies": {}
 }

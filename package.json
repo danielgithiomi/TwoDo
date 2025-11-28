@@ -9,13 +9,16 @@
     "frontend/apps/web"
   ],
   "scripts": {
-    "dev": "turbo run dev --parallel --no-cache",
-    "build": "turbo run build",
-    "clean": "turbo run clean && rimraf node_modules package-lock.json .turbo .expo .cache && npm cache clean --force",
     "test": "turbo run test",
-    "dev:server": "turbo run dev --filter=server",
+    "lint": "turbo run lint",
+    "build": "turbo run build",
+    "prepare": "husky",
+    "check-types": "turbo run check-types",
     "dev:web": "turbo run dev --filter=web",
-    "dev:mobile": "turbo run dev --filter=mobile"
+    "dev": "turbo run dev --parallel --no-cache",
+    "dev:server": "turbo run dev --filter=server",
+    "dev:mobile": "turbo run dev --filter=mobile",
+    "clean": "turbo run clean && rimraf node_modules package-lock.json .turbo .expo .cache && npm cache clean --force"
   },
   "repository": {
     "type": "git",

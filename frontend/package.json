@@ -19,7 +19,8 @@
   "author": "danielgithiomi",
   "type": "commonjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
+    "check-types": "tsc --noEmit",
     "clean": "echo \"Cleaning frontend\" && rimraf node_modules dist package-lock.json .cache .turbo && npm cache clean --force"
   },
   "dependencies": {

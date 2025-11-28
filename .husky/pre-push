@@ -1,6 +1,0 @@
-#!/usr/bin/env sh
-
-# This script runs before push
-echo "Running pre-push checks..."
-# Add your pre-push commands here
-
