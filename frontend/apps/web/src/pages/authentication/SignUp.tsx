@@ -1,3 +1,4 @@
+import type { FC } from "react";
 import { useGender } from "@tdp/api";
 import { Form } from "@tdw/molecules";
 import { useSignUp } from "@tdp/hooks";
@@ -7,7 +8,7 @@ import { Button, FormInput } from "@tdw/atoms";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SignUpFormSchema, type SignUpFormValues } from "@tdp/types";
 
-export const SignUp: React.FC = () => {
+export const SignUp: FC = () => {
   const { genders } = useGender();
   const { createNewUser } = useSignUp();
   const { data, mutateAsync, isPending, error } = createNewUser;
@@ -89,6 +90,7 @@ export const SignUp: React.FC = () => {
           placeholder="••••••••"
         />
         <Button
+          id="signup-form-submit-button"
           key="submit"
           type="submit"
           label="Sign Up"
@@ -99,12 +101,14 @@ export const SignUp: React.FC = () => {
 
       {error && (
         <p className="text-red-500">
-          There was an error signing up: {error.message}
+          There was an error signing up:
+          <span className="font-bold"> {error.message} </span>
         </p>
       )}
       {data && (
         <p className="text-green-500">
-          User created successfully: {data.body.username}
+          User created successfully:{" "}
+          <span className="font-bold">{data.body.username} </span>
         </p>
       )}
     </div>
