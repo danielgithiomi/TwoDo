@@ -5,3 +5,14 @@ export interface GlobalApiResponse<T> {
   timestamp: string;
   message: string;
 }
+
+export interface GlobalApiErrorResponse {
+  statusCode: number;
+  message: string;
+  errors: ApiError[];
+}
+
+interface ApiError {
+  field: string;
+  message: string;
+}

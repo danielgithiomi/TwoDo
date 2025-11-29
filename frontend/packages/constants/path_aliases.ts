@@ -9,6 +9,7 @@ export const pathAliases = {
     libs: "./../../packages/libs",
     types: "./../../packages/types",
     stores: "./../../packages/stores",
+    hooks: "./../../packages/ui-hooks",
     constants: "./../../packages/constants",
     atoms: "./../../packages/components/atoms",
     molecules: "./../../packages/components/molecules",

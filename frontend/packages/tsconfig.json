@@ -13,6 +13,7 @@
       "@tdp/libs": ["./libs"],
       "@tdp/types": ["./types"],
       "@tdp/stores": ["./stores"],
+      "@tdp/hooks": ["./ui-hooks"],
       "@tdp/constants": ["./constants"],
       "@tdp/components/*": ["./components/*"]
     }

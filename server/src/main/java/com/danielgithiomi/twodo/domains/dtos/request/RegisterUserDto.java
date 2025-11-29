@@ -24,6 +24,9 @@ public class RegisterUserDto {
     @NotBlank(message = "Email is required")
     private String email;
 
+    @NotBlank(message = "Gender is required")
+    private String gender;
+
     @NotBlank(message = "Password is required")
     @Size(min = 8, max = 50, message = "Password must be between {min} and {max} characters")
     private String password;
