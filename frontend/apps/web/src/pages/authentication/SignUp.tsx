@@ -7,6 +7,8 @@ import { omitFromObject } from "@tdp/libs";
 import { Button, FormInput } from "@tdw/atoms";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SignUpFormSchema, type SignUpFormValues } from "@tdp/types";
+import { Link } from "react-router-dom";
+import { RoutePaths } from "@routes";
 
 export const SignUp: FC = () => {
   const { genders } = useGender();
@@ -24,6 +26,7 @@ export const SignUp: FC = () => {
   };
 
   const methods = useForm<SignUpFormValues>({
+    mode: "onBlur",
     resolver: zodResolver(SignUpFormSchema),
     defaultValues: {
       firstName: "",
@@ -98,6 +101,16 @@ export const SignUp: FC = () => {
           disabled={isPending}
         />
       </Form>
+
+      <div>
+        Already have an account?{" "}
+        <Link
+          className="underline underline-offset-2 hover:text-red-400"
+          to={RoutePaths.Login}
+        >
+          Login
+        </Link>
+      </div>
 
       {error && (
         <p className="text-red-500">

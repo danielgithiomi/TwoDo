@@ -35,6 +35,7 @@
       "react-dom": ["./node_modules/@types/react-dom/index"],
 
       "@pages": ["./src/pages"],
+      "@routes": ["./src/routes"],
       "@tdw/images": ["./src/assets/images"],
       "@tdw/atoms": ["./../../packages/components/atoms"],
       "@tdw/molecules": ["./../../packages/components/molecules"],
