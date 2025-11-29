@@ -1,6 +1,6 @@
 import { Form } from "@tdw/molecules";
 import { useForm } from "react-hook-form";
-import { Button, Input } from "@tdw/atoms";
+import { Button, FormInput } from "@tdw/atoms";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SignUpFormSchema, type SignUpFormValues } from "@tdp/types";
 
@@ -26,32 +26,32 @@ export const SignUp: React.FC = () => {
         Sign Up
       </h1>
 
-      <Form methods={methods} onZodSubmit={onSubmit}>
-        <Input
+      <Form id="sign-up-form" methods={methods} onZodSubmit={onSubmit}>
+        <FormInput
           label="First Name"
           id="first_name"
           name="first_name"
           placeholder="First Name"
         />
-        <Input
+        <FormInput
           label="Last Name"
           id="last_name"
           name="last_name"
           placeholder="Last Name"
         />
-        <Input
+        <FormInput
           label="Email Address"
           id="email_address"
           name="email_address"
           placeholder="Email Address"
         />
-        <Input
+        <FormInput
           label="Password"
           id="password"
           name="password"
           placeholder="••••••••"
         />
-        <Input
+        <FormInput
           label="Confirm Password"
           id="confirm_password"
           name="confirm_password"
