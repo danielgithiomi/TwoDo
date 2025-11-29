@@ -1,21 +1,15 @@
 import { FC } from "react";
 import { InputProps } from "../Input.types";
-import { useFormContext } from "react-hook-form";
 
 export const Input: FC<InputProps> = ({
   id,
   name,
   label,
+  error,
+  register,
   placeholder,
   ...rest
 }) => {
-  const {
-    register,
-    formState: { errors },
-  } = useFormContext();
-
-  const error = errors[name];
-
   return (
     <div className="flex flex-col">
       {label && (

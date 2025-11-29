@@ -1,7 +1,8 @@
 import { FormProvider } from "react-hook-form";
 import type { FormProps } from "../Form.types";
 
-export function Form<TFormValues extends Record<string, string>>({
+export function Form<TFormValues extends Record<string, any>>({
+  id,
   methods,
   children,
   className,
@@ -9,7 +10,11 @@ export function Form<TFormValues extends Record<string, string>>({
 }: FormProps<TFormValues>) {
   return (
     <FormProvider {...methods}>
-      <form className={className} onSubmit={methods.handleSubmit(onZodSubmit)}>
+      <form
+        id={id}
+        className={className}
+        onSubmit={methods.handleSubmit(onZodSubmit)}
+      >
         {children}
       </form>
     </FormProvider>
