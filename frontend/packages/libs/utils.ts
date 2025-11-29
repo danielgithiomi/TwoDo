@@ -22,7 +22,7 @@ export function cn(...inputs: Parameters<typeof classNames>) {
  * @param keys - The keys to omit
  * @returns The object with the specified keys omitted
  */
-export function omit<T extends Record<string, any>, K extends keyof T>(
+export function omitFromObject<T extends Record<string, any>, K extends keyof T>(
   obj: T,
   keys: K[]
 ): Omit<T, K> {

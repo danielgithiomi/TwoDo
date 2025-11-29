@@ -1,4 +1,4 @@
-import { GlobalApiResponse } from "@tdp/types";
+import { GlobalApiResponse, GlobalApiErrorResponse } from "@tdp/types";
 
 export interface SignUpRequest {
   email: string;
@@ -22,3 +22,5 @@ export interface SignUpResponseBody {
 }
 
 export type SignUpResponse = GlobalApiResponse<SignUpResponseBody>
+
+export type SignUpErrorResponse = GlobalApiErrorResponse;

@@ -14,13 +14,9 @@ export async function ApiClient<T>(
     },
   });
 
-  console.log("Response", response);
-
   if (!response.ok) {
-    const error_body = await response.json().catch(() => ({}));
-    console.log("Error at the API client", error_body);
-
     if (retry) console.log("Retrying the API call");
+    else throw await response.json().catch(() => ({}));
   }
 
   return await response.json();

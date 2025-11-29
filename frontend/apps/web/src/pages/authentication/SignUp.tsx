@@ -1,8 +1,8 @@
-import { omit } from "@tdp/libs";
 import { useGender } from "@tdp/api";
 import { Form } from "@tdw/molecules";
 import { useSignUp } from "@tdp/hooks";
 import { useForm } from "react-hook-form";
+import { omitFromObject } from "@tdp/libs";
 import { Button, FormInput } from "@tdw/atoms";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SignUpFormSchema, type SignUpFormValues } from "@tdp/types";
@@ -13,13 +13,10 @@ export const SignUp: React.FC = () => {
   const { data, mutateAsync, isPending, error } = createNewUser;
 
   const onSubmit = async (data: SignUpFormValues) => {
-    console.log("onSubmit clicked", data);
-    const rest = omit(data, ["confirmPassword"]);
+    const rest = omitFromObject(data, ["confirmPassword"]);
 
     try {
-      console.log("Data being submitted", rest);
       await mutateAsync(rest);
-      console.log("New user created", data);
     } catch (error) {
       console.log(error);
     }
