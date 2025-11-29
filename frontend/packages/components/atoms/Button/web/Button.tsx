@@ -10,7 +10,9 @@ export const Button: FC<ButtonProps> = ({
   id,
   label,
   onClick,
+  loading = false,
   size = "medium",
+  disabled = false,
   variant = "primary",
   className,
   ...rest
@@ -19,12 +21,21 @@ export const Button: FC<ButtonProps> = ({
     "cursor-pointer hover:opacity-90 transition-opacity rounded-sm",
     BUTTON_SIZE_MAP[size],
     BUTTON_BACKGROUND_MAP[variant],
+    {
+      "opacity-50 cursor-not-allowed": disabled || loading,
+    },
     className
   );
 
   return (
-    <button className={buttonClasses} id={id} onClick={onClick} {...rest}>
-      {label}
+    <button
+      id={id}
+      onClick={onClick}
+      disabled={disabled}
+      className={buttonClasses}
+      {...rest}
+    >
+      {loading ? "Loading..." : label}
     </button>
   );
 };

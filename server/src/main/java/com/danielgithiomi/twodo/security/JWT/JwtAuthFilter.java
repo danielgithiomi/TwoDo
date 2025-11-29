@@ -35,12 +35,12 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain) throws ServletException, IOException {
 
-        log.info("🔍 JWT Filter processing: {} {}", request.getMethod(), request.getRequestURI());
+//        log.info("🔍 JWT Filter processing: {} {}", request.getMethod(), request.getRequestURI());
 
         try {
             String jwtToken = extractJwtToken(request);
             if (jwtToken == null) {
-                log.info("❌ No JWT token found in Authorization header");
+//                log.info("❌ No JWT token found in Authorization header");
                 filterChain.doFilter(request, response);
                 return;
             }

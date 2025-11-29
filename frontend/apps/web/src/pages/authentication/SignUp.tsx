@@ -1,22 +1,39 @@
+import { omit } from "@tdp/libs";
+import { useGender } from "@tdp/api";
 import { Form } from "@tdw/molecules";
+import { useSignUp } from "@tdp/hooks";
 import { useForm } from "react-hook-form";
 import { Button, FormInput } from "@tdw/atoms";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SignUpFormSchema, type SignUpFormValues } from "@tdp/types";
 
 export const SignUp: React.FC = () => {
-  const onSubmit = (data: SignUpFormValues) => {
-    console.log(data);
+  const { genders } = useGender();
+  const { createNewUser } = useSignUp();
+  const { data, mutateAsync, isPending, error } = createNewUser;
+
+  const onSubmit = async (data: SignUpFormValues) => {
+    console.log("onSubmit clicked", data);
+    const rest = omit(data, ["confirmPassword"]);
+
+    try {
+      console.log("Data being submitted", rest);
+      await mutateAsync(rest);
+      console.log("New user created", data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const methods = useForm<SignUpFormValues>({
     resolver: zodResolver(SignUpFormSchema),
     defaultValues: {
-      first_name: "",
-      last_name: "",
-      email_address: "",
+      firstName: "",
+      lastName: "",
+      email: "",
       password: "",
-      confirm_password: "",
+      gender: "",
+      confirmPassword: "",
     },
   });
 
@@ -29,22 +46,39 @@ export const SignUp: React.FC = () => {
       <Form id="sign-up-form" methods={methods} onZodSubmit={onSubmit}>
         <FormInput
           label="First Name"
-          id="first_name"
-          name="first_name"
+          id="firstName"
+          name="firstName"
           placeholder="First Name"
         />
         <FormInput
           label="Last Name"
-          id="last_name"
-          name="last_name"
+          id="lastName"
+          name="lastName"
           placeholder="Last Name"
         />
         <FormInput
           label="Email Address"
-          id="email_address"
-          name="email_address"
+          id="email"
+          name="email"
           placeholder="Email Address"
         />
+        <div className="flex flex-col gap-2 mb-2">
+          <label className="w-full text-left" htmlFor="gender">
+            Gender
+          </label>
+          <select
+            id="gender"
+            {...methods.register("gender")}
+            defaultValue={genders?.[genders.indexOf("Other") + 1]}
+            className="w-full p-2 border border-gray-300 rounded-md"
+          >
+            {["Select...", ...genders]?.map((gender) => (
+              <option key={gender} value={gender}>
+                {gender}
+              </option>
+            ))}
+          </select>
+        </div>
         <FormInput
           label="Password"
           id="password"
@@ -53,12 +87,29 @@ export const SignUp: React.FC = () => {
         />
         <FormInput
           label="Confirm Password"
-          id="confirm_password"
-          name="confirm_password"
+          id="confirmPassword"
+          name="confirmPassword"
           placeholder="••••••••"
         />
-        <Button key="submit" type="submit" label="Sign Up" />
+        <Button
+          key="submit"
+          type="submit"
+          label="Sign Up"
+          loading={isPending}
+          disabled={isPending}
+        />
       </Form>
+
+      {error && (
+        <p className="text-red-500">
+          There was an error signing up: {error.message}
+        </p>
+      )}
+      {data && (
+        <p className="text-green-500">
+          User created successfully: {data.body.username}
+        </p>
+      )}
     </div>
   );
 };

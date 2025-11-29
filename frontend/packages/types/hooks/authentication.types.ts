@@ -1,6 +1,7 @@
-import { SignUpRequest } from "@tdp/types";
+import { UseMutationResult } from "@tanstack/react-query";
+import { SignUpRequest, SignUpResponse } from "@tdp/types";
 
 /* ----- Sign Up ----- */
 export interface UseSignUpReturn {
-    handleSignUp: (body: SignUpRequest) => void;
+  createNewUser: UseMutationResult<SignUpResponse, Error, SignUpRequest>;
 }

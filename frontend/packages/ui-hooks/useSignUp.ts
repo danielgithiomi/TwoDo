@@ -1,12 +1,16 @@
-import { SignUpRequest, UseSignUpReturn } from "@tdp/types";
+import { SignUpRequest } from "@tdp/types";
+import { useAuthentication } from "@tdp/api";
 
-export const useSignUp = (): UseSignUpReturn => {
+export const useSignUp = () => {
+  const { createNewUser } = useAuthentication();
 
-    const handleSignUp = (signUpRequest: SignUpRequest) => {
-        
-    }
+  const handleSignUp = (body: SignUpRequest) => {
+    const { mutate } = createNewUser;
+    mutate(body);
+  };
 
-    return {
-        handleSignUp
-    }
-}
+  return {
+      handleSignUp,
+      createNewUser,
+  };
+};
