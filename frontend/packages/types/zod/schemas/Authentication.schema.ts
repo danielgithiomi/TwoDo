@@ -22,7 +22,7 @@ export type SignUpFormValues = z.infer<typeof SignUpFormSchema>;
  * Login Schema
  * -----------------------------------------------------------------------------------------------*/
 export const LoginFormSchema = z.object({
-  usernameOrEmail: z.string().min(6, "Username must be at least 6 characters"),
+  usernameOrEmail: z.string().min(5, "Username must be at least 5 characters"),
   password: z.string().min(8, "Password must be at least 8 characters"),
 });
 

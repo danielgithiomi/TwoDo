@@ -1,7 +1,19 @@
 import { UseMutationResult } from "@tanstack/react-query";
-import { SignUpRequest, SignUpResponse, SignUpErrorResponse } from "@tdp/types";
+import {
+  LoginRequest,
+  LoginResponse,
+  LoginErrorResponse,
+  SignUpRequest,
+  SignUpResponse,
+  SignUpErrorResponse,
+} from "@tdp/types";
 
 /* ----- Sign Up ----- */
-export interface UseSignUpReturn {
-  createNewUser: UseMutationResult<SignUpResponse, SignUpErrorResponse, SignUpRequest>;
+export interface useAuthenticationReturn {
+  loginUser: UseMutationResult<LoginResponse, LoginErrorResponse, LoginRequest>;
+  createNewUser: UseMutationResult<
+    SignUpResponse,
+    SignUpErrorResponse,
+    SignUpRequest
+  >;
 }

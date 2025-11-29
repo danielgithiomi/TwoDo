@@ -1,13 +1,22 @@
 import { type FC } from "react";
 import { RoutePaths } from "@routes";
 import { Form } from "@tdw/molecules";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useAuthentication } from "@tdp/api";
 import { FormInput, Button } from "@tdw/atoms";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginFormSchema, type LoginFormValues } from "@tdp/types";
-import { Link } from "react-router-dom";
 
 export const Login: FC = () => {
+  const { loginUser } = useAuthentication();
+  const {
+    data: loginResponse,
+    error: loginError,
+    mutateAsync,
+    isPending,
+  } = loginUser;
+
   const loginMethods = useForm<LoginFormValues>({
     resolver: zodResolver(LoginFormSchema),
     mode: "onBlur",
@@ -18,7 +27,11 @@ export const Login: FC = () => {
   });
 
   const onSubmit = async (data: LoginFormValues) => {
-    console.log(data);
+    try {
+      await mutateAsync(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -45,6 +58,8 @@ export const Login: FC = () => {
           key="submit"
           type="submit"
           label="Login"
+          loading={isPending}
+          disabled={isPending}
         />
       </Form>
 
@@ -57,6 +72,18 @@ export const Login: FC = () => {
           Sign Up
         </Link>
       </div>
+
+      {loginError && (
+        <p className="text-red-500">
+          There was an error logging in:
+          <span className="font-bold"> {loginError.message} </span>
+        </p>
+      )}
+      {loginResponse && (
+        <p className="text-green-500">
+          User logged in successfully: {loginResponse.body.jwtToken}
+        </p>
+      )}
     </>
   );
 };
