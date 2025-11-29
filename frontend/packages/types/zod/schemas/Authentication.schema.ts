@@ -1,5 +1,8 @@
 import { z } from "zod";
 
+/* -------------------------------------------------------------------------------------------------
+ * Sign Up Schema
+ * -----------------------------------------------------------------------------------------------*/
 export const SignUpFormSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
   lastName: z.string().min(1, "Last name is required"),
@@ -13,3 +16,14 @@ export const SignUpFormSchema = z.object({
 });
 
 export type SignUpFormValues = z.infer<typeof SignUpFormSchema>;
+
+
+/* -------------------------------------------------------------------------------------------------
+ * Login Schema
+ * -----------------------------------------------------------------------------------------------*/
+export const LoginFormSchema = z.object({
+  usernameOrEmail: z.string().min(5, "Username must be at least 5 characters"),
+  password: z.string().min(8, "Password must be at least 8 characters"),
+});
+
+export type LoginFormValues = z.infer<typeof LoginFormSchema>;

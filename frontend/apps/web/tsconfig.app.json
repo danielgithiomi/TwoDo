@@ -31,21 +31,22 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "react": ["../../../node_modules/react"],
-      "react-dom": ["../../../node_modules/react-dom"],
+      "react": ["./node_modules/@types/react/index"],
+      "react-dom": ["./node_modules/@types/react-dom/index"],
 
       "@pages": ["./src/pages"],
+      "@routes": ["./src/routes"],
       "@tdw/images": ["./src/assets/images"],
       "@tdw/atoms": ["./../../packages/components/atoms"],
       "@tdw/molecules": ["./../../packages/components/molecules"],
-      
+
       "@tdp/api": ["./../../packages/api"],
       "@tdp/libs": ["./../../packages/libs"],
       "@tdp/types": ["./../../packages/types"],
       "@tdp/stores": ["./../../packages/stores"],
       "@tdp/hooks": ["./../../packages/ui-hooks"],
       "@tdp/constants": ["./../../packages/constants"],
-      "@tdp/components": ["./../../packages/components"],
+      "@tdp/components": ["./../../packages/components"]
     }
   },
   "include": ["src/**/*", "./../../packages/**/*", "../../../frontend/**/*"]

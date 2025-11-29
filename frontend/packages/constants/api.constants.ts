@@ -11,3 +11,5 @@ if (!API_BASE_URL || !API_USERNAME || !API_PASSWORD) {
     "API_BASE_URL, API_USERNAME and API_PASSWORD must be defined in the environment variables"
   );
 }
+
+export const AUTH_TOKEN_STORAGE_KEY: string = "auth_token";
