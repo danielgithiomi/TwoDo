@@ -43,6 +43,7 @@
       "@tdp/libs": ["./../../packages/libs"],
       "@tdp/types": ["./../../packages/types"],
       "@tdp/stores": ["./../../packages/stores"],
+      "@tdp/hooks": ["./../../packages/ui-hooks"],
       "@tdp/constants": ["./../../packages/constants"],
       "@tdp/components": ["./../../packages/components"],
     }
