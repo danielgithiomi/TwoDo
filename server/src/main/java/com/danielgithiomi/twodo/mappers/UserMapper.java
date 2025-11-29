@@ -10,14 +10,12 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Set;
 
 import static org.mapstruct.ReportingPolicy.IGNORE;
 
-@Component
 @Mapper(componentModel = "spring", unmappedTargetPolicy = IGNORE)
 public interface UserMapper {
 
@@ -41,7 +39,8 @@ public interface UserMapper {
             return null;
         }
 
-        if (userDetails instanceof AuthUser(User user)) {
+        if (userDetails instanceof AuthUser authUser) {
+            User user = authUser.user();
             // Map the User to UserResponseDto
             return UserResponseDto.builder()
                     .firstName(user.getFirstName())

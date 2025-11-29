@@ -1,6 +1,2 @@
-#!/usr/bin/env sh
-
-# This script runs before every commit
-echo "Running pre-commit checks..."
-# Add your pre-commit commands here
-
+npm run check-types && npm run lint
+# npm run check-types && npm run lint && npm run test:all 

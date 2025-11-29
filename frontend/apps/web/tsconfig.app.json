@@ -27,20 +27,25 @@
     "noUncheckedSideEffectImports": true,
     "typeRoots": [
       "./../../packages/types/declarations",
-      "./node_modules/@types"
+      "./../../node_modules/@types"
     ],
     "baseUrl": ".",
     "paths": {
+      "react": ["../../../node_modules/react"],
+      "react-dom": ["../../../node_modules/react-dom"],
+
       "@pages": ["./src/pages"],
-      "@tdp/api": ["./../../packages/api"],
       "@tdw/images": ["./src/assets/images"],
+      "@tdw/atoms": ["./../../packages/components/atoms"],
+      "@tdw/molecules": ["./../../packages/components/molecules"],
+      
+      "@tdp/api": ["./../../packages/api"],
       "@tdp/libs": ["./../../packages/libs"],
       "@tdp/types": ["./../../packages/types"],
       "@tdp/stores": ["./../../packages/stores"],
       "@tdp/constants": ["./../../packages/constants"],
       "@tdp/components": ["./../../packages/components"],
-      "@tdw/atoms": ["./../../packages/components/atoms"]
     }
   },
-  "include": ["src/**/*", "./../../packages/**/*"]
+  "include": ["src/**/*", "./../../packages/**/*", "../../../frontend/**/*"]
 }

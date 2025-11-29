@@ -18,19 +18,34 @@
   "license": "ISC",
   "author": "danielgithiomi",
   "type": "commonjs",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\"",
+    "lint": "echo \"Skipping linting checking for frontend package\"",
+    "check-types": "echo \"Skipping type checking for frontend package\"",
+    "clean": "echo \"Cleaning frontend\" && rimraf node_modules dist package-lock.json .cache .turbo && npm cache clean --force"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
     "@tailwindcss/vite": "^4.1.17",
+    "@tanstack/react-query": "^5.90.2",
     "classnames": "^2.5.1",
-    "tailwind-merge": "^3.4.0"
+    "react-hook-form": "^7.66.1",
+    "react-router-dom": "^7.9.6",
+    "tailwind-merge": "^3.4.0",
+    "zod": "^4.1.13"
   },
   "devDependencies": {
+    "@types/node": "^24.10.1",
     "autoprefixer": "^10.4.22",
     "postcss": "^8.5.6",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
     "tailwindcss": "^4.1.17",
     "vite": "^7.2.4"
-  }
+  },
+  "peerDependencies": {
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "packageManager": "npm@10.9.2"
 }

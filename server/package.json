@@ -2,11 +2,13 @@
   "name": "server",
   "private": true,
   "scripts": {
-    "dev": "./mvnw spring-boot:run",
+    "test": "./mvnw test",
+    "install": "./mvnw install",
     "build": "./mvnw clean package",
-    "clean": "./mvnw clean",
-    "test": "./mvnw test"
+    "dev": "./mvnw spring-boot:run",
+    "clean": "./mvnw clean && rimraf target .turbo logs",
+    "lint": "echo \"Skipping linting checking for server\"",
+    "check-types": "echo \"Skipping type checking for server\""
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }
