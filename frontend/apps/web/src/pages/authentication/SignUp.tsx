@@ -20,6 +20,7 @@ export const SignUp: FC = () => {
 
     try {
       await mutateAsync(rest);
+      methods.reset();
     } catch (error) {
       console.log(error);
     }
