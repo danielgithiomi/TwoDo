@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import { useEffect, type FC } from "react";
 import { useGender } from "@tdp/api";
 import { Form } from "@tdw/molecules";
 import { useSignUp } from "@tdp/hooks";
@@ -39,6 +39,17 @@ export const SignUp: FC = () => {
     },
   });
 
+  useEffect(() => {
+    if (genders.length > 0) {
+      const defaultGender = genders.includes("Other") ? "Other" : genders[0];
+
+      methods.reset({
+        ...methods.getValues(),
+        gender: defaultGender,
+      });
+    }
+  }, [genders, methods]);
+
   return (
     <div>
       <h1 className="text-3xl uppercase underline underline-offset-4 mb-4">
@@ -71,10 +82,9 @@ export const SignUp: FC = () => {
           <select
             id="gender"
             {...methods.register("gender")}
-            defaultValue={genders?.[genders.indexOf("Other") + 1]}
             className="w-full p-2 border border-gray-300 rounded-md"
           >
-            {["Select...", ...genders]?.map((gender) => (
+            {["Select...", ...genders].map((gender) => (
               <option key={gender} value={gender}>
                 {gender}
               </option>
