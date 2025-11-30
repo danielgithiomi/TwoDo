@@ -1,14 +1,14 @@
-import { useEffect, type FC } from "react";
 import { useGender } from "@tdp/api";
+import { RoutePaths } from "@routes";
 import { Form } from "@tdw/molecules";
 import { useSignUp } from "@tdp/hooks";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useEffect, type FC } from "react";
 import { omitFromObject } from "@tdp/libs";
 import { Button, FormInput } from "@tdw/atoms";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SignUpFormSchema, type SignUpFormValues } from "@tdp/types";
-import { Link } from "react-router-dom";
-import { RoutePaths } from "@routes";
 
 export const SignUp: FC = () => {
   const { genders } = useGender();
