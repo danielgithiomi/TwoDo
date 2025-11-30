@@ -1,14 +1,14 @@
-import type { FC } from "react";
 import { useGender } from "@tdp/api";
+import { RoutePaths } from "@routes";
 import { Form } from "@tdw/molecules";
 import { useSignUp } from "@tdp/hooks";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useEffect, type FC } from "react";
 import { omitFromObject } from "@tdp/libs";
 import { Button, FormInput } from "@tdw/atoms";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SignUpFormSchema, type SignUpFormValues } from "@tdp/types";
-import { Link } from "react-router-dom";
-import { RoutePaths } from "@routes";
 
 export const SignUp: FC = () => {
   const { genders } = useGender();
@@ -20,6 +20,7 @@ export const SignUp: FC = () => {
 
     try {
       await mutateAsync(rest);
+      methods.reset();
     } catch (error) {
       console.log(error);
     }
@@ -37,6 +38,17 @@ export const SignUp: FC = () => {
       confirmPassword: "",
     },
   });
+
+  useEffect(() => {
+    if (genders.length > 0) {
+      const defaultGender = genders.includes("Other") ? "Other" : genders[0];
+
+      methods.reset({
+        ...methods.getValues(),
+        gender: defaultGender,
+      });
+    }
+  }, [genders, methods]);
 
   return (
     <div>
@@ -70,10 +82,9 @@ export const SignUp: FC = () => {
           <select
             id="gender"
             {...methods.register("gender")}
-            defaultValue={genders?.[genders.indexOf("Other") + 1]}
             className="w-full p-2 border border-gray-300 rounded-md"
           >
-            {["Select...", ...genders]?.map((gender) => (
+            {["Select...", ...genders].map((gender) => (
               <option key={gender} value={gender}>
                 {gender}
               </option>
