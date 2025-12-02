@@ -2,11 +2,11 @@ import { useGender } from "@tdp/api";
 import { RoutePaths } from "@routes";
 import { Form } from "@tdw/molecules";
 import { useSignUp } from "@tdp/hooks";
-import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useEffect, type FC } from "react";
 import { omitFromObject } from "@tdp/libs";
 import { Button, FormInput } from "@tdw/atoms";
+import { Link, useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SignUpFormSchema, type SignUpFormValues } from "@tdp/types";
 
@@ -22,7 +22,7 @@ export const SignUp: FC = () => {
     try {
       await mutateAsync(rest);
       methods.reset();
-      navigate(RoutePaths.Home);
+      navigate(RoutePaths.Profile);
     } catch (error) {
       console.log(error);
     }

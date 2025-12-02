@@ -4,5 +4,6 @@ export const RoutePaths: Record<RouteDestination, string> = {
   Home: "/",
   Login: "/login",
   Register: "/register",
+  Profile: "/profile",
   NotFound: "*",
 } as const;
