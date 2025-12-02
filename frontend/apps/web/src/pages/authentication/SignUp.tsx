@@ -2,7 +2,7 @@ import { useGender } from "@tdp/api";
 import { RoutePaths } from "@routes";
 import { Form } from "@tdw/molecules";
 import { useSignUp } from "@tdp/hooks";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useEffect, type FC } from "react";
 import { omitFromObject } from "@tdp/libs";
@@ -13,6 +13,7 @@ import { SignUpFormSchema, type SignUpFormValues } from "@tdp/types";
 export const SignUp: FC = () => {
   const { genders } = useGender();
   const { createNewUser } = useSignUp();
+  const navigate = useNavigate();
   const { data, mutateAsync, isPending, error } = createNewUser;
 
   const onSubmit = async (data: SignUpFormValues) => {
@@ -21,6 +22,7 @@ export const SignUp: FC = () => {
     try {
       await mutateAsync(rest);
       methods.reset();
+      navigate(RoutePaths.Home);
     } catch (error) {
       console.log(error);
     }
