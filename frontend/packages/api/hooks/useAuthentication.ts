@@ -5,9 +5,9 @@ import {
   SignUpRequest,
   SignUpResponse,
   SignUpErrorResponse,
+  LoginRequest,
   LoginResponse,
   LoginErrorResponse,
-  LoginRequest,
   useAuthenticationReturn,
 } from "@tdp/types";
 

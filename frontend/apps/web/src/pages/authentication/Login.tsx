@@ -1,14 +1,15 @@
 import { type FC } from "react";
 import { RoutePaths } from "@routes";
 import { Form } from "@tdw/molecules";
-import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useAuthentication } from "@tdp/api";
 import { FormInput, Button } from "@tdw/atoms";
+import { Link, useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginFormSchema, type LoginFormValues } from "@tdp/types";
 
 export const Login: FC = () => {
+  const navigate = useNavigate();
   const { loginUser } = useAuthentication();
   const {
     data: loginResponse,
@@ -29,6 +30,7 @@ export const Login: FC = () => {
   const onSubmit = async (data: LoginFormValues) => {
     try {
       await mutateAsync(data);
+      navigate(RoutePaths.Profile);
     } catch (error) {
       console.log(error);
     }
@@ -67,7 +69,7 @@ export const Login: FC = () => {
         Dont have an account?{" "}
         <Link
           className="underline underline-offset-2 hover:text-red-400"
-          to={RoutePaths.SignUp}
+          to={RoutePaths.Register}
         >
           Sign Up
         </Link>

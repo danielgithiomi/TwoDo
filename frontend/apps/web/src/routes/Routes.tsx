@@ -1,6 +1,6 @@
 import { RoutePaths } from "./RoutePaths";
-import { Home, SignUp, Login } from "@pages";
 import type { RouteObject } from "react-router-dom";
+import { Home, SignUp, Login, UserProfile } from "@pages";
 
 export const AppRoutes: RouteObject[] = [
     {
@@ -17,7 +17,11 @@ export const AppRoutes: RouteObject[] = [
         element: <div>404</div>
     },
     {
-        path: RoutePaths.SignUp,
+        path: RoutePaths.Profile,
+        element: <UserProfile />
+    },
+    {
+        path: RoutePaths.Register,
         element: <SignUp />
     }
 ]
