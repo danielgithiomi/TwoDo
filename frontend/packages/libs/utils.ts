@@ -1,6 +1,10 @@
 import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
-import { AUTH_TOKEN_STORAGE_KEY as token_key } from "@tdp/constants";
+import {
+  AUTH_TOKEN_STORAGE_KEY as token_key,
+  AUTH_LOGGED_IN_USER_STORAGE_KEY as user_key,
+} from "@tdp/constants";
+import { UserResponseDTO as User } from "types/api";
 
 /* -------------------------------------------------------------------------------------------------
  * Merge class names
@@ -35,22 +39,34 @@ export function omitFromObject<
 }
 
 /* -------------------------------------------------------------------------------------------------
- * Auth Tokens
+ * Authentication Local Storage
  * -----------------------------------------------------------------------------------------------*/
-export function SaveAuthToken(token: string) {
+export function StoreJwtToken(token: string) {
   localStorage.setItem(token_key, token);
 }
 
-export function RetrieveAuthToken(): string {
+export function StoreLoggedInUser(user: User) {
+  localStorage.setItem(user_key, JSON.stringify(user));
+}
+
+export function RetrieveAuthenticationToken(): string {
   const token = localStorage.getItem(token_key);
-  if (!token) {
-    console.warn("No auth token found");
-    throw new Error("No auth token found");
-  }
+  if (!token) throw new Error("No auth token found");
   return token;
 }
 
-export function logout() {
+export function RetrieveLoggedInUser() {
+  const user = localStorage.getItem(user_key);
+  if (!user) {
+    localStorage.removeItem(token_key);
+    console.warn("No logged in user found");
+    throw new Error("No logged in user found");
+  }
+  return user;
+}
+
+export function ClearStoredAuthentication() {
+  localStorage.removeItem(user_key);
   localStorage.removeItem(token_key);
 }
 

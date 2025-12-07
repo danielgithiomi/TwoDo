@@ -13,3 +13,4 @@ if (!API_BASE_URL || !API_USERNAME || !API_PASSWORD) {
 }
 
 export const AUTH_TOKEN_STORAGE_KEY: string = "auth_token";
+export const AUTH_LOGGED_IN_USER_STORAGE_KEY: string = "logged_in_user";

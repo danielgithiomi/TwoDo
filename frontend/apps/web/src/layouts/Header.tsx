@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import { Button } from "@tdw/atoms";
 import { RoutePaths } from "@routes";
-import { isAuthenticated, logout } from "@tdp/libs";
+import { isAuthenticated, ClearStoredAuthentication } from "@tdp/libs";
 import alt_logo from "@tdw/images/branding/alt_logo.png";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -14,7 +14,7 @@ export const Header: FC = () => {
   const showButton: boolean = location.pathname !== RoutePaths.Login;
 
   function handleButtonClick() {
-    if (isAuthenticated()) logout();
+    if (isAuthenticated()) ClearStoredAuthentication();
     navigate(isAuthenticated() ? RoutePaths.Home : RoutePaths.Login);
   }
 

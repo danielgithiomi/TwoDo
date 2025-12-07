@@ -1,5 +1,5 @@
 import { API_BASE_URL } from "@tdp/constants";
-import { RetrieveAuthToken } from "@tdp/libs";
+import { RetrieveAuthenticationToken } from "@tdp/libs";
 
 export async function ApiClient<T>(
   endpoint: string,
@@ -14,7 +14,7 @@ export async function ApiClient<T>(
       ...options.headers,
       "Content-Type": "application/json",
       ...(includeToken
-        ? { Authorization: `Bearer ${RetrieveAuthToken()}` }
+        ? { Authorization: `Bearer ${RetrieveAuthenticationToken()}` }
         : {}),
     },
   });

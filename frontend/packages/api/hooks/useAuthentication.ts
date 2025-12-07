@@ -1,17 +1,25 @@
-import { SaveAuthToken } from "@tdp/libs";
-import { useMutation } from "@tanstack/react-query";
 import { AuthenticationService as service } from "@tdp/api";
+import { StoreJwtToken, StoreLoggedInUser } from "@tdp/libs";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import {
-  SignUpRequest,
-  SignUpResponse,
-  SignUpErrorResponse,
   LoginRequest,
+  SignUpRequest,
   LoginResponse,
+  SignUpResponse,
   LoginErrorResponse,
+  SignUpErrorResponse,
+  LoggedInUserResponse,
+  LoggedInUserErrorResponse,
   useAuthenticationReturn,
 } from "@tdp/types";
 
 export const useAuthentication = (): useAuthenticationReturn => {
+  async function getLoggedInUser() {
+    const loggedInUser = await service.me();
+    const { body: user } = loggedInUser;
+    StoreLoggedInUser(user);
+  }
+
   const loginUser = useMutation<
     LoginResponse,
     LoginErrorResponse,
@@ -19,10 +27,13 @@ export const useAuthentication = (): useAuthenticationReturn => {
   >({
     mutationKey: ["login"],
     mutationFn: service.login,
-    onSuccess: (data: LoginResponse) => {
+    onSuccess: async (data: LoginResponse) => {
       const { jwtToken } = data.body;
-      SaveAuthToken(jwtToken);
-    }
+      StoreJwtToken(jwtToken);
+
+      // Make another API call to get the user information
+      await getLoggedInUser();
+    },
   });
 
   const createNewUser = useMutation<
@@ -34,8 +45,17 @@ export const useAuthentication = (): useAuthenticationReturn => {
     mutationFn: service.signUp,
   });
 
+  const loggedInUser = useQuery<
+    LoggedInUserResponse,
+    LoggedInUserErrorResponse
+  >({
+    queryKey: ["me"],
+    queryFn: service.me,
+  });
+
   return {
     loginUser,
+    loggedInUser,
     createNewUser,
   };
 };
