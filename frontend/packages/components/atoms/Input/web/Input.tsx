@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { cn } from "@tdp/libs";
 import { InputProps } from "../Input.types";
 
 export const Input: FC<InputProps> = ({
@@ -7,11 +8,12 @@ export const Input: FC<InputProps> = ({
   label,
   error,
   register,
+  className,
   placeholder,
   ...rest
 }) => {
   return (
-    <div className="flex flex-col">
+    <div className="form-field-component-wrapper">
       {label && (
         <label className="text-start" htmlFor={id}>
           {label}
@@ -19,14 +21,20 @@ export const Input: FC<InputProps> = ({
       )}
       <input
         id={id}
-        placeholder={placeholder}
         type="text"
         {...register(name)}
-        className="p-1 my-2 rounded-md border"
+        placeholder={placeholder}
+        className={cn(
+          "form-field-component",
+          {
+            "form-field-error": error,
+          },
+          className
+        )}
         {...rest}
       />
       {error && (
-        <p className="text-red-500 text-sm">{error.message?.toString()}</p>
+        <p className="form-field-error-message">{error.message?.toString()}</p>
       )}
     </div>
   );

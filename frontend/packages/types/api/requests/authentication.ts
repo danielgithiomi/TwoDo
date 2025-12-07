@@ -44,3 +44,10 @@ export interface LoginResponseBody {
 export type LoginResponse = GlobalApiResponse<LoginResponseBody>
 
 export type LoginErrorResponse = GlobalApiErrorResponse;
+
+/* -------------------------------------------------------------------------------------------------
+ * Me
+ * -----------------------------------------------------------------------------------------------*/
+export type LoggedInUserResponse = GlobalApiResponse<UserResponseDTO>;
+
+export type LoggedInUserErrorResponse = GlobalApiErrorResponse;

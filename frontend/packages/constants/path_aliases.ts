@@ -5,6 +5,7 @@ export const pathAliases = {
     baseUrl: ".",
     pages: "./src/pages",
     routes: "./src/routes",
+    layouts: "./src/layouts",
     api: "./../../packages/api",
     images: "./src/assets/images",
     libs: "./../../packages/libs",

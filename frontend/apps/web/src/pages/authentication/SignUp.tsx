@@ -3,26 +3,35 @@ import { RoutePaths } from "@routes";
 import { Form } from "@tdw/molecules";
 import { useSignUp } from "@tdp/hooks";
 import { useForm } from "react-hook-form";
-import { useEffect, type FC } from "react";
-import { Button, FormInput } from "@tdw/atoms";
+import { type FC, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { omitFromObject, isAuthenticated } from "@tdp/libs";
+import { isAuthenticated, omitFromObject } from "@tdp/libs";
 import { SignUpFormSchema, type SignUpFormValues } from "@tdp/types";
+import { Button, FormInput, FormSelect, type SelectOption } from "@tdw/atoms";
 
 export const SignUp: FC = () => {
   const navigate = useNavigate();
 
-  // Navigate away if logged in
   useEffect(() => {
     if (isAuthenticated()) {
-      navigate(RoutePaths.Profile);
+      navigate(RoutePaths.Login);
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, navigate]);
 
   const { genders } = useGender();
   const { createNewUser } = useSignUp();
   const { data, mutateAsync, isPending, error } = createNewUser;
+
+  let genderOptions: SelectOption[] = [];
+  if (genders) {
+    genderOptions = genders.reverse().map((gender) => ({
+      value: gender,
+      label: gender,
+    }));
+  } else {
+    genderOptions = [];
+  }
 
   const onSubmit = async (data: SignUpFormValues) => {
     const rest = omitFromObject(data, ["confirmPassword"]);
@@ -49,102 +58,81 @@ export const SignUp: FC = () => {
     },
   });
 
-  useEffect(() => {
-    if (genders.length > 0) {
-      const defaultGender = genders.includes("Other") ? "Other" : genders[0];
-
-      methods.reset({
-        ...methods.getValues(),
-        gender: defaultGender,
-      });
-    }
-  }, [genders, methods]);
-
   return (
-    <div>
-      <h1 className="text-3xl uppercase underline underline-offset-4 mb-4">
-        Sign Up
-      </h1>
+    <section className="flex place-items-center">
+      <div className="w-1/4 mx-auto flex flex-col">
+        <h1 className="text-3xl uppercase underline underline-offset-4 mb-4 text-center">
+          Sign Up
+        </h1>
 
-      <Form id="sign-up-form" methods={methods} onZodSubmit={onSubmit}>
-        <FormInput
-          label="First Name"
-          id="firstName"
-          name="firstName"
-          placeholder="First Name"
-        />
-        <FormInput
-          label="Last Name"
-          id="lastName"
-          name="lastName"
-          placeholder="Last Name"
-        />
-        <FormInput
-          label="Email Address"
-          id="email"
-          name="email"
-          placeholder="Email Address"
-        />
-        <div className="flex flex-col gap-2 mb-2">
-          <label className="w-full text-left" htmlFor="gender">
-            Gender
-          </label>
-          <select
+        <Form id="sign-up-form" methods={methods} onZodSubmit={onSubmit}>
+          <FormInput
+            label="First Name"
+            id="firstName"
+            name="firstName"
+            placeholder="First Name"
+          />
+          <FormInput
+            label="Last Name"
+            id="lastName"
+            name="lastName"
+            placeholder="Last Name"
+          />
+          <FormInput
+            label="Email Address"
+            id="email"
+            name="email"
+            placeholder="Email Address"
+          />
+          <FormSelect
             id="gender"
-            {...methods.register("gender")}
-            className="w-full p-2 border border-gray-300 rounded-md"
-          >
-            {["Select...", ...genders].map((gender) => (
-              <option key={gender} value={gender}>
-                {gender}
-              </option>
-            ))}
-          </select>
+            name="gender"
+            label="Gender"
+            options={genderOptions}
+          />
+          <FormInput
+            label="Password"
+            id="password"
+            name="password"
+            placeholder="••••••••"
+          />
+          <FormInput
+            label="Confirm Password"
+            id="confirmPassword"
+            name="confirmPassword"
+            placeholder="••••••••"
+          />
+          <Button
+            id="signup-form-submit-button"
+            key="submit"
+            type="submit"
+            label="Sign Up"
+            loading={isPending}
+            disabled={isPending}
+            className="mx-auto grid place-items-center my-4"
+          />
+        </Form>
+
+        <div className="text-center">
+          Already have an account?{" "}
+          <Link className="underline underline-offset-2" to={RoutePaths.Login}>
+            Login
+          </Link>
         </div>
-        <FormInput
-          label="Password"
-          id="password"
-          name="password"
-          placeholder="••••••••"
-        />
-        <FormInput
-          label="Confirm Password"
-          id="confirmPassword"
-          name="confirmPassword"
-          placeholder="••••••••"
-        />
-        <Button
-          id="signup-form-submit-button"
-          key="submit"
-          type="submit"
-          label="Sign Up"
-          loading={isPending}
-          disabled={isPending}
-        />
-      </Form>
 
-      <div>
-        Already have an account?{" "}
-        <Link
-          className="underline underline-offset-2 hover:text-red-400"
-          to={RoutePaths.Login}
-        >
-          Login
-        </Link>
+        {error && (
+          <p className="text-red-500 text-center italic my-4">
+            There was an error signing up:
+            <span className="font-bold"> {error.message} </span>
+          </p>
+        )}
+        {data && (
+          <p className="text-green-500 text-center italic my-4">
+            User created successfully:{" "}
+            <span className="font-bold">{data.body.username} </span>
+          </p>
+        )}
       </div>
-
-      {error && (
-        <p className="text-red-500">
-          There was an error signing up:
-          <span className="font-bold"> {error.message} </span>
-        </p>
-      )}
-      {data && (
-        <p className="text-green-500">
-          User created successfully:{" "}
-          <span className="font-bold">{data.body.username} </span>
-        </p>
-      )}
-    </div>
+    </section>
   );
 };

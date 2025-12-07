@@ -21,6 +21,7 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
       "@pages": pathResolver(webAliases.pages),
       "@routes": pathResolver(webAliases.routes),
+      "@layouts": pathResolver(webAliases.layouts),
       "@tdw/atoms": pathResolver(webAliases.atoms),
       "@tdw/images": pathResolver(webAliases.images),
       "@tdw/molecules": pathResolver(webAliases.molecules),

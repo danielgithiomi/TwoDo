@@ -36,6 +36,7 @@
 
       "@pages": ["./src/pages"],
       "@routes": ["./src/routes"],
+      "@layouts": ["./src/layouts"],
       "@tdw/images": ["./src/assets/images"],
       "@tdw/atoms": ["./../../packages/components/atoms"],
       "@tdw/molecules": ["./../../packages/components/molecules"],
