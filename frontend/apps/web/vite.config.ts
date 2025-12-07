@@ -1,5 +1,6 @@
 import path from "path";
 import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import { pathAliases } from "../../packages/constants";
 
@@ -11,7 +12,7 @@ const webAliases = pathAliases.web;
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [tailwindcss()],
+  plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
       "react": path.resolve(__dirname, "../../../node_modules/react"),

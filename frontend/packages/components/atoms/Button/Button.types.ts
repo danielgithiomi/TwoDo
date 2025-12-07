@@ -17,12 +17,12 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export const BUTTON_BACKGROUND_MAP: Record<ButtonVariant, string> = {
-    primary: "bg-[#F13F31]",
-    secondary: "bg-gray-600",
+    primary: "bg-[var(--color-primary)] text-white",
+    secondary: "bg-[var(--color-secondary)] text-black",
 }
 
 export const BUTTON_SIZE_MAP: Record<ButtonSize, string> = {
-    small: "p-2",
-    medium: "p-4",
-    large: "p-6",
+    small: "py-1 px-2",
+    medium: "py-2 px-4",
+    large: "py-3 px-6",
 }
