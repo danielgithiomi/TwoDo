@@ -17,7 +17,7 @@ export const Login: FC = () => {
     if (isAuthenticated()) {
       navigate(RoutePaths.Profile);
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, navigate]);
 
   const { loginUser } = useAuthentication();
   const {
@@ -46,7 +46,7 @@ export const Login: FC = () => {
   };
 
   return (
-    <section className="flex min-h-[95vh] place-items-center">
+    <section className="h-full grid place-items-center">
       <div className="w-1/4 mx-auto">
         <h1 className="text-3xl uppercase underline underline-offset-4 mb-4 text-center">
           Login

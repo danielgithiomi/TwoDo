@@ -18,7 +18,7 @@ export const SignUp: FC = () => {
     if (isAuthenticated()) {
       navigate(RoutePaths.Profile);
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, navigate]);
 
   const { genders } = useGender();
   const { createNewUser } = useSignUp();
@@ -26,7 +26,7 @@ export const SignUp: FC = () => {
 
   let genderOptions: SelectOption[] = [];
   if (genders) {
-    genderOptions = genders.map((gender) => ({
+    genderOptions = genders.reverse().map((gender) => ({
       value: gender,
       label: gender,
     }));
@@ -60,7 +60,7 @@ export const SignUp: FC = () => {
   });
 
   return (
-    <section className="flex min-h-[95vh] place-items-center">
+    <section className="flex place-items-center">
       <div className="w-1/4 mx-auto flex flex-col">
         <h1 className="text-3xl uppercase underline underline-offset-4 mb-4 text-center">
           Sign Up

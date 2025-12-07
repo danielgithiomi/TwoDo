@@ -46,7 +46,7 @@
 
 body {
   margin: 0;
-  padding: 1rem;
+  padding: 0;
   min-width: 320px;
   min-height: 100vh;
   color: var(--body-font-color);
@@ -60,6 +60,10 @@ body {
 }
 
 @layer utilities {
+  .header {
+    @apply w-full bg-gray-300 h-16 px-8 flex items-center justify-between;
+  }
+
   .form-field-component-wrapper {
     @apply flex flex-col my-2;
   }
