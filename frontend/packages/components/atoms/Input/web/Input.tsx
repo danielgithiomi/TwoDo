@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { cn } from "@tdp/libs";
 import { InputProps } from "../Input.types";
 
 export const Input: FC<InputProps> = ({
@@ -7,6 +8,7 @@ export const Input: FC<InputProps> = ({
   label,
   error,
   register,
+  className,
   placeholder,
   ...rest
 }) => {
@@ -22,7 +24,13 @@ export const Input: FC<InputProps> = ({
         type="text"
         {...register(name)}
         placeholder={placeholder}
-        className="form-field-component"
+        className={cn(
+          "form-field-component",
+          {
+            "form-field-error": error,
+          },
+          className
+        )}
         {...rest}
       />
       {error && (

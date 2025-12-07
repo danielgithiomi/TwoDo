@@ -61,7 +61,7 @@ export const SignUp: FC = () => {
 
   return (
     <section className="flex min-h-[95vh] place-items-center">
-      <div className="w-1/3 mx-auto flex flex-col">
+      <div className="w-1/4 mx-auto flex flex-col">
         <h1 className="text-3xl uppercase underline underline-offset-4 mb-4 text-center">
           Sign Up
         </h1>
@@ -110,28 +110,25 @@ export const SignUp: FC = () => {
             label="Sign Up"
             loading={isPending}
             disabled={isPending}
-            className="mx-auto grid place-items-center mt-4"
+            className="mx-auto grid place-items-center my-4"
           />
         </Form>
 
         <div className="text-center">
           Already have an account?{" "}
-          <Link
-            className="underline underline-offset-2 hover:text-red-400"
-            to={RoutePaths.Login}
-          >
+          <Link className="underline underline-offset-2" to={RoutePaths.Login}>
             Login
           </Link>
         </div>
 
         {error && (
-          <p className="text-red-500">
+          <p className="text-red-500 text-center italic my-4">
             There was an error signing up:
             <span className="font-bold"> {error.message} </span>
           </p>
         )}
         {data && (
-          <p className="text-green-500">
+          <p className="text-green-500 text-center italic my-4">
             User created successfully:{" "}
             <span className="font-bold">{data.body.username} </span>
           </p>

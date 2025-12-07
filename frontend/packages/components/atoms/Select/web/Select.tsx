@@ -24,6 +24,7 @@ export const Select: FC<SelectProps> = ({
       <select
         id={id}
         {...register(name)}
+        
         className={cn("form-field-component", {
           "form-field-error": error,
         })}

@@ -46,55 +46,58 @@ export const Login: FC = () => {
   };
 
   return (
-    <>
-      <h1 className="text-3xl uppercase underline underline-offset-4 mb-4">
-        Login
-      </h1>
+    <section className="flex min-h-[95vh] place-items-center">
+      <div className="w-1/4 mx-auto">
+        <h1 className="text-3xl uppercase underline underline-offset-4 mb-4 text-center">
+          Login
+        </h1>
 
-      <Form id="login-form" methods={loginMethods} onZodSubmit={onSubmit}>
-        <FormInput
-          label="Username or Email"
-          id="username-or-email"
-          name="usernameOrEmail"
-          placeholder="Username or Email"
-        />
-        <FormInput
-          label="Password"
-          id="password"
-          name="password"
-          placeholder="••••••••"
-        />
-        <Button
-          id="login-form-submit-button"
-          key="submit"
-          type="submit"
-          label="Login"
-          loading={isPending}
-          disabled={isPending}
-        />
-      </Form>
+        <Form id="login-form" methods={loginMethods} onZodSubmit={onSubmit}>
+          <FormInput
+            label="Username or Email"
+            id="username-or-email"
+            name="usernameOrEmail"
+            placeholder="Username or Email"
+          />
+          <FormInput
+            label="Password"
+            id="password"
+            name="password"
+            placeholder="••••••••"
+          />
+          <Button
+            id="login-form-submit-button"
+            key="submit"
+            type="submit"
+            label="Login"
+            loading={isPending}
+            disabled={isPending}
+            className="mx-auto grid place-items-center my-4"
+          />
+        </Form>
 
-      <div>
-        Dont have an account?{" "}
-        <Link
-          className="underline underline-offset-2 hover:text-red-400"
-          to={RoutePaths.Register}
-        >
-          Sign Up
-        </Link>
+        <div className="text-center">
+          Dont have an account?{" "}
+          <Link
+            className="underline underline-offset-2"
+            to={RoutePaths.Register}
+          >
+            Sign Up
+          </Link>
+        </div>
+
+        {loginError && (
+          <p className="text-red-500 text-center italic my-4">
+            There was an error logging in:
+            <span className="font-bold"> {loginError.message} </span>
+          </p>
+        )}
+        {loginResponse && (
+          <p className="text-green-500 text-center italic my-4">
+            User logged in successfully: {loginResponse.body.jwtToken}
+          </p>
+        )}
       </div>
-
-      {loginError && (
-        <p className="text-red-500">
-          There was an error logging in:
-          <span className="font-bold"> {loginError.message} </span>
-        </p>
-      )}
-      {loginResponse && (
-        <p className="text-green-500">
-          User logged in successfully: {loginResponse.body.jwtToken}
-        </p>
-      )}
-    </>
+    </section>
   );
 };
