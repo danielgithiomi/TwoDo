@@ -1,10 +1,9 @@
 import type { FC } from "react";
 import { Button } from "@tdw/atoms";
 import { RoutePaths } from "@routes";
-import { isAuthenticated, ClearStoredAuthentication } from "@tdp/libs";
 import alt_logo from "@tdw/images/branding/alt_logo.png";
 import { useLocation, useNavigate } from "react-router-dom";
-
+import {isAuthenticated,RetrieveLoggedInUser,ClearStoredAuthentication} from "@tdp/libs";
 
 export const Header: FC = () => {
   const navigate = useNavigate();
@@ -28,14 +27,24 @@ export const Header: FC = () => {
       <div>
         <nav></nav>
 
-        {showButton && (
-          <Button
-            id="btn-header-login"
-            label={buttonText}
-            variant="secondary"
-            onClick={handleButtonClick}
-          />
-        )}
+        <div className="flex items-center gap-3">
+          {isAuthenticated() && (
+            <img
+              src={RetrieveLoggedInUser().avatarUrl}
+              className="rounded-full size-10"
+              alt="user profile picture"
+            />
+          )}
+
+          {showButton && (
+            <Button
+              id="btn-header-login"
+              label={buttonText}
+              variant="secondary"
+              onClick={handleButtonClick}
+            />
+          )}
+        </div>
       </div>
     </header>
   );

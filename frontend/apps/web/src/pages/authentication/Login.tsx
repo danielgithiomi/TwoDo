@@ -12,7 +12,6 @@ import { LoginFormSchema, type LoginFormValues } from "@tdp/types";
 export const Login: FC = () => {
   const navigate = useNavigate();
 
-  // Navigate away if logged in
   useEffect(() => {
     if (isAuthenticated()) {
       navigate(RoutePaths.Profile);

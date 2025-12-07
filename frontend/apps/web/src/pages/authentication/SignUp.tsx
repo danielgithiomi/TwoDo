@@ -13,10 +13,9 @@ import { Button, FormInput, FormSelect, type SelectOption } from "@tdw/atoms";
 export const SignUp: FC = () => {
   const navigate = useNavigate();
 
-  // Navigate away if logged in
   useEffect(() => {
     if (isAuthenticated()) {
-      navigate(RoutePaths.Profile);
+      navigate(RoutePaths.Login);
     }
   }, [isAuthenticated, navigate]);
 
