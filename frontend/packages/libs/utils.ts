@@ -62,7 +62,7 @@ export function RetrieveLoggedInUser() {
     console.warn("No logged in user found");
     throw new Error("No logged in user found");
   }
-  return user;
+  return JSON.parse(user);
 }
 
 export function ClearStoredAuthentication() {

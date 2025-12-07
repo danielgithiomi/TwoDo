@@ -30,8 +30,6 @@ export const useAuthentication = (): useAuthenticationReturn => {
     onSuccess: async (data: LoginResponse) => {
       const { jwtToken } = data.body;
       StoreJwtToken(jwtToken);
-
-      // Make another API call to get the user information
       await getLoggedInUser();
     },
   });
