@@ -1,17 +1,14 @@
-import path from "path";
-
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    path.join(__dirname, "./index.html"),
-    path.join(__dirname, "./src/**/*.{js,ts,jsx,tsx}"),
-
-    // Scan shared packages correctly
-    path.join(__dirname, "../../packages/libs/**/*.{js,ts,jsx,tsx}"),
-    path.join(__dirname, "../../packages/components/**/*.{js,ts,jsx,tsx}"),
-  ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: "var(--color-primary, #747bff)",
+        secondary: "var(--color-secondary, #ff7474)",
+        accent: "var(--color-accent, #74ff74)",
+        tertiary: "var(--color-tertiary, #1434dd)",
+      },
+    },
   },
   plugins: [],
 };

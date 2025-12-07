@@ -1,7 +1,8 @@
-import { type FC } from "react";
 import { RoutePaths } from "@routes";
 import { Form } from "@tdw/molecules";
 import { useForm } from "react-hook-form";
+import { useEffect, type FC } from "react";
+import { isAuthenticated } from "@tdp/libs";
 import { useAuthentication } from "@tdp/api";
 import { FormInput, Button } from "@tdw/atoms";
 import { Link, useNavigate } from "react-router-dom";
@@ -10,12 +11,20 @@ import { LoginFormSchema, type LoginFormValues } from "@tdp/types";
 
 export const Login: FC = () => {
   const navigate = useNavigate();
+
+  // Navigate away if logged in
+  useEffect(() => {
+    if (isAuthenticated()) {
+      navigate(RoutePaths.Profile);
+    }
+  }, [isAuthenticated]);
+
   const { loginUser } = useAuthentication();
   const {
-    data: loginResponse,
-    error: loginError,
-    mutateAsync,
     isPending,
+    mutateAsync,
+    error: loginError,
+    data: loginResponse,
   } = loginUser;
 
   const loginMethods = useForm<LoginFormValues>({

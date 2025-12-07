@@ -4,16 +4,24 @@ import { Form } from "@tdw/molecules";
 import { useSignUp } from "@tdp/hooks";
 import { useForm } from "react-hook-form";
 import { useEffect, type FC } from "react";
-import { omitFromObject } from "@tdp/libs";
 import { Button, FormInput } from "@tdw/atoms";
 import { Link, useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { omitFromObject, isAuthenticated } from "@tdp/libs";
 import { SignUpFormSchema, type SignUpFormValues } from "@tdp/types";
 
 export const SignUp: FC = () => {
+  const navigate = useNavigate();
+
+  // Navigate away if logged in
+  useEffect(() => {
+    if (isAuthenticated()) {
+      navigate(RoutePaths.Profile);
+    }
+  }, [isAuthenticated]);
+
   const { genders } = useGender();
   const { createNewUser } = useSignUp();
-  const navigate = useNavigate();
   const { data, mutateAsync, isPending, error } = createNewUser;
 
   const onSubmit = async (data: SignUpFormValues) => {
