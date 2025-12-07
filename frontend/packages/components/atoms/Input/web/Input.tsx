@@ -11,7 +11,7 @@ export const Input: FC<InputProps> = ({
   ...rest
 }) => {
   return (
-    <div className="flex flex-col">
+    <div className="form-field-component-wrapper">
       {label && (
         <label className="text-start" htmlFor={id}>
           {label}
@@ -19,14 +19,14 @@ export const Input: FC<InputProps> = ({
       )}
       <input
         id={id}
-        placeholder={placeholder}
         type="text"
         {...register(name)}
-        className="p-1 my-2 rounded-md border"
+        placeholder={placeholder}
+        className="form-field-component"
         {...rest}
       />
       {error && (
-        <p className="text-red-500 text-sm">{error.message?.toString()}</p>
+        <p className="form-field-error-message">{error.message?.toString()}</p>
       )}
     </div>
   );

@@ -2,32 +2,26 @@
 
 @source "../../../packages/components";
 
-@layer base {
-  html {
-    scroll-behavior: smooth;
-  }
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
 
-  :root {
-    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-    line-height: 1.5;
-    font-weight: 400;
+  color-scheme: dark;
 
-    color-scheme: dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 
-    font-synthesis: none;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  /* Design Tokens */
+  --color-primary: #747bff;
+  --color-secondary: #ff7474;
+  --color-tertiary: #74ff74;
+  --color-accent: #1434dd;
 
-    /* Design Tokens */
-    --color-primary: #747bff;
-    --color-secondary: #ff7474;
-    --color-tertiary: #74ff74;
-    --color-accent: #1434dd;
-
-    --body-background: #213547;
-    --body-font-color: #ffffff;
-  }
+  --body-background: #213547;
+  --body-font-color: #ffffff;
 }
 
 @media (prefers-color-scheme: light) {
@@ -57,4 +51,28 @@ body {
   min-height: 100vh;
   color: var(--body-font-color);
   background-color: var(--body-background);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  .form-field-component-wrapper {
+    @apply flex flex-col;
+  }
+
+  .form-field-component {
+    @apply rounded-md p-1.5 mt-2 mb-1 border focus:outline-1 focus:outline-(--color-primary);
+  }
+
+  .form-field-error-message {
+    @apply text-red-500 italic text-xs;
+  }
+
+  .form-field-error {
+    @apply border border-red-500;
+  }
 }

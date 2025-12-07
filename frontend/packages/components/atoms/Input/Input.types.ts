@@ -1,5 +1,10 @@
 import { InputHTMLAttributes } from "react";
-import { FieldError, FieldErrorsImpl, Merge, UseFormRegister } from "react-hook-form";
+import {
+  Merge,
+  FieldError,
+  FieldErrorsImpl,
+  UseFormRegister,
+} from "react-hook-form";
 
 export interface InputProps extends FormInputProps {
   register: UseFormRegister<any>;
