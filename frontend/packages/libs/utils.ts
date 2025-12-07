@@ -49,3 +49,12 @@ export function RetrieveAuthToken(): string {
   }
   return token;
 }
+
+export function logout() {
+  localStorage.removeItem(token_key);
+}
+
+export function isAuthenticated(): boolean {
+  const token = localStorage.getItem(token_key);
+  return !!token;
+}
