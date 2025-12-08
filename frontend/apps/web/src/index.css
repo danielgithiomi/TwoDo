@@ -80,7 +80,7 @@ body {
 
 @layer utilities {
   .header {
-    @apply w-full bg-(--header-background) h-16 px-8 flex items-center justify-between;
+    @apply w-full bg-[var(--header-background)] h-16 px-8 flex items-center justify-between;
   }
 
   .form-field-component-wrapper {
