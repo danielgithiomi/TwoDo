@@ -9,7 +9,6 @@ export const UserProfile = () => {
   const loggedInUser: User = RetrieveLoggedInUser();
   const { firstName, lastName, email, username, roles } = loggedInUser;
 
-  // Navigate to login if no user is found
   useEffect(() => {
     if (!isAuthenticated() || !loggedInUser) {
       navigate(RoutePaths.Home);
@@ -17,8 +16,8 @@ export const UserProfile = () => {
   }, [navigate, isAuthenticated, loggedInUser]);
 
   return (
-    <div>
-      <h3 className="font-bold uppercase">User Profile</h3>
+    <div className="w-full h-full flex flex-col items-center justify-center">
+      <h1 className="font-bold uppercase">User Profile</h1>
 
       <ul>
         <li>First Name: {firstName}</li>

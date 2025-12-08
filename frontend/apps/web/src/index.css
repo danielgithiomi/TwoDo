@@ -22,6 +22,7 @@
 
   --body-background: #213547;
   --body-font-color: #ffffff;
+  --header-background: #d1d5db;
 }
 
 @media (prefers-color-scheme: light) {
@@ -29,6 +30,7 @@
     color-scheme: light;
     --body-background: #ffffff;
     --body-font-color: #213547;
+    --header-background: #d1d5db;
   }
 
   a:hover {
@@ -41,6 +43,7 @@
     color-scheme: dark;
     --body-background: #213547;
     --body-font-color: #ffffff;
+    --header-background: #112332;
   }
 }
 
@@ -57,11 +60,27 @@ body {
   html {
     scroll-behavior: smooth;
   }
+
+  h1 {
+    @apply text-3xl font-bold mb-5;
+  }
+
+  h2 {
+    @apply text-2xl font-semibold mb-4;
+  }
+
+  h3 {
+    @apply text-xl font-semibold mb-3;
+  }
+
+  p {
+    @apply leading-relaxed;
+  }
 }
 
 @layer utilities {
   .header {
-    @apply w-full bg-gray-300 h-16 px-8 flex items-center justify-between;
+    @apply w-full bg-[var(--header-background)] h-16 px-8 flex items-center justify-between;
   }
 
   .form-field-component-wrapper {

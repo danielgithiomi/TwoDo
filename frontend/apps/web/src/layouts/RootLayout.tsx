@@ -5,7 +5,7 @@ export const RootLayout = () => {
   return (
     <main className="flex flex-col min-h-screen">
       <Header />
-      <section className="flex-1">
+      <section className="flex-1 grid">
         <Outlet />
       </section>
     </main>
