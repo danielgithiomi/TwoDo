@@ -13,6 +13,7 @@ export const pathAliases = {
     stores: "./../../packages/stores",
     hooks: "./../../packages/ui-hooks",
     constants: "./../../packages/constants",
+    components: "./../../packages/components",
     atoms: "./../../packages/components/atoms",
     molecules: "./../../packages/components/molecules",
   },
