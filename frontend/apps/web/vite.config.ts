@@ -15,7 +15,7 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
-      "react": path.resolve(__dirname, "../../../node_modules/react"),
+      react: path.resolve(__dirname, "../../../node_modules/react"),
       "react-dom": path.resolve(__dirname, "../../../node_modules/react-dom"),
 
       "@": path.resolve(__dirname, "./src"),
@@ -33,6 +33,7 @@ export default defineConfig({
       "@tdp/types": pathResolver(webAliases.types),
       "@tdp/stores": pathResolver(webAliases.stores),
       "@tdp/constants": pathResolver(webAliases.constants),
+      "@tdp/components": pathResolver(webAliases.components),
     },
   },
   server: {

@@ -2,6 +2,7 @@ import { ButtonHTMLAttributes } from "react";
 
 export type ButtonVariant = "primary" | "secondary";
 export type ButtonSize = "small" | "medium" | "large";
+export type ButtonLoadingVariant = "spinner" | "text" | "composite";
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   id: string;
@@ -10,7 +11,9 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: ButtonSize;
   className?: string;
   disabled?: boolean;
+  loadingLabel?: string;
   variant?: ButtonVariant;
+  loadingVariant?: ButtonLoadingVariant;
 
   // Callback function
   onClick?: () => void;

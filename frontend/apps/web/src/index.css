@@ -78,9 +78,19 @@ body {
   }
 }
 
+
 @layer utilities {
+  /* Reusable Utils */
+  .invisible {
+    @apply opacity-0;
+  }
+
+  .base-button-component {
+    @apply relative cursor-pointer hover:opacity-90 transition-opacity rounded-sm overflow-hidden;
+  }
+
   .header {
-    @apply w-full bg-[var(--header-background)] h-16 px-8 flex items-center justify-between;
+    @apply w-full bg-(--header-background) h-16 px-8 flex items-center justify-between;
   }
 
   .form-field-component-wrapper {
@@ -88,7 +98,7 @@ body {
   }
 
   .form-field-component {
-    @apply rounded-md px-1 py-2 mt-2 mb-1 border focus:outline-1 focus:outline-(--color-primary);
+    @apply rounded-md px-1 py-2 mt-2 mb-1 border focus:outline-1 focus:outline-(--color-primary) focus:border-0;
   }
 
   .form-field-error-message {
