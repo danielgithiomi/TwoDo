@@ -16,6 +16,8 @@ export const Button: FC<ButtonProps> = ({
   size = "medium",
   disabled = false,
   variant = "primary",
+  loadingVariant = "spinner",
+  loadingLabel = "Loading...",
   ...rest
 }) => {
   const buttonSizeClasses = BUTTON_SIZE_MAP[size];
@@ -32,9 +34,14 @@ export const Button: FC<ButtonProps> = ({
   );
 
   function LoadingLayout() {
+    const isTextLoader = loadingVariant === "text";
+    const isSpinnerLoader = loadingVariant === "spinner";
+    const isCompositeLoader = loadingVariant === "composite";
+
     return (
-      <div className="absolute z-1 inset-0 bg-transparent flex items-center justify-center">
-        <Spinner />
+      <div className="absolute inset-0 flex flex-row gap-2 items-center justify-center">
+        {(isCompositeLoader || isSpinnerLoader) && <Spinner />}
+        {(isCompositeLoader || isTextLoader) && (<span className="text-sm">{loadingLabel}</span>)}
       </div>
     );
   }
