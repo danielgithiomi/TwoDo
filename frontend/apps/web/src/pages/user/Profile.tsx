@@ -31,8 +31,8 @@ export const UserProfile = () => {
                             key={index}
                             className="italic underline font-semibold underline-offset-2"
                         >
-              {role} {index < roles.length - 1 ? ", " : ""}
-            </span>
+                            {role} {index < roles.length - 1 ? ", " : ""}
+                        </span>
                     ))}
                     ]
                 </li>
